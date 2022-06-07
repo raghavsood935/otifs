@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" version="1.1" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+  <g>
+    <path xmlns="http://www.w3.org/2000/svg" d="m487.99959 376.00124v-20.912a38.176 38.176 0 0 0 -15.2704-30.54078 38.176 38.176 0 0 0 -36.31006-5.2045l-21.95641 8.23366a32.0187 32.0187 0 0 1 -36.85747-10.76883 32.01873 32.01873 0 0 0 -25.615-12.80748h-111.99025v72z" fill="#e67a00" data-original="#e67a00" class=""/>
+    <path xmlns="http://www.w3.org/2000/svg" d="m23.99959 152.00124v-56h20.52576a48.60558 48.60558 0 0 1 21.7371 5.13144 48.60566 48.60566 0 0 0 43.47421 0 75.48583 75.48583 0 0 1 54.49585-5.06486h.00006a119.11591 119.11591 0 0 0 56.08421 2.27l11.68274-2.33655.00048 55.99873z" fill="#e67a00" data-original="#e67a00" class=""/>
+    <path xmlns="http://www.w3.org/2000/svg" d="m240 152.001h-216v336h464v-112h-248z" fill="#ea8816" data-original="#f78e00" class=""/>
+    <path xmlns="http://www.w3.org/2000/svg" d="m96 368v-96h88v-16h-24v-104h-16v104h-120v16h56v96h-56v16h120v104h16v-104h192v104h16v-104h120v-16z" fill="#e67a00" data-original="#e67a00" class=""/>
+    <path xmlns="http://www.w3.org/2000/svg" d="m311.99959 200.00124 32 64-65.64199 136.89976a24.676 24.676 0 0 1 -22.74225 15.10029 24.676 24.676 0 0 1 -22.30062-14.11253l-65.31514-137.88752 32-64z" fill="#38456c" data-original="#8098ab" class=""/>
+    <path xmlns="http://www.w3.org/2000/svg" d="m239.99959 152h32a0 0 0 0 1 0 0v96.00124a16 16 0 0 1 -16 16 16 16 0 0 1 -16-16v-96.00124a0 0 0 0 1 0 0z" fill="#718799" data-original="#718799" class=""/>
+    <path xmlns="http://www.w3.org/2000/svg" d="m232 56.001h48v95.999h-48z" fill="#d69651" data-original="#d69651" class=""/>
+    <path xmlns="http://www.w3.org/2000/svg" d="m231.99959 56.00124v-8a24 24 0 0 1 24-24 24 24 0 0 1 24 24v8z" fill="#c78640" data-original="#c78640" class=""/>
+  </g>
+</svg>
