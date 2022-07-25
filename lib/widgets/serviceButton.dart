@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 
 class ServiceButton extends StatefulWidget {
-  const ServiceButton({required this.buttonText, Key? key}) : super(key: key);
+  const ServiceButton(
+      {required this.buttonText,
+      this.width,
+      this.height,
+      this.fontSize,
+      this.onTap,
+      this.color,
+      Key? key})
+      : super(key: key);
 
   @override
   State<ServiceButton> createState() => _ServiceButtonState();
   final String buttonText;
+  final double? width;
+  final double? height;
+  final VoidCallback? onTap;
+  final double? fontSize;
+  final Color? color;
 }
 
 class _ServiceButtonState extends State<ServiceButton> {
@@ -16,19 +29,20 @@ class _ServiceButtonState extends State<ServiceButton> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: SizedBox(
-        width: wd / 1.25,
-        height: 50,
+        width: widget.width ?? wd / 1.25,
+        height: widget.height ?? 50,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: widget.onTap ?? () {},
           child: Text(
             widget.buttonText,
-            style: TextStyle(color: Colors.black87, fontSize: 18),
+            style: TextStyle(
+                color: Colors.black87, fontSize: widget.fontSize ?? 18),
           ),
           style: ButtonStyle(
               shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20))),
+                  borderRadius: BorderRadius.circular(40))),
               side: MaterialStateProperty.all(
-                  BorderSide(color: Colors.cyanAccent, width: 3)),
+                  const BorderSide(color: Color(0xff1FD0C2), width: 2)),
               backgroundColor: MaterialStateProperty.all(Colors.white)),
         ),
       ),

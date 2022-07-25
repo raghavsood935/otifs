@@ -1,13 +1,19 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:stellar_track/Screens/add_address_screen.dart';
 import 'package:stellar_track/Screens/homeScreen.dart';
 import 'package:stellar_track/apiCalls.dart';
+import 'package:stellar_track/controllers.dart';
+import 'package:stellar_track/main.dart';
+import 'package:stellar_track/widgets/loader.dart';
+import 'package:stellar_track/widgets/shimmerLoader.dart';
 
-import '../Screens/signUpScreen.dart';
+import '../Screens/signup_screen.dart';
 
 class OtpField extends StatefulWidget {
   OtpField({required this.phone, Key? key}) : super(key: key);
@@ -21,6 +27,8 @@ class _OtpFieldState extends State<OtpField> {
   OtpFieldController controller = OtpFieldController();
   @override
   Widget build(BuildContext context) {
+    final Controller c = Get.find();
+
     var wd = MediaQuery.of(context).size.width;
     return SizedBox(
       width: wd / 1.2,
@@ -30,10 +38,10 @@ class _OtpFieldState extends State<OtpField> {
           OTPTextField(
             width: wd / 2,
             length: 4,
-            fieldWidth: 40,
+            fieldWidth: wd / 10,
             controller: controller,
             fieldStyle: FieldStyle.box,
-            spaceBetween: 10,
+            spaceBetween: wd / 30,
             onChanged: (value) {
               print("Changed" + value);
             },
@@ -59,23 +67,36 @@ class _OtpFieldState extends State<OtpField> {
           TextButton(
               onPressed: () {
                 setState(() {
-                  otpField = !otpField;
+                  c.otpField.value = !c.otpField.value;
                 });
               },
-              child: Text(
+              child: const Text(
                 "Change Mobile number?",
                 style: TextStyle(color: Colors.white),
               )),
           SignUpFlowButton(
               buttonText: "Confirm OTP",
-              onPressed: () {
+              onPressed: () async {
                 print("Entered OTP" + otp);
-                validateOTP(widget.phone, otp).then((value) {
+                // bool verifyingOtp = true;
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Dialog(
+                        backgroundColor: Colors.transparent.withOpacity(0.5),
+                        child: const LocationShimmer(
+                            height: 30, width: 100, string: "Validating"),
+                      );
+                    });
+                validateOTP(c.mobile.value, otp).then((value) {
                   log(value["response"]["message"].toString());
+                  Get.back();
                   value["response"]["message"].toString() ==
                           "Logged in successfully"
-                      ? Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => HomePage()))
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AddAddress()))
                       : null;
                 });
               }),

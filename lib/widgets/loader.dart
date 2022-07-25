@@ -8,8 +8,10 @@ class Loader extends StatelessWidget {
     return const SizedBox(
         height: 50,
         width: 50,
-        child: CircularProgressIndicator(
-          color: Colors.blue,
+        child: Center(
+          child: CircularProgressIndicator(
+            color: Colors.blue,
+          ),
         ));
   }
 }

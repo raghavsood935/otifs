@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stellar_track/Screens/homeScreen.dart';
-import 'package:stellar_track/Screens/signUpScreen.dart';
+import 'package:stellar_track/Screens/signup_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -10,9 +10,9 @@ class SignInScreen extends StatelessWidget {
     var ht = MediaQuery.of(context).size.height;
     var wd = MediaQuery.of(context).size.width;
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: SingleChildScrollView(
-          // resizeToAvoidBottomInset: true,
           child: Container(
             height: ht,
             color: Colors.blue,
