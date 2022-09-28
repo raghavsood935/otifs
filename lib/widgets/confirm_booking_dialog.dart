@@ -2,13 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stellar_track/Screens/homeScreen.dart';
-import 'package:stellar_track/apiCalls.dart';
+import 'package:stellar_track/Screens/Main%20Screens/home_page.dart';
+import 'package:stellar_track/api_calls.dart';
 import 'package:stellar_track/functions.dart';
 import 'package:stellar_track/main.dart';
 
 import '../controllers.dart';
-import 'serviceButton.dart';
+import 'service_button.dart';
 
 class ConfirmBookingDialog extends StatefulWidget {
   const ConfirmBookingDialog({required this.data, Key? key}) : super(key: key);
@@ -24,7 +24,6 @@ class _ConfirmBookingDialogState extends State<ConfirmBookingDialog> {
   TextEditingController phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    log('Booking Dialog Box' + widget.data.toString());
     var wd = MediaQuery.of(context).size.width;
     var ht = MediaQuery.of(context).size.height;
 
@@ -74,26 +73,24 @@ class _ConfirmBookingDialogState extends State<ConfirmBookingDialog> {
                   width: wd / 2,
                   buttonText: "Confirm Booking",
                   onTap: () async {
-                    log(emailController.text);
                     await savePhoneAndEmail(
                         emailController.text, phoneController.text);
 
                     booking(
                             c.refUserId.value,
                             "3",
-                            "193",
+                            widget.data['product_id'],
                             widget.data["unit_name"],
-                            "167",
-                            "1",
-                            "2022-07-12",
-                            "2022-07-12",
+                            widget.data["unit_values_id"],
+                            c.sqft.value,
+                            c.dateSelected.value,
+                            c.dateSelected.value,
                             "Cash",
                             c.timeSlot.value,
                             c.timeSlot.value,
                             c.mobile.value,
                             c.email.value)
                         .then((value) {
-                      // log(value["response"]["type"].toString());
                       if (value["response"]["type"] == "save_success") {
                         Get.showSnackbar(const GetSnackBar(
                           message: "Service Booked",

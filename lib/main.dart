@@ -1,14 +1,34 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stellar_track/Screens/homeScreen.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:stellar_track/Screens/Main%20Screens/bookacall.dart';
+import 'package:stellar_track/Screens/Main%20Screens/booking_lists_screen.dart';
+import 'package:stellar_track/Screens/Main%20Screens/cart_screen.dart';
+import 'package:stellar_track/Screens/Main%20Screens/home_page.dart';
 import 'package:stellar_track/Screens/screen1.dart';
+import 'package:stellar_track/functions.dart';
 import 'package:stellar_track/themes.dart';
-import 'package:stellar_track/widgets/bottomNav.dart';
-import 'Screens/splashScreen.dart';
+import 'package:stellar_track/widgets/bottom_nav.dart';
+import 'Screens/Main Screens/account_section_screen.dart';
+import 'Screens/splash_screen.dart';
+import 'controllers.dart';
 
-void main() {
+List<Widget> screens = const [
+  HomePage(),
+  BookACallPage(),
+  CartScreen(
+    isBottomNav: true,
+  ),
+  BookingListsScreen(),
+  AccountSectionScreen(),
+];
+void main() async {
+  await GetStorage.init();
   runApp(const MyApp());
 }
+
+final getStorage = GetStorage();
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -18,6 +38,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeClass.lightTheme,
+      debugShowCheckedModeBanner: false,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -33,20 +54,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int index = 0;
   @override
   Widget build(BuildContext context) {
-    var wd = MediaQuery.of(context).size.width;
-    return const SafeArea(
-      child: Scaffold(
-        body: SplashScreen(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      ),
-    );
+    // getStorage.write('refUserId', '');
+    return const Scaffold(extendBodyBehindAppBar: false, body: SplashScreen());
   }
 }
-
-List<Widget> screens = const [HomePage(), RandomScreen(), RandomScreen()];
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -56,75 +69,34 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int index = 0;
+  final Controller c = Get.put(Controller());
+
+  @override
+  void initState() {
+    super.initState();
+    getAllServices().then((res) {
+      setState(() {
+        c.allServicesMap.value = res;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    var wd = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Scaffold(
-        body: screens[index],
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Card(
-            clipBehavior: Clip.hardEdge,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            child: Container(
-                height: wd / 4.8, color: Colors.white, child: BottomNavigation()
-                // BottomNavigationBar(
-                //     iconSize: 18,
-                //     // elevation: ,
-                //     backgroundColor: Colors.white,
-                //     fixedColor: Colors.black,
-                //     // selectedItemColor: Colors.black,
-                //     unselectedItemColor: Colors.black,
-                //     selectedFontSize: 12,
-                //     showSelectedLabels: true,
-                //     showUnselectedLabels: true,
-                //     currentIndex: index,
-                //     // unselectedLabelStyle: TextStyle(color: Colors.black),
-                //     // selectedLabelStyle: TextStyle(color: Colors.black),
-                //     onTap: (value) {
-                //       setState(() {
-                //         index = value;
-                //       });
-                //     },
-                //     items: [
-                //       BottomNavigationBarItem(
-                //         backgroundColor: Colors.white,
-                //         icon: Image.asset(
-                //           "assets/icons/BottomNav/home.png",
-                //           height: 24,
-                //         ),
-                //         label: "Home",
-                //       ),
-                //       BottomNavigationBarItem(
-                //           icon: Image.asset(
-                //             "assets/icons/BottomNav/call.png",
-                //             height: 24,
-                //           ),
-                //           label: "Book on call"),
-                //       BottomNavigationBarItem(
-                //           icon: Image.asset(
-                //             "assets/icons/BottomNav/cart.png",
-                //             height: 24,
-                //           ),
-                //           label: "Service cart"),
-                //       BottomNavigationBarItem(
-                //           icon: Image.asset(
-                //             "assets/icons/BottomNav/bookings.png",
-                //             height: 24,
-                //           ),
-                //           label: "Bookings"),
-                //       BottomNavigationBarItem(
-                //           icon: Image.asset(
-                //             "assets/icons/BottomNav/account.png",
-                //             height: 24,
-                //           ),
-                //           label: "Account")
-                //     ]),
-                ),
-          ),
+    // var wd = MediaQuery.of(context).size.width;
+    var ht = MediaQuery.of(context).size.height;
+
+    return Obx(
+      () => Scaffold(
+        bottomNavigationBar: Container(
+            height: ht / 14.5,
+            // width: wd,
+            color: Colors.white,
+            child: BottomNavigation(
+              height: ht / 14.5,
+            )),
+        body: SafeArea(
+          child: screens[c.screenIndex.value],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),

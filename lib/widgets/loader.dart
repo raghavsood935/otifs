@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shimmer/flutter_shimmer.dart';
 
 class Loader extends StatelessWidget {
   const Loader({Key? key}) : super(key: key);
@@ -6,12 +7,8 @@ class Loader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-        height: 50,
-        width: 50,
-        child: Center(
-          child: CircularProgressIndicator(
-            color: Colors.blue,
-          ),
-        ));
+        height: 100,
+        child: ProfileShimmer(),
+        );
   }
 }

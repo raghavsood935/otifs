@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ThemeClass {
   static ThemeData lightTheme = ThemeData(
       scaffoldBackgroundColor: Colors.white,
+      fontFamily: GoogleFonts.jost().fontFamily,
       colorScheme: ColorScheme.light(),
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.white,

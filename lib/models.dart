@@ -13,6 +13,7 @@ class MainSubCategory {
   String bannerImage;
   String type;
   List<dynamic> subCategories;
+
 }
 
 class Booking {
@@ -53,4 +54,19 @@ Map<String, String> weekdayMap = {
   "4": "Thu",
   "5": "Fri",
   "6": "Sat",
+};
+
+Map<String, String> monthMap = {
+  "01": "January",
+  "02": "February",
+  "03": "March",
+  "04": "April",
+  "05": "May",
+  "06": "June",
+  "07": "July",
+  "08": "August",
+  "09": "September",
+  "10": "October",
+  "11": "November",
+  "12": "December",
 };

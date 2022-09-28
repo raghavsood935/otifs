@@ -15,6 +15,18 @@ class TimeSlotsSelection extends StatefulWidget {
 
 class _TimeSlotsSelectionState extends State<TimeSlotsSelection> {
   final Controller c = Get.put(Controller());
+
+  @override
+  void initState() {
+    c.currentTimeSelected.value = '0';
+    c.timeSlot.value =
+        widget.slots["data"][0]["start"].toString();
+    c.totime.value = widget.slots["data"][0]["end"].toString();
+
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,7 +36,7 @@ class _TimeSlotsSelectionState extends State<TimeSlotsSelection> {
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
-            itemCount: 3,
+            itemCount: widget.slots.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -33,6 +45,7 @@ class _TimeSlotsSelectionState extends State<TimeSlotsSelection> {
                     onTap: () {
                       c.timeSlot.value =
                           widget.slots["data"][index]["start"].toString();
+                      c.totime.value = widget.slots["data"][index]["end"].toString();
                       c.currentTimeSelected.value = index.toString();
                       print(c.timeSlot.value);
                       print(index);
