@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "754201951729",
+    "project_id": "otifs-app",
+    "storage_bucket": "otifs-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754201951729:android:59d93aa15928d26544d850",
+        "android_client_info": {
+          "package_name": "com.app.OTIFs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "754201951729-duh3u8p3ck98hdqdfml75c6ttu5fpc1g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD71WI7qrjpXKqssFvRYmYR1ciM4mZtfDY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "754201951729-duh3u8p3ck98hdqdfml75c6ttu5fpc1g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

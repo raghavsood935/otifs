@@ -51,6 +51,7 @@ class _HomeAndPersonalServiceState extends State<HomeAndPersonalService> {
 
   @override
   Widget build(BuildContext context) {
+    var ht = MediaQuery.of(context).size.height;
     var wd = MediaQuery.of(context).size.width;
     return SizedBox(
       child: ListView.builder(
@@ -93,7 +94,9 @@ class _HomeAndPersonalServiceState extends State<HomeAndPersonalService> {
                                         // mainAxisExtent: wd / 1.8,
                                         // crossAxisSpacing: 0,
                                         // mainAxisSpacing: 0,
-                                        crossAxisCount: 2),
+                                        crossAxisCount: 2,
+                                        childAspectRatio: 1.6
+                                    ),
                                 itemBuilder: (BuildContext context, int count) {
                                   return GestureDetector(
                                     onTap: () async {
@@ -118,6 +121,7 @@ class _HomeAndPersonalServiceState extends State<HomeAndPersonalService> {
                                                   ['banner_image']));
                                     },
                                     child: SizedBox(
+
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
@@ -128,7 +132,7 @@ class _HomeAndPersonalServiceState extends State<HomeAndPersonalService> {
                                             color: Colors.transparent,
                                             elevation: 0,
                                             child: SizedBox(
-                                              height: wd / 4,
+                                              height: ht / 10,
                                               width: wd / 4,
                                               child: Image.network(
                                                 mainAndSubCategories[index]

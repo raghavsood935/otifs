@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:otp_text_field/otp_field.dart';
@@ -38,6 +39,8 @@ class OtpField extends StatefulWidget {
 class _OtpFieldState extends State<OtpField> {
   String otp = "";
   OtpFieldController controller = OtpFieldController();
+    FirebaseAnalytics? analytics;
+    FirebaseAnalyticsObserver? observer;
   @override
   Widget build(BuildContext context) {
     final Controller c = Get.find();
@@ -121,6 +124,11 @@ class _OtpFieldState extends State<OtpField> {
                     await saveLoginStatus(value["data"]["ref_user_id"])
                         .then((value) {
                       Get.back();
+                    });
+                    analytics?.logLogin(
+                      loginMethod: "OTP"
+                    ).then((value){
+                      print("Login Success");
                     });
 
                     // if (value["response"]["message"].toString() ==

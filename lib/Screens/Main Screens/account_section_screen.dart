@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stellar_track/Screens/myprofile.dart';
 import 'package:stellar_track/Screens/transactions.dart';
 import 'package:stellar_track/Screens/transfer_account.dart';
 import 'package:stellar_track/main.dart';
@@ -23,6 +24,7 @@ class AccountSectionScreen extends StatefulWidget {
 class _AccountSectionScreenState extends State<AccountSectionScreen> {
   final Controller c = Get.put(Controller());
   List<dynamic> items = [
+    [const MyProfile(), 'My Profile'],
     [const Transactions(), 'Transactions'],
     // [const Rewards(), 'Rewards'],
     [const TransferAccount(), 'Transfer Account'],
@@ -32,6 +34,7 @@ class _AccountSectionScreenState extends State<AccountSectionScreen> {
     [const Addresses(), 'Addresses'],
   ];
   List<String> images = [
+    "https://thumbs.dreamstime.com/b/young-male-profile-colorful-icon-black-hair-blue-tshirt-vector-illustration-eps-81930712.jpg",
     "https://otifs.com/public/images/icons/my-account/transaction.png",
     "https://otifs.com/public/images/icons/my-account/transfer-account.png",
     "https://otifs.com/public/images/icons/my-account/about.png",
@@ -40,6 +43,7 @@ class _AccountSectionScreenState extends State<AccountSectionScreen> {
   ];
 
   List<String> descs = [
+    "You can update your profile details",
     "It contains the orders amount which has been placed",
     "Transfer account from one mobile number to another mobile by verifying otp",
     "Manage passwords and profile details",
@@ -105,7 +109,7 @@ class _AccountSectionScreenState extends State<AccountSectionScreen> {
                               ],
                             ),
                             SizedBox(
-                              height: ht / 1.6,
+                              height: ht /1.6,
                               child: ListView.builder(
                                   physics: const BouncingScrollPhysics(),
                                   itemCount: items.length,

@@ -345,30 +345,6 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-                child: SizedBox(
-                  width: wd / 2.5,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      "CANCEL",
-                      style: TextStyle(
-                          color: Colors.white, fontSize: 16),
-                    ),
-                    style: ButtonStyle(
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40))),
-                        side: MaterialStateProperty.all(
-                            const BorderSide(color: Colors.red, width: 2)),
-                        backgroundColor: MaterialStateProperty.all(Colors.red)
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ServiceButton(
                     onTap: () {

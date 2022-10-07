@@ -12,10 +12,10 @@ class _LogoState extends State<Logo> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          height: widget.ht / 4,
+          height: widget.ht / 7.5,
           width: widget.ht / 8,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(20)),
@@ -29,6 +29,7 @@ class _LogoState extends State<Logo> {
             ),
           ),
         ),
+        SizedBox(width: 15),
         Align(
           alignment: Alignment.center,
           child: Text("Happy to Serve,\nAlways",
@@ -38,8 +39,6 @@ class _LogoState extends State<Logo> {
                       color: Colors.white)
             ),
         ),
-
-
       ],
     );
   }

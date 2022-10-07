@@ -123,6 +123,20 @@ Future getOngoingOffers() async {
   }
   return res;
 }
+// get app versions
+Future getAppVersions() async {
+  var request = http.Request(
+      'GET', Uri.parse('$apiHeader/api/hybrid/home-page/app-version'));
+
+  http.StreamedResponse response = await request.send();
+  var res = jsonDecode(await response.stream.bytesToString());
+  if (response.statusCode == 200) {
+    print(res);
+  } else {
+    print(response.reasonPhrase);
+  }
+  return res;
+}
 
 // Triggers the otp after entering mobile number
 Future getOtp(String phone) async {
@@ -151,6 +165,26 @@ Future validateOTP(String phone, String otp) async {
   var res = jsonDecode(await response.stream.bytesToString());
 
   if (response.statusCode == 200) {
+    c.refUserId.value = res["data"]["ref_user_id"].toString();
+    c.defaultAddressId.value = res["data"]["address_id"].toString();
+  } else {
+    print(response.reasonPhrase);
+  }
+  return res;
+}
+
+//Sign in with password
+Future loginwithPassword(String email, String password) async {
+  final Controller c = Get.put(Controller());
+  var request = http.Request(
+      'POST',
+      Uri.parse(
+          '$apiHeader/api/hybrid/auth/signin/password/sign-in?emailphone=$email&password=$password'));
+  http.StreamedResponse response = await request.send();
+  var res = jsonDecode(await response.stream.bytesToString());
+
+  if (response.statusCode == 200) {
+    print(res);
     c.refUserId.value = res["data"]["ref_user_id"].toString();
     c.defaultAddressId.value = res["data"]["address_id"].toString();
   } else {
@@ -522,7 +556,24 @@ Future getProfileDetails(refUserId) async {
   var request = http.Request(
       'GET',
       Uri.parse(
-          '$apiHeader/api/hybrid/auth/profile/my-account/details?ref_user_id=$refUserId'));
+          '$apiHeader/api/hybrid/auth/profile/my-account/details?ref_user_id=$refUserId')
+  );
+
+  http.StreamedResponse response = await request.send();
+  var res = jsonDecode(await response.stream.bytesToString());
+  if (response.statusCode == 200) {
+    print(res);
+  } else {
+    print(response.reasonPhrase);
+  }
+  return res;
+}
+
+Future updateProfileDetails(refUserId,name,email) async {
+  var request = http.Request(
+      'POST',
+      Uri.parse('$apiHeader/api/hybrid/auth/profile/my-account/update?ref_user_id=$refUserId&email=$email&name=$name'
+      ));
 
   http.StreamedResponse response = await request.send();
   var res = jsonDecode(await response.stream.bytesToString());

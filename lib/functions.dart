@@ -7,6 +7,7 @@ import 'package:stellar_track/main.dart';
 import 'package:flutter/material.dart';
 import 'package:stellar_track/widgets/mobile_field.dart';
 import 'package:stellar_track/widgets/otp_field.dart';
+import 'package:stellar_track/widgets/signup_flow_button.dart';
 import 'api_calls.dart';
 import 'controllers.dart';
 
@@ -157,38 +158,224 @@ Future triggerSignInDialog(context, setState) async {
       () => Dialog(
         child: SizedBox(
           height: ht / 2,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Stack(
             children: [
-              Padding(
-                padding: EdgeInsets.only(top: ht / 60),
-                child: const Text(
-                  "Sign In",
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff38456C)),
-                ),
-              ),
-              Visibility(
-                visible: !c.otpField.value,
-                child: MObileField(
-                  onboarding: false,
-                  color: Colors.cyan[50],
-                  textColor: Colors.black,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(ht / 50),
-                child: Visibility(
-                  visible: c.otpField.value,
-                  child: OtpField(
-                    onboarding: false,
-                    color: Colors.cyan[50],
-                    textColor: Colors.black,
-                    phone: c.mobile.value,
+              Align(
+                alignment:Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
+                  child: GestureDetector(
+                    onTap: (){
+                      Get.back();
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Color(0xff1FD0C2),
+                          borderRadius: BorderRadius.circular(50)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Icon(
+                          Icons.close_rounded,
+                          color: Colors.white,
+
+                        ),
+                      ),
+                    ),
                   ),
                 ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: ht / 60),
+                    child: const Text(
+                      "Sign In",
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff38456C)),
+                    ),
+                  ),
+                  Visibility(
+                    visible: !c.otpField.value,
+                    child: MObileField(
+                      onboarding: false,
+                      color: Colors.cyan[50],
+                      textColor: Colors.black,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(ht / 50),
+                    child: Visibility(
+                      visible: c.otpField.value,
+                      child: OtpField(
+                        onboarding: false,
+                        color: Colors.cyan[50],
+                        textColor: Colors.black,
+                        phone: c.mobile.value,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  ).then((value) {
+    c.otpField.value = false;
+  });
+  return res;
+}
+
+Future triggerPasswordSignInDialog(context, setState) async {
+  final Controller c = Get.find();
+  TextEditingController mobileController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  var ht = MediaQuery.of(context).size.height;
+  // var wd = MediaQuery.of(context).size.width;
+  var res;
+  await Get.dialog(
+    Obx(() => Dialog(
+        child: SizedBox(
+          height: ht / 2,
+          child: Stack(
+            children: [
+              Align(
+                alignment:Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
+                  child: GestureDetector(
+                    onTap: (){
+                      Get.back();
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Color(0xff1FD0C2),
+                          borderRadius: BorderRadius.circular(50)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Icon(
+                          Icons.close_rounded,
+                          color: Colors.white,
+
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: ht / 60),
+                    child: const Text(
+                      "Sign In",
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff38456C)),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: ht / 50, horizontal: ht / 60),
+                    child: Card(
+                      elevation: 5,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: TextFormField(
+                          textAlign: TextAlign.center,
+                          maxLength: 10,
+                          keyboardType: TextInputType.text,
+                          controller: mobileController,
+                          cursorColor: const Color(0xff38456C),
+                          decoration: const InputDecoration(
+                              hintText: "Enter mobile / Email",
+                              counterText: "",
+                              border: InputBorder.none,
+                              iconColor: Colors.white,
+                              focusColor: Colors.white,
+                              fillColor: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: ht / 50, horizontal: ht / 60),
+                    child: Card(
+                      elevation: 5,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: TextFormField(
+                          textAlign: TextAlign.center,
+                          maxLength: 10,
+                          keyboardType: TextInputType.visiblePassword,
+                          controller: passwordController,
+                          cursorColor: const Color(0xff38456C),
+                          decoration: const InputDecoration(
+                              hintText: "Enter password",
+                              counterText: "",
+                              border: InputBorder.none,
+                              iconColor: Colors.white,
+                              focusColor: Colors.white,
+                              fillColor: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SignUpFlowButton(
+                    buttonText:
+                    "Sign in ",
+                    textColor: Colors.black,
+                    onPressed: () {
+                      if (mobileController.text == "" ||
+                          mobileController.text.length < 10) {
+                        Get.showSnackbar(GetSnackBar(
+                          title: "Field Missing",
+                          message: "Please enter mobile number",
+                          duration: Duration(seconds: 2),
+                        ));
+                      } else {
+
+                          if (mobileController.text.length == 10) {
+                            print("Success");
+                            setState(() {
+                              c.otpField.value = !c.otpField.value;
+                              c.mobile.value = mobileController.text.toString();
+                            });
+                            getOtp(mobileController.text.toString());
+                          }
+
+                      }
+                    },
+                  ),
+                 Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                    child: GestureDetector(
+                      onTap: (){
+                      },
+                      child: Text(
+                        'Login with OTP',
+                        style: TextStyle(
+                            fontSize: 16
+                        ),
+                      ),
+                    ),
+                  )
+
+
+                ],
               ),
             ],
           ),

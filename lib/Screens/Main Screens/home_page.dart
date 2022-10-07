@@ -227,7 +227,8 @@ class _HomePageState extends State<HomePage> {
 
                         //Ongoing Offers
                         onGoingOffers == null
-                            ? SizedBox(height:150,child: const Loader())
+                            ? SizedBox(height:150,child: const Loader()) :
+                            onGoingOffers["status"].toString() == "failure" ? Container()
                             : Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 28.0),
@@ -264,7 +265,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                         summerSpecial['data'] == null
-                            ? const Loader()
+                            ? Container()
                             : Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 28.0),

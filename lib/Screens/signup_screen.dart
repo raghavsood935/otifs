@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stellar_track/Screens/sign_in_screen.dart';
 
 import 'package:stellar_track/controllers.dart';
 import 'package:stellar_track/main.dart';
@@ -73,26 +74,54 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: wd / 15,
-                    ),
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const HomeScreen()));
-                        },
-                        child: const Text(
-                          "SKIP",
-                          style:
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: wd / 15,
+                        ),
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const SignInScreen()
+                                  )
+                              );
+                            },
+                            child: const Text(
+                              "Login with password",
+                              style:
                               TextStyle(color: Color(0xff1FD0C2), fontSize: 16),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: wd / 15,
+                        ),
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const HomeScreen()));
+                            },
+                            child: const Text(
+                              "SKIP",
+                              style:
+                                  TextStyle(color: Color(0xff1FD0C2), fontSize: 16),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   )
                 ],
               ),
