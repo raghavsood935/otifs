@@ -585,6 +585,23 @@ Future updateProfileDetails(refUserId,name,email) async {
   return res;
 }
 
+Future updatePassword(refUserId,password) async {
+  var request = http.Request(
+      'POST',
+      Uri.parse('$apiHeader/api/hybrid/auth/signin/password/change-password?ref_user_id=$refUserId&password=$password'
+      )
+  );
+
+  http.StreamedResponse response = await request.send();
+  var res = jsonDecode(await response.stream.bytesToString());
+  if (response.statusCode == 200) {
+    print(res);
+  } else {
+    print(response.reasonPhrase);
+  }
+  return res;
+}
+
 Future cartbooking(refUserId, addressID, paymentMode, phone, email) async {
   var request = http.Request(
       'POST',
@@ -604,6 +621,38 @@ Future cartbooking(refUserId, addressID, paymentMode, phone, email) async {
 Future getPaymentMethods() async {
   var request =
       http.Request('GET', Uri.parse('$apiHeader/api/hybrid/payment-mode/list'));
+
+  http.StreamedResponse response = await request.send();
+  var res = jsonDecode(await response.stream.bytesToString());
+  if (response.statusCode == 200) {
+    print(res);
+  } else {
+    print(response.reasonPhrase);
+  }
+  return res;
+}
+
+Future getfirstcoupon(refUserId) async {
+  var request = http.Request(
+      'POST',
+      Uri.parse('$apiHeader/api/hybrid/checkout/check-first-order?ref_user_id=$refUserId'
+      ));
+
+  http.StreamedResponse response = await request.send();
+  var res = jsonDecode(await response.stream.bytesToString());
+  if (response.statusCode == 200) {
+    print(res);
+  } else {
+    print(response.reasonPhrase);
+  }
+  return res;
+}
+
+Future calculateprcie(refUserId,checkouttype,discount_id,unit_values_id,product_id,quantity) async {
+  var request = http.Request(
+      'GET',
+      Uri.parse('$apiHeader/api/hybrid/checkout/calculate-price?ref_user_id=$refUserId&check_out_type=$checkouttype&discount_id=$discount_id&unit_values_id=$unit_values_id&product_id=$product_id&quantity=$quantity'
+      ));
 
   http.StreamedResponse response = await request.send();
   var res = jsonDecode(await response.stream.bytesToString());

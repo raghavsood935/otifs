@@ -446,7 +446,7 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                                                         unit_values_id: selected_unit_id!,
                                                         isCart: false,
                                                         isBottomNav: false,
-                                                        total_amount:updated_price =='' ? initial_price : updated_price,
+                                                        total_amount:updated_price =='' ? initial_price : updated_price, quantity: textEditingController.text.toString()
                                                       )));
                                         }
                                         // Get.to(CheckoutPage(
@@ -521,6 +521,7 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                                                               isCart: false,
                                                               isBottomNav: false,
                                                               total_amount: updated_price,
+                                                              quantity: textEditingController.text.toString()
                                                             )));
                                               }
                                               // Get.to(CheckoutPage(
@@ -744,7 +745,6 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                     setState(
                           () {
                         textEditingController.text = value.toString();
-
                         _updatedetails();
                       },
                     );

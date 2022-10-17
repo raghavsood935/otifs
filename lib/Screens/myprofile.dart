@@ -26,6 +26,8 @@ class _MyProfileState extends State<MyProfile> {
   String new_email = "";
   TextEditingController password = TextEditingController();
   TextEditingController confirm_password = TextEditingController();
+  bool cnf_pass_obs = true;
+  bool pass_obs = true;
 
   @override
   void initState() {
@@ -294,137 +296,179 @@ class _MyProfileState extends State<MyProfile> {
                       ),
                       child: GestureDetector(
                         onTap: () async {
-                          await Get.dialog(
-                            Dialog(
-                              child: SizedBox(
-                                height: ht / 2,
-                                child: Stack(
-                                  children: [
-                                    Align(
-                                      alignment:Alignment.topRight,
-                                      child: Padding(
-                                        padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
-                                        child: GestureDetector(
-                                          onTap: (){
-                                            Get.back();
-                                          },
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                color: Color(0xff1FD0C2),
-                                                borderRadius: BorderRadius.circular(50)
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: Icon(
-                                                Icons.close_rounded,
-                                                color: Colors.white,
-
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                          showDialog(context: context, builder:(BuildContext context){
+                            return StatefulBuilder(builder: (context,setState){
+                              {
+                                return Dialog(
+                                  child: SizedBox(
+                                    height: ht / 2,
+                                    child: Stack(
                                       children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(0),
-                                          child: const Text(
-                                            "Change Password",
-                                            style: TextStyle(
-                                                fontSize: 22,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color(0xff38456C)),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(vertical: ht / 70, horizontal: ht / 60),
-                                          child: Card(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(10),
-                                            ),
-                                            elevation: 0,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(10),
-                                                color: Colors.cyan[50],
-                                              ),
-                                              child: TextFormField(
-                                                textAlign: TextAlign.center,
-                                                keyboardType: TextInputType.text,
-                                                controller: password,
-                                                cursorColor: const Color(0xff38456C),
-                                                decoration: const InputDecoration(
-                                                    hintText: "Enter Password",
-                                                    counterText: "",
-                                                    border: InputBorder.none,
-                                                    iconColor: Colors.white,
-                                                    focusColor: Colors.white,
-                                                    fillColor: Colors.white),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: ht / 60),
-                                          child: Card(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(10),
-                                            ),
-                                            elevation: 0,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(10),
-                                                color: Colors.cyan[50],
-                                              ),
-                                              child: TextFormField(
-                                                textAlign: TextAlign.center,
-                                                keyboardType: TextInputType.visiblePassword,
-                                                controller: confirm_password,
-                                                cursorColor: const Color(0xff38456C),
-                                                decoration: const InputDecoration(
-                                                    hintText: "Enter Confirm Password",
-                                                    counterText: "",
-                                                    border: InputBorder.none,
-                                                    iconColor: Colors.white,
-                                                    focusColor: Colors.white,
-                                                    fillColor: Colors.white),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SignUpFlowButton(
-                                          buttonText:
-                                          "Change Password ",
-                                          textColor: Colors.black,
-                                          onPressed: () {
-                                            if (password.text == "") {
-                                              Get.showSnackbar(GetSnackBar(
-                                                title: "Field Missing",
-                                                message: "Please enter email",
-                                                duration: Duration(seconds: 2),
-                                              ));
-                                            }else if(confirm_password.text == ""){
-                                              Get.showSnackbar(GetSnackBar(
-                                                title: "Field Missing",
-                                                message: "Please enter confirm password",
-                                                duration: Duration(seconds: 2),
-                                              ));
-                                            } else {
+                                        Align(
+                                          alignment:Alignment.topRight,
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
+                                            child: GestureDetector(
+                                              onTap: (){
+                                                Get.back();
+                                              },
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    color: Color(0xff1FD0C2),
+                                                    borderRadius: BorderRadius.circular(50)
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(5),
+                                                  child: Icon(
+                                                    Icons.close_rounded,
+                                                    color: Colors.white,
 
-                                            }
-                                          },
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.all(0),
+                                              child: const Text(
+                                                "Change Password",
+                                                style: TextStyle(
+                                                    fontSize: 22,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Color(0xff38456C)),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(vertical: ht / 70, horizontal: ht / 60),
+                                              child: Card(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                ),
+                                                elevation: 0,
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    color: Colors.cyan[50],
+                                                  ),
+                                                  child: Padding(
+                                                        padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                                        child: TextFormField(
+                                                          textAlign: TextAlign.start,
+                                                          keyboardType: TextInputType.text,
+                                                          obscureText: pass_obs,
+                                                          controller: password,
+                                                          cursorColor: const Color(0xff38456C),
+                                                          decoration: InputDecoration(
+                                                              hintText: "Enter Password",
+                                                              counterText: "",
+                                                              border: InputBorder.none,
+
+                                                              iconColor: Colors.white,
+                                                              suffixIcon: IconButton(
+                                                                icon:Icon(
+                                                                  pass_obs ? Icons.visibility : Icons.visibility_off,
+                                                                ),
+                                                                onPressed: (){
+                                                                  setState(() {
+                                                                    pass_obs = !pass_obs;
+                                                                  });
+                                                                },
+                                                              ),
+                                                              focusColor: Colors.white,
+                                                              fillColor: Colors.white),
+                                                        ),
+                                                      ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(horizontal: ht / 60),
+                                              child: Card(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                ),
+                                                elevation: 0,
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    color: Colors.cyan[50],
+                                                  ),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                                    child: TextFormField(
+                                                      textAlign: TextAlign.start,
+                                                      keyboardType: TextInputType.visiblePassword,
+                                                      controller: confirm_password,
+                                                      cursorColor: const Color(0xff38456C),
+                                                      obscureText: cnf_pass_obs,
+                                                      decoration: InputDecoration(
+                                                          hintText: "Enter Confirm Password",
+                                                          counterText: "",
+                                                          border: InputBorder.none,
+                                                          iconColor: Colors.white,
+                                                          suffixIcon: IconButton(
+                                                            icon: Icon(
+                                                              cnf_pass_obs ? Icons.visibility : Icons.visibility_off,
+                                                            ),
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                cnf_pass_obs = !cnf_pass_obs;
+                                                              });
+                                                            },
+                                                          ),
+                                                          focusColor: Colors.white,
+                                                          fillColor: Colors.white),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            SignUpFlowButton(
+                                              buttonText:
+                                              "Change Password ",
+                                              textColor: Colors.black,
+                                              onPressed: () {
+                                                if (password.text == "") {
+                                                  Get.showSnackbar(GetSnackBar(
+                                                    title: "Field Missing",
+                                                    message: "Please enter password",
+                                                    duration: Duration(seconds: 2),
+                                                  ));
+                                                }else if(confirm_password.text != password.text){
+                                                  Get.showSnackbar(GetSnackBar(
+                                                    title: "Password not matched",
+                                                    message: "Please enter same password and confirm password",
+                                                    duration: Duration(seconds: 2),
+                                                  ));
+                                                } else {
+                                                  updatePassword(c.refUserId.value, password.text.toString()).then((value) {
+                                                    Get.back();
+                                                    setState(() {
+                                                      Get.showSnackbar(GetSnackBar(
+                                                        title: "Password Changed",
+                                                        message: "Password changed successfully",
+                                                        duration: Duration(seconds: 2),
+                                                      ));
+                                                    });
+
+                                                  });
+                                                }
+                                              },
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ).then((value) {
-                            c.otpField.value = false;
-                          });
+                                  ),
+                                );
+                              }
+                            });
+                          }
+                          );
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),

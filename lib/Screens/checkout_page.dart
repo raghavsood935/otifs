@@ -9,13 +9,13 @@ import '../functions.dart';
 import '../main.dart';
 import '../models.dart';
 import '../widgets/service_button.dart';
-
+var first_time_coupn;
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage(
       {required this.data,
       required this.isCart,
       required this.isBottomNav,
-      Key? key, required this.unit_values_id, required this.total_amount})
+      Key? key, required this.unit_values_id, required this.total_amount, this.quantity})
       : super(key: key);
 
   @override
@@ -25,6 +25,7 @@ class CheckoutPage extends StatefulWidget {
   final bool isCart;
   final bool isBottomNav;
   final String total_amount;
+  final String? quantity;
 }
 
 class _CheckoutPageState extends State<CheckoutPage> {
@@ -32,6 +33,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   String paymentModeCode = 'cash';
   String email = "";
   String phone = "";
+  dynamic pricedata;
 
   int? currentModeSelected = 0;
   final Controller c = Get.put(Controller());
@@ -47,6 +49,23 @@ class _CheckoutPageState extends State<CheckoutPage> {
         phoneController.text = value["data"][0]["mobile"].toString();
       });
     });
+    getfirstcoupon(c.refUserId.value).then((value){
+      setState(() {
+        first_time_coupn = value;
+        print(widget.quantity.toString());
+        calculateprcie(
+            c.refUserId.value,
+            widget.isCart == false ? "book_one_time" : "",
+            first_time_coupn["status"] != "failure" ? first_time_coupn["data"]["coupon_id"] : "0",
+            widget.unit_values_id,
+            widget.data["product_id"],
+            widget.quantity.toString()
+        ).then((value) {
+              pricedata = value;
+        });
+      });
+    });
+
     super.initState();
   }
 
@@ -109,21 +128,53 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: wd / 2,
+                          width: wd,
                           child: Align(
                             alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding:
-                                  EdgeInsets.symmetric(horizontal: wd / 15),
-                              child: const Text(
-                                "Complete Payment",
-                                style: TextStyle(
-                                    fontSize: 25,
-                                    color: Color(0xff38456C),
-                                    fontWeight: FontWeight.bold),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: wd / 15),
+                                  child: const Text(
+                                    "Complete Payment",
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        color: Color(0xff38456C),
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Text(
+                                  // "10 May, 9 AM",
+                                  '${DateTime.parse(c.dateSelected.value).add(Duration(days: 0))
+                                      .toString().split('-')[2]
+                                      .split(' ')
+                                      .first
+                                  } ${monthMap[
+                                  DateTime.parse(c.dateSelected.value)
+                                      .toString().split('-')[1].toString()
+                                  ]},'
+                                      '${c.timeSlot.value}',
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Color(0xff1FD0C2),
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: SizedBox(
+                            height: 1,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade400
                               ),
                             ),
                           ),
@@ -131,40 +182,99 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         widget.isCart == true
                             ? Container()
                             : SizedBox(
-                                width: wd / 2,
+                                width: wd ,
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(
-                                        horizontal: wd / 18),
+                                        horizontal: 50),
                                     child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
+                                        crossAxisAlignment:CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            "₹"+widget.total_amount,
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                color: Color(0xff38456C),
-                                                fontWeight: FontWeight.bold),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                  "Amount",
+                                                style: const TextStyle(
+                                                    fontSize: 16,
+                                                    color: Color(0xff38456C),
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                              Text(
+                                                "₹"+pricedata['data']["amount"].toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 16,
+                                                    color: Color(0xff38456C),
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ],
                                           ),
-
-                                          Text(
-                                            // "10 May, 9 AM",
-                                            '${DateTime.parse(c.dateSelected.value).add(Duration(days: 0))
-                                                .toString().split('-')[2]
-                                                .split(' ')
-                                                .first
-                                            } ${monthMap[
-                                            DateTime.parse(c.dateSelected.value)
-                                                .toString().split('-')[1].toString()
-                                            ]},'
-                                                '${c.timeSlot.value}',
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                color: Color(0xff1FD0C2),
-                                                fontWeight: FontWeight.bold),
-                                          )
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "GST Amount",
+                                                style: const TextStyle(
+                                                    fontSize: 16,
+                                                    color: Color(0xff38456C),
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                              Text(
+                                                "₹"+pricedata['data']["gst_amount"].toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 16,
+                                                    color: Color(0xff38456C),
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                          first_time_coupn["status"] != "failure" ? Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "Discount Amount",
+                                                style: const TextStyle(
+                                                    fontSize: 16,
+                                                    color: Color(0xff38456C),
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                              Text(
+                                                "₹"+pricedata["data"]["coupon_amount"].toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 16,
+                                                    color: Color(0xff38456C),
+                                                    fontWeight: FontWeight.bold
+                                                ),
+                                              ),
+                                            ],
+                                          ):Container(),
+                                          Padding(padding: EdgeInsets.symmetric(horizontal: 0,vertical: 10),
+                                          child: Container(
+                                            height: 1,
+                                            decoration: BoxDecoration(
+                                                color: Colors.grey.shade400
+                                            ),),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "Total Amount",
+                                                style: const TextStyle(
+                                                    fontSize: 18,
+                                                    color: Color(0xff1FD0C2),
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                              Text(
+                                                "₹"+pricedata['data']["total_amount"].toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 18,
+                                                    color: Color(0xff1FD0C2),
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
                                         ]),
                                   ),
                                 ),
@@ -172,44 +282,197 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       ],
                     ),
                     //Referal or Coupon code ROW
-                    /*Padding(
+                    Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Card(
-                        shadowColor: const Color(0xff000029),
-                        elevation: 5,
-                        margin: const EdgeInsets.all(0),
-                        child: Container(
-                          height: ht / 12,
-                          width: wd,
-                          color: const Color(0xffF7F7F7),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
-                                Icon(
-                                  Icons.wallet_giftcard_outlined,
-                                  size: 27,
-                                  color: Color(0xff38456C),
-                                ),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: Text(
-                                    "Select coupon code or rewards",
-                                    style: TextStyle(
-                                        color: Color(0xff5C5C5C), fontSize: 18),
+                      child: GestureDetector(
+                        onTap: () async {
+                          showDialog(context: context, builder:(BuildContext context){
+                            return StatefulBuilder(builder: (context,setState){
+                              {
+                                return Dialog(
+                                  child: SizedBox(
+                                    height: ht / 3,
+                                    child: Stack(
+                                      children: [
+                                        Align(
+                                          alignment:Alignment.topRight,
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
+                                            child: GestureDetector(
+                                              onTap: (){
+                                                Get.back();
+                                              },
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    color: Color(0xff1FD0C2),
+                                                    borderRadius: BorderRadius.circular(50)
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(5),
+                                                  child: Icon(
+                                                    Icons.close_rounded,
+                                                    color: Colors.white,
+
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                             const Padding(
+                                              padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                              child: Text(
+                                                "Enter Coupon Code",
+                                                style: TextStyle(
+                                                    fontSize: 22,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Color(0xff38456C)),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(vertical: ht / 70, horizontal: ht / 60),
+                                              child: Stack(
+                                                children: [
+                                                  Card(
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(10),
+                                                    ),
+                                                    elevation: 0,
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(10),
+                                                        color: Colors.cyan[50],
+                                                      ),
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                                        child: TextFormField(
+                                                          textAlign: TextAlign.start,
+                                                          keyboardType: TextInputType.text,
+                                                          cursorColor: const Color(0xff38456C),
+                                                          decoration: InputDecoration(
+                                                              hintText: "Enter Coupon Code",
+                                                              counterText: "",
+                                                              border: InputBorder.none,
+                                                              iconColor: Colors.white,
+                                                              focusColor: Colors.white,
+                                                              fillColor: Colors.white),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Align(
+                                                    alignment:Alignment.centerRight,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.fromLTRB(0, 12, 15, 0),
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(7),
+                                                          color: Color(0xff1FD0C2),
+                                                        ),
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.fromLTRB(10, 5,10, 5),
+                                                          child: Text("APPLY",
+                                                            style: TextStyle(
+                                                              color: Colors.white
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Padding(
+                                                    padding: EdgeInsets.fromLTRB(15, 10, 0, 0),
+                                                    child: Text(
+                                                      "Available Coupons",
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: Color(0xff38456C)),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          first_time_coupn["data"]["coupon_code"],
+                                                          style: TextStyle(
+                                                              fontSize: 18,
+                                                              fontWeight: FontWeight.bold,
+                                                              color: Color(0xff38456C)),
+                                                        ),
+                                                        Text(
+                                                          '   Click to apply',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color: Color(0xff1FD0C2)
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Icon(Icons.arrow_right)),
-                              ],
+                                );
+                              }
+                            });
+                          }
+                          );
+                        },
+                        child: Card(
+                          shadowColor: const Color(0xff000029),
+                          elevation: 5,
+                          margin: const EdgeInsets.all(0),
+                          child: Container(
+                            height: ht / 12,
+                            width: wd,
+                            color: const Color(0xffF7F7F7),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: const [
+                                  Icon(
+                                    Icons.wallet_giftcard_outlined,
+                                    size: 27,
+                                    color: Color(0xff38456C),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: Text(
+                                      "Select coupon code or rewards",
+                                      style: TextStyle(
+                                          color: Color(0xff5C5C5C), fontSize: 18),
+                                    ),
+                                  ),
+                                  Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Icon(Icons.arrow_right)),
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    )*/
+                    ),
                     //Product Details
                     widget.isCart == false
                         ? Padding(

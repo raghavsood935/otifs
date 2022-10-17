@@ -321,7 +321,6 @@ class _MObileFieldState extends State<MObileField> {
                                  }).then((value) async {
                                    await getCartCount(c.refUserId.value).then(
                                          (value) {
-                                           print("called ount ");
                                            c.cartCount.value = value['data'][0]['car_count'];
                                            Get.back();
                                      },

@@ -143,6 +143,7 @@ class _SubcategoriesScreen1State extends State<SubcategoriesScreen1> {
               Expanded(
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
+                    childAspectRatio: 1.2
                   ),
                   padding: const EdgeInsets.all(0),
                   shrinkWrap: true,
@@ -282,7 +283,7 @@ class _SubCategoryListItem1State extends State<SubCategoryListItem1> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Padding(
+                /*  Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 0.0, vertical: 0),
                     child: Text(
@@ -295,7 +296,7 @@ class _SubCategoryListItem1State extends State<SubCategoryListItem1> {
                           fontWeight: FontWeight.bold),
                       maxLines: 3,
                     ),
-                  ),
+                  ), */
                 ],
               ),
           ],

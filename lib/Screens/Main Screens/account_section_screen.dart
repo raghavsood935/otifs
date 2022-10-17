@@ -69,14 +69,15 @@ class _AccountSectionScreenState extends State<AccountSectionScreen> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            SizedBox(
+                            onGoingOffers["status"] != "failure" ? SizedBox(
                               height: ht / 5,
                               child: RewardCarousel(
                                   viewPort: 1.0,
                                   height: ht / 4,
                                   padEnds: true,
-                                  data: onGoingOffers),
-                            ),
+                                  data: onGoingOffers
+                              ),
+                            ) : Container(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

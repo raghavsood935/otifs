@@ -71,20 +71,22 @@ class _AboutState extends State<About> {
             ? Center(child: ShimmerLoader(height: 60, width: wd))
             : Column(
                 children: [
-                  SizedBox(
-                      height: ht / 5,
-                      child: RewardCarousel(
-                          viewPort: 1.0,
-                          height: ht / 4,
-                          padEnds: true,
-                          data: onGoingOffers)),
+                  onGoingOffers["status"] != "failure" ? SizedBox(
+                    height: ht / 5,
+                    child: RewardCarousel(
+                        viewPort: 1.0,
+                        height: ht / 4,
+                        padEnds: true,
+                        data: onGoingOffers
+                    ),
+                  ) : Container(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Padding(
                         padding:  EdgeInsets.all(18.0),
                         child: Text(
-                          "About",
+                          "      About",
                           style:
                               TextStyle(color: Color(0xff5C5C5C), fontSize: 18),
                         ),

@@ -72,21 +72,22 @@ class _TransactionsState extends State<Transactions> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SizedBox(
+                        onGoingOffers["status"] != "failure" ? SizedBox(
                           height: ht / 5,
                           child: RewardCarousel(
                               viewPort: 1.0,
                               height: ht / 4,
                               padEnds: true,
-                              data: onGoingOffers),
-                        ),
+                              data: onGoingOffers
+                          ),
+                        ) : Container(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Padding(
                               padding: EdgeInsets.all(18.0),
                               child: Text(
-                                "Transactions",
+                                "      Transactions",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Color(0xff5C5C5C),
