@@ -170,11 +170,11 @@ Future triggerSignInDialog(context, setState) async {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Color(0xff1FD0C2),
+                          color: const Color(0xff1FD0C2),
                           borderRadius: BorderRadius.circular(50)
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
+                      child: const Padding(
+                        padding: EdgeInsets.all(5),
                         child: Icon(
                           Icons.close_rounded,
                           color: Colors.white,
@@ -254,11 +254,11 @@ Future triggerPasswordSignInDialog(context, setState) async {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Color(0xff1FD0C2),
+                          color: const Color(0xff1FD0C2),
                           borderRadius: BorderRadius.circular(50)
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
+                      child: const Padding(
+                        padding: EdgeInsets.all(5),
                         child: Icon(
                           Icons.close_rounded,
                           color: Colors.white,
@@ -341,7 +341,7 @@ Future triggerPasswordSignInDialog(context, setState) async {
                     onPressed: () {
                       if (mobileController.text == "" ||
                           mobileController.text.length < 10) {
-                        Get.showSnackbar(GetSnackBar(
+                        Get.showSnackbar(const GetSnackBar(
                           title: "Field Missing",
                           message: "Please enter mobile number",
                           duration: Duration(seconds: 2),
@@ -365,7 +365,7 @@ Future triggerPasswordSignInDialog(context, setState) async {
                     child: GestureDetector(
                       onTap: (){
                       },
-                      child: Text(
+                      child: const Text(
                         'Login with OTP',
                         style: TextStyle(
                             fontSize: 16

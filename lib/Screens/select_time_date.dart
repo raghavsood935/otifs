@@ -83,78 +83,78 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
     return Scaffold(
 
       body: SafeArea(
-          child: Stack(
-            children: [
-              Container(
-                    height: ht,
-                    width: wd,
-                    color: const Color(0xffF7F7F7),
-                    child: SingleChildScrollView(
-                      controller: _scrollController,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          widget.data["images"][0]
-                          ["product_image"] == null
-                              ? SizedBox(height:150,child: Loader())
-                              : SizedBox(
-                                height: ht/4,
-                                width: wd,
-                                child: CarouselSlider.builder(
-                                itemCount: widget.data["images"].length,
-                                options: CarouselOptions(
-                                  enableInfiniteScroll: true,
-                                  viewportFraction: 1,
-                                  enlargeCenterPage: true),
-                            itemBuilder: ((context, index, realIndex) {
-                                return Container(
-                                  child: Image.network(
-                                    widget.data["images"][index]["product_image"],
-                                    loadingBuilder: (BuildContext context, Widget child,
-                                        ImageChunkEvent? loadingProgress) {
-                                      if (loadingProgress == null) return child;
-                                      return Center(
-                                        child: ProfilePageShimmer(),
-                                      );
-                                    },
-                                    fit: BoxFit.contain,
-                                  ),
+        child: Stack(
+          children: [
+            Container(
+              height: ht,
+              width: wd,
+              color: const Color(0xffF7F7F7),
+              child: SingleChildScrollView(
+                controller: _scrollController,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    widget.data["images"][0]
+                    ["product_image"] == null
+                        ? SizedBox(height:150,child: Loader())
+                        : SizedBox(
+                      height: ht/4,
+                      width: wd,
+                      child: CarouselSlider.builder(
+                        itemCount: widget.data["images"].length,
+                        options: CarouselOptions(
+                            enableInfiniteScroll: true,
+                            viewportFraction: 1,
+                            enlargeCenterPage: true),
+                        itemBuilder: ((context, index, realIndex) {
+                          return Container(
+                            child: Image.network(
+                              widget.data["images"][index]["product_image"],
+                              loadingBuilder: (BuildContext context, Widget child,
+                                  ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return Center(
+                                  child: ProfilePageShimmer(),
                                 );
-                            }),
+                              },
+                              fit: BoxFit.contain,
+                            ),
+                          );
+                        }),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            widget.data["product_name"]
+                                .toString(),
+                            style: const TextStyle(
+                                color: Colors.black54,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
                           ),
-                              ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
+
+                          GestureDetector(
+                            onTap: (){
+                              _scrollController.animateTo(500,
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.easeInOut);
+                            },
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                    widget.data["product_name"]
-                                        .toString(),
-                                    style: const TextStyle(
-                                        color: Colors.black54,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                
-                                GestureDetector(
-                                  onTap: (){
-                                    _scrollController.animateTo(500,
-                                        duration: const Duration(milliseconds: 500),
-                                        curve: Curves.easeInOut);
-                                  },
-                                  child: Row(
-                                    children:const[
-                                      Text("View Details"),
-                                      Icon(Icons.arrow_right)
-                                    ],
-                                  ),
-                                ),
+                              children:const[
+                                Text("View Details"),
+                                Icon(Icons.arrow_right)
+                              ],
+                            ),
+                          ),
 
 
-                                /* Padding(
+                          /* Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 18.0),
                                   child: GestureDetector(
@@ -178,144 +178,144 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                                         size: 20,
                                       ),
                                     ), */
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding:const EdgeInsets.fromLTRB(15, 20, 0, 0),
-                            child: Text(
-                              updated_price == '' ? "Total Cost:- ₹"+initial_price : "Total Cost:- ₹"+updated_price,
-                              style:const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding:const EdgeInsets.fromLTRB(15, 20, 0, 0),
+                      child: Text(
+                        updated_price == '' ? "Total Cost:- ₹"+initial_price : "Total Cost:- ₹"+updated_price,
+                        style:const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    ),
+
+                    Obx(
+                          () => Padding(
+                        padding:
+                        const EdgeInsets.fromLTRB(10,10 , 10, 0),
+                        child: Column(
+                          crossAxisAlignment:
+                          CrossAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                null;
+                                // listUserAddresses(c.refUserId.value).then(
+                                //     (value) => Get.bottomSheet(
+                                //         SelectAddressBottomSheet(
+                                //             data: value)));
+                              },
+                              child: Container(
+                                width: wd ,
+                                height: ht / 14,
+                                color: const Color(0xffE5E5E5),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                            const EdgeInsets.only(
+                                                top: 0),
+                                            child: SizedBox(
+                                                height: ht / 50,
+                                                width: 20,
+                                                child: Image.asset(
+                                                    "assets/icons/icons_png/001-pin.png")),
+                                          ),
+                                          Text(
+                                            c.addressType.value == "H"
+                                                ? "Home"
+                                                : c.addressType.value ==
+                                                "O"
+                                                ? "Office"
+                                                : "Custom",
+                                            style: const TextStyle(
+                                                color: Color(0xff5C5C5C),
+                                                fontWeight:
+                                                FontWeight.bold,
+                                                fontSize: 14),
+                                          ),
+                                        ],
+                                      ),
+                                      Text(
+                                        "${c.address["Address"]}, ${c.address["Sub_locality"]},${c.address["City"]},${c.address["State"]},${c.address["Country"]},${c.address["Postal_code"]}",
+                                        style: const TextStyle(
+                                            color: Color(0xff5C5C5C),
+                                            fontWeight: FontWeight.normal,
+                                            fontSize: 10),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                      )
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                            // Enter unit Values Widget
+                            GestureDetector(
+                              onTap: () async {
 
-                          Obx(
-                                () => Padding(
-                              padding:
-                              const EdgeInsets.fromLTRB(10,10 , 10, 0),
-                              child: Column(
-                                crossAxisAlignment:
-                                CrossAxisAlignment.center,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      null;
-                                      // listUserAddresses(c.refUserId.value).then(
-                                      //     (value) => Get.bottomSheet(
-                                      //         SelectAddressBottomSheet(
-                                      //             data: value)));
-                                    },
-                                    child: Container(
-                                      width: wd ,
-                                      height: ht / 14,
-                                      color: const Color(0xffE5E5E5),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.only(
-                                                      top: 0),
-                                                  child: SizedBox(
-                                                      height: ht / 50,
-                                                      width: 20,
-                                                      child: Image.asset(
-                                                          "assets/icons/icons_png/001-pin.png")),
-                                                ),
-                                                Text(
-                                                  c.addressType.value == "H"
-                                                      ? "Home"
-                                                      : c.addressType.value ==
-                                                      "O"
-                                                      ? "Office"
-                                                      : "Custom",
-                                                  style: const TextStyle(
-                                                      color: Color(0xff5C5C5C),
-                                                      fontWeight:
-                                                      FontWeight.bold,
-                                                      fontSize: 14),
-                                                ),
-                                              ],
-                                            ),
-                                            Text(
-                                              "${c.address["Address"]}, ${c.address["Sub_locality"]},${c.address["City"]},${c.address["State"]},${c.address["Country"]},${c.address["Postal_code"]}",
-                                              style: const TextStyle(
-                                                  color: Color(0xff5C5C5C),
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: 10),
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                            )
-                                          ],
+                              },
+                              child: Container(
+
+                                width: wd,
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(15,5, 10, 5),
+                                  child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          widget.data["unit_name"].toString(),
+                                          style: const TextStyle(
+                                              color: Color(0xff5C5C5C),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                  // Enter unit Values Widget
-                                  GestureDetector(
-                                    onTap: () async {
-
-                                    },
-                                    child: Container(
-
-                                      width: wd,
-                                      child: Padding(
-                                        padding: const EdgeInsets.fromLTRB(15,5, 10, 5),
-                                        child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                widget.data["unit_name"].toString(),
-                                                style: const TextStyle(
-                                                    color: Color(0xff5C5C5C),
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 16
+                                        GridView.builder(
+                                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount: 3,
+                                                childAspectRatio: 2.8
+                                            ),
+                                            shrinkWrap: true,
+                                            itemCount: _stateList.length,
+                                            itemBuilder: (context,index){
+                                              return Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 5),
+                                                child: GestureDetector(
+                                                    onTap: (() async {
+                                                      setState(() {
+                                                        selected_unit_id = _stateList[index]["unit_values_id"];
+                                                        c.selected_id.value = selected_unit_id.toString();
+                                                        c.selected_quantity.value = c.sqft.value;
+                                                        c.sqft.value = textEditingController.text;
+                                                        _updatedetails();
+                                                      });
+                                                    }),
+                                                    child: UnitValues(
+                                                      index: index,
+                                                      selected: selected_unit_id == _stateList[index]["unit_values_id"]
+                                                          ? true : false,
+                                                      units: _stateList[index]["dispval"],
+                                                    )
                                                 ),
-                                              ),
-                                              GridView.builder(
-                                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 3,
-                                                    childAspectRatio: 2.8
-                                                  ),
-                                                  shrinkWrap: true,
-                                                  itemCount: _stateList.length,
-                                                  itemBuilder: (context,index){
-                                                    return Padding(
-                                                      padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 5),
-                                                      child: GestureDetector(
-                                                          onTap: (() async {
-                                                            setState(() {
-                                                              selected_unit_id = _stateList[index]["unit_values_id"];
-                                                              c.selected_id.value = selected_unit_id.toString();
-                                                              c.selected_quantity.value = c.sqft.value;
-                                                              c.sqft.value = textEditingController.text;
-                                                              _updatedetails();
-                                                            });
-                                                          }),
-                                                          child: UnitValues(
-                                                            index: index,
-                                                            selected: selected_unit_id == _stateList[index]["unit_values_id"]
-                                                            ? true : false,
-                                                            units: _stateList[index]["dispval"],
-                                                          )
-                                                      ),
 
-                                                    );
-                                                  }
-                                              ),
-                                             /* DropdownButton<String>(
+                                              );
+                                            }
+                                        ),
+                                        /* DropdownButton<String>(
                                                 value: selected ,
                                                 iconSize: 30,
                                                 style: const TextStyle(
@@ -345,22 +345,22 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                                                 }).toList(),
                                               ), */
 
-                                              GestureDetector(
-                                                  onTap: (){
+                                        GestureDetector(
+                                            onTap: (){
 
-                                                  },
-                                                  child: _QunatityItem()
-                                              )
-                                            ]),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                            },
+                                            child: _QunatityItem()
+                                        )
+                                      ]),
+                                ),
                               ),
                             ),
-                          ),
+                          ],
+                        ),
+                      ),
+                    ),
 
-                        /*  const Padding(
+                    /*  const Padding(
                             padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                             child: Text(
                               "Select Date and time slot",
@@ -370,340 +370,340 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                                   color: Color(0xff5C5C5C)),
                             ),
                           ), */
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const [
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: const [
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(5, 10, 0, 5),
-                                  child: Text(
-                                      'Service Date',
-                                    style: TextStyle(
-                                      color: Color(0xff5C5C5C),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16
-                                    ),
-                                  ),
-                                ),
-                                DateSlotSelection(),
-                              ],
-                            ),
-                          ),
-
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children:  [
-                               const Padding(
-                                  padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
-                                  child: Text(
-                                      'Preferred Time',
-                                    style: TextStyle(
-                                        color: Color(0xff5C5C5C),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16
-                                    ),
-                                  ),
-                                ),
-                                TimeSlotsSelection(slots: widget.slots),
-                              ],
-                            ),
-                          ),
-
-                          //ADD TO CART OR BOOK SERVICE BUTTON
-                           widget.isCart == false
-                              ? Padding(
-                            padding: const EdgeInsets.fromLTRB(8, 15, 8, 40),
-                            child: Center(
-                              child: ServiceButton(
-                                    onTap: () {
-                                      if (c.refUserId.value == "" ||
-                                          getStorage.read('refUserId') ==
-                                              null) {
-
-                                      }
-                                      if (c.sqft.value == '' ||
-                                          c.dateSelected.value == '' ||
-                                          c.timeSlot.value == '' ||
-                                          c.address[""] == "") {
-                                        Get.showSnackbar(GetSnackBar(
-                                          duration: Duration(seconds: 2),
-                                          message:
-                                          "Please Enter a value for "+widget.data["unit_name"],
-                                        ));
-                                      } else {
-                                        if(c.refUserId.value == ""){
-                                          triggerSignInDialog(context, setState);
-                                        }else{
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      CheckoutPage(
-                                                        data: widget.data,
-                                                        unit_values_id: selected_unit_id!,
-                                                        isCart: false,
-                                                        isBottomNav: false,
-                                                        total_amount:updated_price =='' ? initial_price : updated_price, quantity: textEditingController.text.toString()
-                                                      )));
-                                        }
-                                        // Get.to(CheckoutPage(
-                                        //   data: widget.data,
-                                        // ));
-                                      }
-
-                                      // c.refUserId.value == "" ||
-                                      //         getStorage.read('refUserId') ==
-                                      //             null
-                                      //     ? triggerSignInDialog(
-                                      //         context, setState)
-                                      //     : c.sqft.value == '' ||
-                                      //             c.dateSelected.value ==
-                                      //                 '' ||
-                                      //             c.timeSlot.value == '' ||
-                                      //             c.address[""] == ""
-                                      //         ?
-                                      // Get.showSnackbar(
-                                      //             const GetSnackBar(
-                                      //             duration:
-                                      //                 Duration(seconds: 2),
-                                      //             message:
-                                      //                 "Please fill all the fields",
-                                      //           ))
-                                      //         :
-                                      // Get.to(CheckoutPage(
-                                      //             data: widget.data,
-                                      //           ));
-                                    },
-                                    width: wd / 1.8,
-                                    color: const Color(0xff38456C),
-                                    fontSize: 16,
-                                    buttonText: "Book one time service"),
-                            ),
-                          )
-                              : widget.isBoth == true ?
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(8, 15, 8, 40),
-                                    child: ServiceButton(
-
-                                          onTap: () {
-                                            if (c.refUserId.value == "" ||
-                                                getStorage.read('refUserId') ==
-                                                    null) {
-
-                                            }
-                                            if (c.sqft.value == '' ||
-                                                c.dateSelected.value == '' ||
-                                                c.timeSlot.value == '' ||
-                                                c.address[""] == "") {
-                                              Get.showSnackbar(GetSnackBar(
-                                                duration: Duration(seconds: 2),
-                                                message:
-                                                "Please Enter a value for "+widget.data["unit_name"],
-                                              ));
-                                            } else {
-                                              if(c.refUserId.value == ""){
-                                                triggerSignInDialog(context, setState);
-                                              }else{
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            CheckoutPage(
-                                                              data: widget.data,
-                                                              unit_values_id: selected_unit_id!,
-                                                              isCart: false,
-                                                              isBottomNav: false,
-                                                              total_amount: updated_price,
-                                                              quantity: textEditingController.text.toString()
-                                                            )));
-                                              }
-                                              // Get.to(CheckoutPage(
-                                              //   data: widget.data,
-                                              // ));
-                                            }
-
-                                            // c.refUserId.value == "" ||
-                                            //         getStorage.read('refUserId') ==
-                                            //             null
-                                            //     ? triggerSignInDialog(
-                                            //         context, setState)
-                                            //     : c.sqft.value == '' ||
-                                            //             c.dateSelected.value ==
-                                            //                 '' ||
-                                            //             c.timeSlot.value == '' ||
-                                            //             c.address[""] == ""
-                                            //         ?
-                                            // Get.showSnackbar(
-                                            //             const GetSnackBar(
-                                            //             duration:
-                                            //                 Duration(seconds: 2),
-                                            //             message:
-                                            //                 "Please fill all the fields",
-                                            //           ))
-                                            //         :
-                                            // Get.to(CheckoutPage(
-                                            //             data: widget.data,
-                                            //           ));
-                                          },
-                                          width: wd / 2.5,
-                                          color: const Color(0xff38456C),
-                                          fontSize: 14,
-                                          buttonText: "Book one time service"),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(8, 15, 8, 40),
-                                    child: ServiceButton(
-                                          onTap: () {
-                                            c.refUserId.value == "" ||
-                                                getStorage.read('refUserId') ==
-                                                    null
-                                                ? triggerSignInDialog(
-                                                context, setState)
-                                                : c.sqft.value == '' ||
-                                                c.dateSelected.value ==
-                                                    '' ||
-                                                c.timeSlot.value == '' ||
-                                                c.address[""] == ""
-                                                ? Get.showSnackbar(
-                                              const GetSnackBar(
-                                                duration:
-                                                Duration(seconds: 2),
-                                                message:
-                                                "Please fill all the fields",
-                                              ),
-                                            )
-                                                : addItemToCart(
-                                                c.refUserId,
-                                                widget.data['product_id'],
-                                                selected_unit_id,
-                                                qty: textEditingController.text,
-                                                date: c
-                                                    .dateSelected.value
-                                                    .toString(),
-                                                fromTime:
-                                                c.timeSlot.value,
-                                                toTime:
-                                                c.timeSlot.value)
-                                                .then((value) {
-                                              c.cartCount.value = cart_count + 1;
-                                              Get.close(1);
-                                            });
-                                          },
-                                          width: wd / 2.5,
-                                          color: const Color(0xff38456C),
-                                          fontSize: 14,
-                                          buttonText: "Add to cart"),
-                                  )
-                                ],
-                              ):
-                            Padding(
-                            padding: const EdgeInsets.fromLTRB(8, 15, 8, 40),
-                            child: Center(
-                              child: ServiceButton(
-                                  onTap: () {
-                                    c.refUserId.value == "" ||
-                                        getStorage.read('refUserId') ==
-                                            null
-                                        ? triggerSignInDialog(
-                                        context, setState)
-                                        : c.sqft.value == '' ||
-                                        c.dateSelected.value ==
-                                            '' ||
-                                        c.timeSlot.value == '' ||
-                                        c.address[""] == ""
-                                        ? Get.showSnackbar(
-                                      const GetSnackBar(
-                                        duration:
-                                        Duration(seconds: 2),
-                                        message:
-                                        "Please fill all the fields",
-                                      ),
-                                    )
-                                        : addItemToCart(
-                                        c.refUserId,
-                                        widget.data['product_id'],
-                                        selected_unit_id,
-                                        qty: textEditingController.text,
-                                        date: c
-                                            .dateSelected.value
-                                            .toString(),
-                                        fromTime:
-                                        c.timeSlot.value,
-                                        toTime:
-                                        c.timeSlot.value)
-                                        .then((value) {
-                                      c.cartCount.value = cart_count + 1;
-                                      Get.close(1);
-                                    });
-                                  },
-                                  width: wd / 1.8,
-                                  color: const Color(0xff38456C),
-                                  fontSize: 16,
-                                  buttonText: "Add to cart"),
-                            ),
-                          ),
-
-                          const Padding(
-                            padding: EdgeInsets.fromLTRB(15, 15, 15, 5),
-                            child: Align(
-                              alignment: Alignment.topLeft,
-                                child: Text(
-                                    'Product Description :',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold
-                                  ),
-                                )
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
-                            child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                  widget.data["product_summary"].toString(),
-                                style: TextStyle(
-                                  fontSize: 15
-                                ),
+                            padding: EdgeInsets.fromLTRB(5, 10, 0, 5),
+                            child: Text(
+                              'Service Date',
+                              style: TextStyle(
+                                  color: Color(0xff5C5C5C),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16
                               ),
                             ),
-                          )
-
+                          ),
+                          DateSlotSelection(),
                         ],
                       ),
                     ),
-                  ),
-              Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Container(
-                  // height: 30,
-                  child: ElevatedButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    style: ButtonStyle(
-                        backgroundColor:
-                        MaterialStateProperty.all(Colors.white),
-                        shape:
-                        MaterialStateProperty.all(const CircleBorder()),
-                        elevation: MaterialStateProperty.all(5)),
-                    child: const Icon(
-                      Icons.arrow_back,
-                      size: 20,
-                      color: Colors.black,
+
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children:  [
+                          const Padding(
+                            padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
+                            child: Text(
+                              'Preferred Time',
+                              style: TextStyle(
+                                  color: Color(0xff5C5C5C),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16
+                              ),
+                            ),
+                          ),
+                          TimeSlotsSelection(slots: widget.slots),
+                        ],
+                      ),
                     ),
-                  ),
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.white),
+
+                    //ADD TO CART OR BOOK SERVICE BUTTON
+                    widget.isCart == false
+                        ? Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 15, 8, 40),
+                      child: Center(
+                        child: ServiceButton(
+                            onTap: () {
+                              if (c.refUserId.value == "" ||
+                                  getStorage.read('refUserId') ==
+                                      null) {
+
+                              }
+                              if (c.sqft.value == '' ||
+                                  c.dateSelected.value == '' ||
+                                  c.timeSlot.value == '' ||
+                                  c.address[""] == "") {
+                                Get.showSnackbar(GetSnackBar(
+                                  duration: Duration(seconds: 2),
+                                  message:
+                                  "Please Enter a value for "+widget.data["unit_name"],
+                                ));
+                              } else {
+                                if(c.refUserId.value == ""){
+                                  triggerSignInDialog(context, setState);
+                                }else{
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              CheckoutPage(
+                                                  data: widget.data,
+                                                  unit_values_id: selected_unit_id!,
+                                                  isCart: false,
+                                                  isBottomNav: false,
+                                                  total_amount:updated_price =='' ? initial_price : updated_price, quantity: textEditingController.text.toString()
+                                              )));
+                                }
+                                // Get.to(CheckoutPage(
+                                //   data: widget.data,
+                                // ));
+                              }
+
+                              // c.refUserId.value == "" ||
+                              //         getStorage.read('refUserId') ==
+                              //             null
+                              //     ? triggerSignInDialog(
+                              //         context, setState)
+                              //     : c.sqft.value == '' ||
+                              //             c.dateSelected.value ==
+                              //                 '' ||
+                              //             c.timeSlot.value == '' ||
+                              //             c.address[""] == ""
+                              //         ?
+                              // Get.showSnackbar(
+                              //             const GetSnackBar(
+                              //             duration:
+                              //                 Duration(seconds: 2),
+                              //             message:
+                              //                 "Please fill all the fields",
+                              //           ))
+                              //         :
+                              // Get.to(CheckoutPage(
+                              //             data: widget.data,
+                              //           ));
+                            },
+                            width: wd / 1.8,
+                            color: const Color(0xff38456C),
+                            fontSize: 16,
+                            buttonText: "Book one time service"),
+                      ),
+                    )
+                        : widget.isBoth == true ?
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 15, 8, 40),
+                          child: ServiceButton(
+
+                              onTap: () {
+                                if (c.refUserId.value == "" ||
+                                    getStorage.read('refUserId') ==
+                                        null) {
+
+                                }
+                                if (c.sqft.value == '' ||
+                                    c.dateSelected.value == '' ||
+                                    c.timeSlot.value == '' ||
+                                    c.address[""] == "") {
+                                  Get.showSnackbar(GetSnackBar(
+                                    duration: Duration(seconds: 2),
+                                    message:
+                                    "Please Enter a value for "+widget.data["unit_name"],
+                                  ));
+                                } else {
+                                  if(c.refUserId.value == ""){
+                                    triggerSignInDialog(context, setState);
+                                  }else{
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CheckoutPage(
+                                                    data: widget.data,
+                                                    unit_values_id: selected_unit_id!,
+                                                    isCart: false,
+                                                    isBottomNav: false,
+                                                    total_amount: updated_price,
+                                                    quantity: textEditingController.text.toString()
+                                                )));
+                                  }
+                                  // Get.to(CheckoutPage(
+                                  //   data: widget.data,
+                                  // ));
+                                }
+
+                                // c.refUserId.value == "" ||
+                                //         getStorage.read('refUserId') ==
+                                //             null
+                                //     ? triggerSignInDialog(
+                                //         context, setState)
+                                //     : c.sqft.value == '' ||
+                                //             c.dateSelected.value ==
+                                //                 '' ||
+                                //             c.timeSlot.value == '' ||
+                                //             c.address[""] == ""
+                                //         ?
+                                // Get.showSnackbar(
+                                //             const GetSnackBar(
+                                //             duration:
+                                //                 Duration(seconds: 2),
+                                //             message:
+                                //                 "Please fill all the fields",
+                                //           ))
+                                //         :
+                                // Get.to(CheckoutPage(
+                                //             data: widget.data,
+                                //           ));
+                              },
+                              width: wd / 2.5,
+                              color: const Color(0xff38456C),
+                              fontSize: 14,
+                              buttonText: "Book one time service"),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 15, 8, 40),
+                          child: ServiceButton(
+                              onTap: () {
+                                c.refUserId.value == "" ||
+                                    getStorage.read('refUserId') ==
+                                        null
+                                    ? triggerSignInDialog(
+                                    context, setState)
+                                    : c.sqft.value == '' ||
+                                    c.dateSelected.value ==
+                                        '' ||
+                                    c.timeSlot.value == '' ||
+                                    c.address[""] == ""
+                                    ? Get.showSnackbar(
+                                  const GetSnackBar(
+                                    duration:
+                                    Duration(seconds: 2),
+                                    message:
+                                    "Please fill all the fields",
+                                  ),
+                                )
+                                    : addItemToCart(
+                                    c.refUserId,
+                                    widget.data['product_id'],
+                                    selected_unit_id,
+                                    qty: textEditingController.text,
+                                    date: c
+                                        .dateSelected.value
+                                        .toString(),
+                                    fromTime:
+                                    c.timeSlot.value,
+                                    toTime:
+                                    c.timeSlot.value)
+                                    .then((value) {
+                                  c.cartCount.value = cart_count + 1;
+                                  Get.close(1);
+                                });
+                              },
+                              width: wd / 2.5,
+                              color: const Color(0xff38456C),
+                              fontSize: 14,
+                              buttonText: "Add to cart"),
+                        )
+                      ],
+                    ):
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 15, 8, 40),
+                      child: Center(
+                        child: ServiceButton(
+                            onTap: () {
+                              c.refUserId.value == "" ||
+                                  getStorage.read('refUserId') ==
+                                      null
+                                  ? triggerSignInDialog(
+                                  context, setState)
+                                  : c.sqft.value == '' ||
+                                  c.dateSelected.value ==
+                                      '' ||
+                                  c.timeSlot.value == '' ||
+                                  c.address[""] == ""
+                                  ? Get.showSnackbar(
+                                const GetSnackBar(
+                                  duration:
+                                  Duration(seconds: 2),
+                                  message:
+                                  "Please fill all the fields",
+                                ),
+                              )
+                                  : addItemToCart(
+                                  c.refUserId,
+                                  widget.data['product_id'],
+                                  selected_unit_id,
+                                  qty: textEditingController.text,
+                                  date: c
+                                      .dateSelected.value
+                                      .toString(),
+                                  fromTime:
+                                  c.timeSlot.value,
+                                  toTime:
+                                  c.timeSlot.value)
+                                  .then((value) {
+                                c.cartCount.value = cart_count + 1;
+                                Get.close(1);
+                              });
+                            },
+                            width: wd / 1.8,
+                            color: const Color(0xff38456C),
+                            fontSize: 16,
+                            buttonText: "Add to cart"),
+                      ),
+                    ),
+
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(15, 15, 15, 5),
+                      child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            'Product Description :',
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold
+                            ),
+                          )
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          widget.data["product_summary"].toString(),
+                          style: TextStyle(
+                              fontSize: 15
+                          ),
+                        ),
+                      ),
+                    )
+
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Container(
+                // height: 30,
+                child: ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  style: ButtonStyle(
+                      backgroundColor:
+                      MaterialStateProperty.all(Colors.white),
+                      shape:
+                      MaterialStateProperty.all(const CircleBorder()),
+                      elevation: MaterialStateProperty.all(5)),
+                  child: const Icon(
+                    Icons.arrow_back,
+                    size: 20,
+                    color: Colors.black,
+                  ),
+                ),
+                decoration: const BoxDecoration(
+                    shape: BoxShape.circle, color: Colors.white),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -730,7 +730,7 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
               style: TextStyle(
                   fontSize: 16,
                   color: Color(0xff5C5C5C),
-                fontWeight: FontWeight.bold
+                  fontWeight: FontWeight.bold
               ),
             ),
             Row(
@@ -811,6 +811,5 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
 
 
 }
-
 
 

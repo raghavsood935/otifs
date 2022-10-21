@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:stellar_track/Screens/Main%20Screens/bookacall.dart';
 import 'package:stellar_track/Screens/notifications.dart';
 import 'package:stellar_track/main.dart';
 import 'package:stellar_track/widgets/select_address_bottomsheet.dart';
 
-import '../Screens/Main Screens/home_page.dart';
 import '../api_calls.dart';
 import '../controllers.dart';
 import '../functions.dart';
@@ -61,7 +59,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
             GestureDetector(
               onTap: (){
                 c.screenIndex.value = 1;
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()
                 )
                 );
               },
@@ -73,7 +71,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
             ),
             GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Notifications()
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const Notifications()
                 )
                 );
               },

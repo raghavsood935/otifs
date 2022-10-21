@@ -1,10 +1,8 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:stellar_track/apiCalls.dart';
 import 'package:stellar_track/widgets/bottomNav.dart';
-import 'package:stellar_track/widgets/loader.dart';
 import 'package:stellar_track/widgets/shimmerLoader.dart';
 
 import '../widgets/product_details_bottom_sheet.dart';
@@ -47,7 +45,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar:
-            SizedBox(height: wd / 4.8, child: BottomNavigation()),
+            SizedBox(height: wd / 4.8, child: const BottomNavigation()),
         // resizeToAvoidBottomInset: false,
         // floatingActionButton: BottomNavigation(),
         // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -59,13 +57,13 @@ class _ServiceScreenState extends State<ServiceScreen> {
             height: 5,
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
-              child: Icon(
+              child: const Icon(
                 Icons.arrow_back,
                 color: Colors.black,
               ),
             ),
             decoration:
-                BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
           ),
           backgroundColor: Colors.transparent,
           automaticallyImplyLeading: false,
@@ -111,9 +109,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
                               width: 20,
                             ),
                           ),
-                          Padding(
+                          const Padding(
                             padding:
-                                const EdgeInsets.symmetric(horizontal: 18.0),
+                                EdgeInsets.symmetric(horizontal: 18.0),
                             child: Icon(
                               Icons.bookmark,
                               size: 20,
@@ -123,10 +121,10 @@ class _ServiceScreenState extends State<ServiceScreen> {
                       ),
                     ),
                     ListView.builder(
-                        padding: EdgeInsets.all(0),
+                        padding: const EdgeInsets.all(0),
                         shrinkWrap: true,
                         itemCount: servicesData["data"].length,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: ((context, index) {
                           return ServiceList(
                             data: servicesData,
@@ -173,7 +171,7 @@ class _ServiceListState extends State<ServiceList> {
                     Container(
                         width: wd / 7,
                         clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(shape: BoxShape.circle),
+                        decoration: const BoxDecoration(shape: BoxShape.circle),
                         child: widget.data["data"][widget.index]
                                     ["product_image"] ==
                                 null
@@ -223,7 +221,7 @@ class _ServiceListState extends State<ServiceList> {
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
-                              Icon(Icons.arrow_right)
+                              const Icon(Icons.arrow_right)
                             ],
                           ),
                         ),
@@ -263,7 +261,7 @@ class _ServiceListState extends State<ServiceList> {
                                           Text(
                                             widget.data["data"][widget.index]
                                                 ["service_time"],
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 16,
                                                 color: Color(0xff38456C),
                                                 fontWeight: FontWeight.bold),
@@ -336,7 +334,7 @@ class _ServiceListState extends State<ServiceList> {
                   )
                 ],
               ),
-              Divider(
+              const Divider(
                 thickness: 2,
               )
             ],

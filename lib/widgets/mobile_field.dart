@@ -1,16 +1,11 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stellar_track/Screens/sign_in_screen.dart';
 import 'package:stellar_track/functions.dart';
 import 'package:stellar_track/widgets/otp_field.dart';
 import 'package:stellar_track/widgets/service_button.dart';
-import 'package:stellar_track/widgets/shimmer_loader.dart';
 import 'package:stellar_track/widgets/signup_flow_button.dart';
-import 'package:stellar_track/widgets/trigger_signin.dart';
 
-import '../Screens/signup_screen.dart';
 import '../api_calls.dart';
 import '../controllers.dart';
 
@@ -41,7 +36,7 @@ class _MObileFieldState extends State<MObileField> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Container(
             height: ht / 3.5,
-            color: Color(0xffF7F7F7),
+            color: const Color(0xffF7F7F7),
             child: SingleChildScrollView(
               child: Obx(
                 () => Column(
@@ -108,7 +103,7 @@ class _MObileFieldState extends State<MObileField> {
                                   c.otpField.value = !c.otpField.value;
                                 });
                                 Get.showSnackbar(GetSnackBar(
-                                  duration: Duration(seconds: 2),
+                                  duration: const Duration(seconds: 2),
                                   message: value["data"]["otp"].toString(),
                                 ));
                               });
@@ -167,7 +162,7 @@ class _MObileFieldState extends State<MObileField> {
           onPressed: () {
             if (mobileController.text == "" ||
                 mobileController.text.length < 10) {
-              Get.showSnackbar(GetSnackBar(
+              Get.showSnackbar(const GetSnackBar(
                 title: "Field Missing",
                 message: "Please enter mobile number",
                 duration: Duration(seconds: 2),
@@ -209,11 +204,11 @@ class _MObileFieldState extends State<MObileField> {
                              },
                              child: Container(
                                decoration: BoxDecoration(
-                                   color: Color(0xff1FD0C2),
+                                   color: const Color(0xff1FD0C2),
                                    borderRadius: BorderRadius.circular(50)
                                ),
-                               child: Padding(
-                                 padding: const EdgeInsets.all(5),
+                               child: const Padding(
+                                 padding: EdgeInsets.all(5),
                                  child: Icon(
                                    Icons.close_rounded,
                                    color: Colors.white,
@@ -299,13 +294,13 @@ class _MObileFieldState extends State<MObileField> {
                              textColor: Colors.black,
                              onPressed: () {
                                if (mobileController.text == "") {
-                                 Get.showSnackbar(GetSnackBar(
+                                 Get.showSnackbar(const GetSnackBar(
                                    title: "Field Missing",
                                    message: "Please enter email",
                                    duration: Duration(seconds: 2),
                                  ));
                                }else if(passwordContoller.text == ""){
-                                 Get.showSnackbar(GetSnackBar(
+                                 Get.showSnackbar(const GetSnackBar(
                                    title: "Field Missing",
                                    message: "Please enter password",
                                    duration: Duration(seconds: 2),
@@ -380,7 +375,7 @@ class _MObileFieldState extends State<MObileField> {
                                    c.otpField.value = false;
                                  });
                                },
-                               child: Text(
+                               child: const Text(
                                  'Login with OTP',
                                  style: TextStyle(
                                      fontSize: 16
@@ -400,7 +395,7 @@ class _MObileFieldState extends State<MObileField> {
                c.otpField.value = false;
              });
             },
-            child: Text(
+            child: const Text(
               'Login with password',
               style: TextStyle(
                 fontSize: 16

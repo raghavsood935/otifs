@@ -104,7 +104,7 @@ class _NotificationsState extends State<Notifications> {
                                     child: GestureDetector(
                                       onTap: (){
                                         c.screenIndex.value = 1;
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()
                                         )
                                         );
                                       },

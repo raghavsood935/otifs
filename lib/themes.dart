@@ -5,15 +5,15 @@ class ThemeClass {
   static ThemeData lightTheme = ThemeData(
       scaffoldBackgroundColor: Colors.white,
       fontFamily: GoogleFonts.jost().fontFamily,
-      colorScheme: ColorScheme.light(),
-      appBarTheme: AppBarTheme(
+      colorScheme: const ColorScheme.light(),
+      appBarTheme: const AppBarTheme(
         backgroundColor: Colors.white,
       ));
 
   static ThemeData darkTheme = ThemeData(
-      scaffoldBackgroundColor: Color(0xff1C1C1E),
-      colorScheme: ColorScheme.dark(),
-      appBarTheme: AppBarTheme(
+      scaffoldBackgroundColor: const Color(0xff1C1C1E),
+      colorScheme: const ColorScheme.dark(),
+      appBarTheme: const AppBarTheme(
         backgroundColor: Color(0xff1C1C1E),
       ));
 }

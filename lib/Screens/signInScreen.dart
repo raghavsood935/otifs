@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stellar_track/Screens/homeScreen.dart';
-import 'package:stellar_track/Screens/signup_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -57,7 +56,7 @@ class SignInScreen extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 38.0),
+                  padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 38.0),
                   child: Container(
                     width: wd / 2,
                     decoration: BoxDecoration(
@@ -75,7 +74,7 @@ class SignInScreen extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomePage()));
+                                builder: (context) => const HomePage()));
                       },
                     ),
                   ),
@@ -87,7 +86,7 @@ class SignInScreen extends StatelessWidget {
                     child: SizedBox(
                       width: wd / 2.5,
                       child: Row(
-                        children: [
+                        children: const [
                           Text(
                             "New here?",
                             style: TextStyle(color: Colors.white, fontSize: 14),

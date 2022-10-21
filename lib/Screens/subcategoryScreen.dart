@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:stellar_track/Screens/serviceScreen.dart';
 import 'package:stellar_track/apiCalls.dart';
 import 'package:stellar_track/widgets/bottomNav.dart';
-import 'package:stellar_track/widgets/loader.dart';
 import 'package:stellar_track/widgets/shimmerLoader.dart';
 
 class SubcategoriesScreen extends StatefulWidget {
@@ -37,7 +36,7 @@ class _SubcategoriesScreenState extends State<SubcategoriesScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       floatingActionButton:
-          SizedBox(height: wd / 4.8, child: BottomNavigation()),
+          SizedBox(height: wd / 4.8, child: const BottomNavigation()),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -47,13 +46,13 @@ class _SubcategoriesScreenState extends State<SubcategoriesScreen> {
           height: 5,
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child: Icon(
+            child: const Icon(
               Icons.arrow_back,
               color: Colors.black,
             ),
           ),
           decoration:
-              BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+              const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
         ),
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
@@ -84,7 +83,7 @@ class _SubcategoriesScreenState extends State<SubcategoriesScreen> {
                         Expanded(
                           child: Text(
                             data["data"][0]["main_category_name"],
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.black54,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold),
@@ -98,8 +97,8 @@ class _SubcategoriesScreenState extends State<SubcategoriesScreen> {
                             height: 20,
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 18.0),
                           child: Icon(
                             Icons.bookmark,
                             size: 20,
@@ -111,7 +110,7 @@ class _SubcategoriesScreenState extends State<SubcategoriesScreen> {
                   SizedBox(
                     height: ht / 2,
                     child: ListView.builder(
-                      padding: EdgeInsets.all(0),
+                      padding: const EdgeInsets.all(0),
                       shrinkWrap: true,
                       itemCount: data["data"][0]["sub_categories"].length,
                       physics: const NeverScrollableScrollPhysics(),

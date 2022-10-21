@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-import '../apiCalls.dart';
 import '../models.dart';
 
 class HomeAndPersonalService extends StatefulWidget {
@@ -48,9 +47,9 @@ class _HomeAndPersonalServiceState extends State<HomeAndPersonalService> {
             type: widget.data["data"][i]["display_type"].toString(),
             subCategories: widget.data["data"][i]["sub_categories"]));
 
-        mainAndSubCategories.forEach((element) {
+        for (var element in mainAndSubCategories) {
           log("NAMEEEEEEEEEEE" + element.name.toString());
-        });
+        }
       }
 
       log(mainAndSubCategories.length.toString());
@@ -78,7 +77,7 @@ class _HomeAndPersonalServiceState extends State<HomeAndPersonalService> {
     var wd = MediaQuery.of(context).size.width;
     return SizedBox(
       child: ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           scrollDirection: Axis.vertical,
           itemCount: mainAndSubCategories.length,
           shrinkWrap: true,
@@ -113,7 +112,7 @@ class _HomeAndPersonalServiceState extends State<HomeAndPersonalService> {
                                     .subCategories
                                     .length,
                                 gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
                                         // mainAxisExtent: wd / 1.8,
                                         // crossAxisSpacing: 0,
                                         // mainAxisSpacing: 0,
@@ -205,7 +204,7 @@ class _HomeAndPersonalServiceState extends State<HomeAndPersonalService> {
                                                   mainAndSubCategories[index]
                                                           .subCategories[count]
                                                       ["name"],
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Color(0xff5C5C5C)),
                                                   textAlign: TextAlign.center,
                                                 )

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:get/get.dart';
 import 'package:stellar_track/Screens/service_screen.dart';
-import 'package:stellar_track/widgets/service_list.dart';
 
 import '../api_calls.dart';
 import '../controllers.dart';
@@ -55,7 +54,7 @@ class _HomeAndPersonalServiceState extends State<HomeAndPersonalService> {
     var wd = MediaQuery.of(context).size.width;
     return SizedBox(
       child: ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           scrollDirection: Axis.vertical,
           itemCount: mainAndSubCategories.length,
           shrinkWrap: true,
@@ -146,7 +145,7 @@ class _HomeAndPersonalServiceState extends State<HomeAndPersonalService> {
                                                   if (loadingProgress == null) {
                                                     return child;
                                                   }
-                                                  return Center(
+                                                  return const Center(
                                                     child:
                                                         SizedBox(height:150,child: ProfileShimmer()),
                                                   );

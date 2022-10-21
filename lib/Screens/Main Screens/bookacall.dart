@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:url_launcher/url_launcher.dart' as Url_Lanccher;
 
 import '../../controllers.dart';
 import '../../main.dart';
-import '../../widgets/bottom_nav.dart';
 
 class BookACallPage extends StatefulWidget {
   const BookACallPage({Key? key}) : super(key: key);
@@ -31,7 +29,7 @@ class _BookACallPageState extends State<BookACallPage> {
             child: GestureDetector(
               onTap: () {
                 c.screenIndex.value = 0;
-                Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
               },
               child: const Card(
                 shape: CircleBorder(),
@@ -55,7 +53,7 @@ class _BookACallPageState extends State<BookACallPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                   'For offline Bookings please call on ',
                 style: TextStyle(
                   fontSize: 16
@@ -75,8 +73,8 @@ class _BookACallPageState extends State<BookACallPage> {
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.black
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                        child: const Padding(
+                          padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
                           child: Text(
                             'Call +91 7605096831',
                             style: TextStyle(

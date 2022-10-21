@@ -9,7 +9,6 @@ import 'package:stellar_track/widgets/homeAndPersonalService.dart';
 import 'package:stellar_track/widgets/home_top_banner.dart';
 import 'package:stellar_track/widgets/loader.dart';
 import 'package:stellar_track/widgets/mainCategoriesList.dart';
-import 'package:stellar_track/widgets/otifsProducts.dart';
 import 'package:stellar_track/widgets/popularServices.dart';
 import 'package:stellar_track/widgets/serviceButton.dart';
 import 'package:stellar_track/widgets/shimmerLoader.dart';
@@ -156,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                         height: 43,
                         decoration: BoxDecoration(
-                            color: Color(0xffE5E5E5),
+                            color: const Color(0xffE5E5E5),
                             borderRadius: BorderRadius.circular(30)),
                         child: Row(children: const [
                           Padding(
@@ -230,12 +229,12 @@ class _HomePageState extends State<HomePage> {
                             padding: const EdgeInsets.all(0.0),
                             child: HomeAndPersonalService(
                               data: mainAndSubCategories,
-                              color: Color(0xffF7F7F7),
+                              color: const Color(0xffF7F7F7),
                               title: "Home Service",
                             ),
                           ),
                     summerSpecial == null
-                        ? Loader()
+                        ? const Loader()
                         : Padding(
                             padding: const EdgeInsets.symmetric(vertical: 28.0),
                             child: Column(
@@ -246,7 +245,7 @@ class _HomePageState extends State<HomePage> {
                                       horizontal: 18.0, vertical: 10),
                                   child: Text(
                                     summerSpecial["data"][0]["offer_type_name"],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Color(0xff5C5C5C),
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18),

@@ -1,8 +1,6 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stellar_track/models.dart';
 
 import '../controllers.dart';
 import 'day_slots.dart';
@@ -22,17 +20,17 @@ class _DateSlotSelectionState extends State<DateSlotSelection> {
     // TODO: implement initState
     c.currentDateSelected.value = '0';
     c.dateSelected.value = (DateTime.parse(c.date.value)
-        .add(Duration(days: 0))
+        .add(const Duration(days: 0))
         .toString()
         .split('-')[0] +
         '-' +
         DateTime.parse(c.date.value)
-            .add(Duration(days: 0))
+            .add(const Duration(days: 0))
             .toString()
             .split('-')[1] +
         '-' +
         DateTime.parse(c.date.value)
-            .add(Duration(days: 0))
+            .add(const Duration(days: 0))
             .toString()
             .split('-')[2]
             .split(' ')
@@ -56,7 +54,7 @@ class _DateSlotSelectionState extends State<DateSlotSelection> {
                 .weekday
                 .toString());
 
-            var day;
+            int day;
 
             if (weekday <= 6) {
               day = int.parse(DateTime.parse(c.date.value)

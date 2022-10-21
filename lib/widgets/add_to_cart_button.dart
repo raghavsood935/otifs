@@ -1,11 +1,9 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stellar_track/api_calls.dart';
 
 import '../controllers.dart';
-import '../main.dart';
 import 'loader.dart';
 import 'product_details_bottom_sheet.dart';
 
@@ -59,7 +57,7 @@ class _AddToCartButtonState extends State<AddToCartButton> {
       child: Text(
         widget.added == false ? "ADD" : "ADDED",
         style: TextStyle(
-            color: widget.added == false ? Colors.black26 : Color(0xff1FD0C2),
+            color: widget.added == false ? Colors.black26 : const Color(0xff1FD0C2),
             fontSize: 12,
             fontWeight: FontWeight.bold),
       ),

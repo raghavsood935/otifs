@@ -60,7 +60,7 @@ class _TransferAccountState extends State<TransferAccount> {
         ),
         body: data == null
             ? Center(child: ShimmerLoader(height: 60, width: wd))
-            : Container(
+            : SizedBox(
                 height: ht,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -92,7 +92,7 @@ class _TransferAccountState extends State<TransferAccount> {
                           child: GestureDetector(
                             onTap: (){
                               c.screenIndex.value = 1;
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()
                               )
                               );
                             },

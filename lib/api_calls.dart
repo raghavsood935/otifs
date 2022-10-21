@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -64,9 +63,9 @@ Future getProductDetails(prodID) async {
 
 
 //Fetches unit deatails
-Future getUnitDetails(prodID,unit_name) async {
+Future getUnitDetails(prodID,unitName) async {
   var request = http.Request('GET',
-      Uri.parse('$apiHeader/api/hybrid/services/unit-values?product_id=$prodID&unit_name=$unit_name'));
+      Uri.parse('$apiHeader/api/hybrid/services/unit-values?product_id=$prodID&unit_name=$unitName'));
 
   http.StreamedResponse response = await request.send();
   var res = jsonDecode(await response.stream.bytesToString());
@@ -79,9 +78,9 @@ Future getUnitDetails(prodID,unit_name) async {
 }
 
 //Fetches price details
-Future getUpdatedPrice(prodID,unit_value_id,quantity) async {
+Future getUpdatedPrice(prodID,unitValueId,quantity) async {
   var request = http.Request('POST',
-      Uri.parse('$apiHeader/api/hybrid/services/calculate-price?product_id=$prodID&unit_values_id=$unit_value_id&quantity=$quantity'));
+      Uri.parse('$apiHeader/api/hybrid/services/calculate-price?product_id=$prodID&unit_values_id=$unitValueId&quantity=$quantity'));
 
   http.StreamedResponse response = await request.send();
   var res = jsonDecode(await response.stream.bytesToString());
@@ -569,11 +568,14 @@ Future getProfileDetails(refUserId) async {
   return res;
 }
 
-Future updateProfileDetails(refUserId,name,email) async {
+Future updateProfileDetails(refUserId,name,email,gst) async {
   var request = http.Request(
       'POST',
-      Uri.parse('$apiHeader/api/hybrid/auth/profile/my-account/update?ref_user_id=$refUserId&email=$email&name=$name'
+      Uri.parse('$apiHeader/api/hybrid/auth/profile/my-account/update?ref_user_id=$refUserId&email=$email&name=$name&gst=$gst'
       ));
+  print(email);
+  print(name);
+  print(gst);
 
   http.StreamedResponse response = await request.send();
   var res = jsonDecode(await response.stream.bytesToString());
@@ -648,10 +650,26 @@ Future getfirstcoupon(refUserId) async {
   return res;
 }
 
-Future calculateprcie(refUserId,checkouttype,discount_id,unit_values_id,product_id,quantity) async {
+Future applyCoupon(refUserId,couponCode) async {
+  var request = http.Request(
+      'POST',
+      Uri.parse('$apiHeader/api/hybrid/checkout/apply-coupon?ref_user_id=$refUserId&coupon_code=$couponCode'
+      ));
+
+  http.StreamedResponse response = await request.send();
+  var res = jsonDecode(await response.stream.bytesToString());
+  if (response.statusCode == 200) {
+    print(res);
+  } else {
+    print(response.reasonPhrase);
+  }
+  return res;
+}
+
+Future calculateprcie(refUserId,checkouttype,discountId,unitValuesId,productId,quantity) async {
   var request = http.Request(
       'GET',
-      Uri.parse('$apiHeader/api/hybrid/checkout/calculate-price?ref_user_id=$refUserId&check_out_type=$checkouttype&discount_id=$discount_id&unit_values_id=$unit_values_id&product_id=$product_id&quantity=$quantity'
+      Uri.parse('$apiHeader/api/hybrid/checkout/calculate-price?ref_user_id=$refUserId&check_out_type=$checkouttype&discount_id=$discountId&unit_values_id=$unitValuesId&product_id=$productId&quantity=$quantity'
       ));
 
   http.StreamedResponse response = await request.send();

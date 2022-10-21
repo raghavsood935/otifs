@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stellar_track/Screens/service_screen.dart';
 import 'package:stellar_track/widgets/service_list.dart';
 import 'package:stellar_track/widgets/shimmer_loader.dart';
 

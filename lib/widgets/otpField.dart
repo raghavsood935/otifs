@@ -6,14 +6,11 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:stellar_track/Screens/add_address_screen.dart';
-import 'package:stellar_track/Screens/homeScreen.dart';
 import 'package:stellar_track/apiCalls.dart';
 import 'package:stellar_track/controllers.dart';
-import 'package:stellar_track/main.dart';
-import 'package:stellar_track/widgets/loader.dart';
 import 'package:stellar_track/widgets/shimmerLoader.dart';
 
-import '../Screens/signup_screen.dart';
+import 'signup_flow_button.dart';
 
 class OtpField extends StatefulWidget {
   OtpField({required this.phone, Key? key}) : super(key: key);

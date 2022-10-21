@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -7,16 +6,13 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:stellar_track/Screens/add_address_screen.dart';
-import 'package:stellar_track/Screens/Main%20Screens/home_page.dart';
 import 'package:stellar_track/api_calls.dart';
 import 'package:stellar_track/controllers.dart';
 import 'package:stellar_track/functions.dart';
 import 'package:stellar_track/main.dart';
-import 'package:stellar_track/widgets/loader.dart';
 import 'package:stellar_track/widgets/shimmer_loader.dart';
 import 'package:stellar_track/widgets/signup_flow_button.dart';
 
-import '../Screens/signup_screen.dart';
 
 class OtpField extends StatefulWidget {
   OtpField(

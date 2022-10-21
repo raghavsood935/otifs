@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:stellar_track/widgets/loader.dart';
 
 import '../api_calls.dart';
@@ -10,6 +9,9 @@ import '../main.dart';
 import '../models.dart';
 import '../widgets/service_button.dart';
 var first_time_coupn;
+var getBookings;
+var couponApply;
+
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage(
       {required this.data,
@@ -34,11 +36,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
   String email = "";
   String phone = "";
   dynamic pricedata;
-
+  final couponController = TextEditingController();
   int? currentModeSelected = 0;
   final Controller c = Get.put(Controller());
   TextEditingController emailController = TextEditingController(text: "email");
   TextEditingController phoneController = TextEditingController(text: "phone");
+  bool applied=false;
   @override
   void initState() {
     getProfileDetails(c.refUserId.value).then((value) {
@@ -49,23 +52,31 @@ class _CheckoutPageState extends State<CheckoutPage> {
         phoneController.text = value["data"][0]["mobile"].toString();
       });
     });
+    getActiveBookings(c.refUserId.value).then((value) {
+      setState(() {
+       getBookings=value;
+       print("Bookings are $getBookings");
+      });
+    });
     getfirstcoupon(c.refUserId.value).then((value){
+      print(c.refUserId.value);
       setState(() {
         first_time_coupn = value;
         print(widget.quantity.toString());
         calculateprcie(
             c.refUserId.value,
             widget.isCart == false ? "book_one_time" : "",
-            first_time_coupn["status"] != "failure" ? first_time_coupn["data"]["coupon_id"] : "0",
+            first_time_coupn["status"]!= "failure" ? first_time_coupn["data"]["coupon_id"] : "0",
             widget.unit_values_id,
             widget.data["product_id"],
             widget.quantity.toString()
         ).then((value) {
-              pricedata = value;
+          setState(() {
+            pricedata = value;
+          });
         });
       });
     });
-
     super.initState();
   }
 
@@ -105,7 +116,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
             child: GestureDetector(
               onTap: (){
                 c.screenIndex.value = 1;
-                Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()
                 )
                 );
               },
@@ -139,7 +150,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               children: [
                                 Padding(
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: wd / 15),
+                                      EdgeInsets.symmetric(horizontal: 15),
                                   child: const Text(
                                     "Complete Payment",
                                     style: TextStyle(
@@ -150,7 +161,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 ),
                                 Text(
                                   // "10 May, 9 AM",
-                                  '${DateTime.parse(c.dateSelected.value).add(Duration(days: 0))
+                                  '${DateTime.parse(c.dateSelected.value).add(const Duration(days: 0))
                                       .toString().split('-')[2]
                                       .split(' ')
                                       .first
@@ -186,7 +197,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Padding(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         horizontal: 50),
                                     child: Column(
                                         crossAxisAlignment:CrossAxisAlignment.start,
@@ -194,9 +205,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
+                                              const Text(
                                                   "Amount",
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                     fontSize: 16,
                                                     color: Color(0xff38456C),
                                                     fontWeight: FontWeight.bold),
@@ -213,9 +224,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
+                                              const Text(
                                                 "GST Amount",
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                     fontSize: 16,
                                                     color: Color(0xff38456C),
                                                     fontWeight: FontWeight.bold),
@@ -229,12 +240,14 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                               ),
                                             ],
                                           ),
-                                          first_time_coupn["status"] != "failure" ? Row(
+                                          first_time_coupn["status"]!="failure" || applied==true
+                                              ?
+                                          Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
+                                              const Text(
                                                 "Discount Amount",
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                     fontSize: 16,
                                                     color: Color(0xff38456C),
                                                     fontWeight: FontWeight.bold),
@@ -249,7 +262,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                               ),
                                             ],
                                           ):Container(),
-                                          Padding(padding: EdgeInsets.symmetric(horizontal: 0,vertical: 10),
+                                          Padding(padding: const EdgeInsets.symmetric(horizontal: 0,vertical: 10),
                                           child: Container(
                                             height: 1,
                                             decoration: BoxDecoration(
@@ -259,9 +272,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
+                                              const Text(
                                                 "Total Amount",
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                     fontSize: 18,
                                                     color: Color(0xff1FD0C2),
                                                     fontWeight: FontWeight.bold),
@@ -287,7 +300,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       child: GestureDetector(
                         onTap: () async {
                           showDialog(context: context, builder:(BuildContext context){
-                            return StatefulBuilder(builder: (context,setState){
                               {
                                 return Dialog(
                                   child: SizedBox(
@@ -304,15 +316,14 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                               },
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                    color: Color(0xff1FD0C2),
+                                                    color: const Color(0xff1FD0C2),
                                                     borderRadius: BorderRadius.circular(50)
                                                 ),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(5),
+                                                child: const Padding(
+                                                  padding: EdgeInsets.all(5),
                                                   child: Icon(
                                                     Icons.close_rounded,
                                                     color: Colors.white,
-
                                                   ),
                                                 ),
                                               ),
@@ -349,10 +360,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                                       child: Padding(
                                                         padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
                                                         child: TextFormField(
+                                                          controller: couponController,
                                                           textAlign: TextAlign.start,
                                                           keyboardType: TextInputType.text,
                                                           cursorColor: const Color(0xff38456C),
-                                                          decoration: InputDecoration(
+                                                          decoration: const InputDecoration(
                                                               hintText: "Enter Coupon Code",
                                                               counterText: "",
                                                               border: InputBorder.none,
@@ -370,13 +382,63 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                                       child: Container(
                                                         decoration: BoxDecoration(
                                                           borderRadius: BorderRadius.circular(7),
-                                                          color: Color(0xff1FD0C2),
+                                                          color: const Color(0xff1FD0C2),
                                                         ),
                                                         child: Padding(
-                                                          padding: const EdgeInsets.fromLTRB(10, 5,10, 5),
-                                                          child: Text("APPLY",
-                                                            style: TextStyle(
-                                                              color: Colors.white
+                                                          padding: EdgeInsets.fromLTRB(10, 5,10, 5),
+                                                          child: GestureDetector(
+                                                            onTap:(){
+                                                            print("Tapped");
+                                                            Get.back();
+                                                            applyCoupon(
+                                                                c.refUserId.value,
+                                                                couponController.text.toUpperCase()).
+                                                            then((value){
+                                                              setState(() {
+                                                                  couponApply =
+                                                                      value;
+                                                                  print(
+                                                                      couponApply);
+                                                                  calculateprcie(
+                                                                      c
+                                                                          .refUserId
+                                                                          .value,
+                                                                      widget
+                                                                          .isCart ==
+                                                                          false
+                                                                          ? "book_one_time"
+                                                                          : "",
+                                                                      couponApply['data']['coupon_code'] ==
+                                                                          couponController
+                                                                              .text
+                                                                              .toUpperCase()
+                                                                          ? couponApply['data']['coupon_id']
+                                                                          : "0",
+                                                                      widget
+                                                                          .unit_values_id,
+                                                                      widget
+                                                                          .data["product_id"],
+                                                                      widget
+                                                                          .quantity
+                                                                          .toString()
+                                                                  ).then((
+                                                                      value) {
+
+                                                                      setState(() {
+                                                                        print(couponApply['data']['coupon_id']);
+                                                                        pricedata = value;
+                                                                        applied=true;
+                                                                      });
+
+                                                                  });
+                                                                });
+
+                                                             });
+                                                            },
+                                                            child: Text("APPLY",
+                                                              style: TextStyle(
+                                                                color: Colors.white
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
@@ -388,10 +450,48 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                             ),
                                             Align(
                                               alignment: Alignment.centerLeft,
-                                              child: Column(
+                                              child:
+                                              first_time_coupn["status"]!="failure"?
+                                              Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
+                                                  const Padding(
+                                                    padding: EdgeInsets.fromLTRB(15, 10, 0, 0),
+                                                    child: Text(
+                                                      "First Order Coupon",
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: Color(0xff38456C)),
+                                                    ),
+                                                  ),
+
                                                   Padding(
+                                                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          first_time_coupn["data"]["coupon_code"],
+                                                          style: const TextStyle(
+                                                              fontSize: 18,
+                                                              fontWeight: FontWeight.bold,
+                                                              color: Color(0xff38456C)),
+                                                        ),
+                                                        const Text(
+                                                          '   Click to apply',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color: Color(0xff1FD0C2)
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ):
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  const Padding(
                                                     padding: EdgeInsets.fromLTRB(15, 10, 0, 0),
                                                     child: Text(
                                                       "Available Coupons",
@@ -405,24 +505,74 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                                     child: Row(
                                                       children: [
                                                         Text(
-                                                          first_time_coupn["data"]["coupon_code"],
-                                                          style: TextStyle(
+                                                          couponApply["data"]["coupon_code"],
+                                                          style: const TextStyle(
                                                               fontSize: 18,
                                                               fontWeight: FontWeight.bold,
                                                               color: Color(0xff38456C)),
                                                         ),
-                                                        Text(
-                                                          '   Click to apply',
-                                                          style: TextStyle(
-                                                              fontSize: 16,
-                                                              color: Color(0xff1FD0C2)
-                                                          ),
+                                                         GestureDetector(
+                                                           onTap: (){
+                                                             couponController.text=couponApply["data"]["coupon_code"];
+                                                             Get.back();
+                                                             applyCoupon(
+                                                                 c.refUserId.value,
+                                                                 couponController.text.toUpperCase()).
+                                                             then((value){
+                                                               setState(() {
+                                                                 couponApply =
+                                                                     value;
+                                                                 print(
+                                                                     couponApply);
+                                                                 calculateprcie(
+                                                                     c
+                                                                         .refUserId
+                                                                         .value,
+                                                                     widget
+                                                                         .isCart ==
+                                                                         false
+                                                                         ? "book_one_time"
+                                                                         : "",
+                                                                     couponApply['data']['coupon_code'] ==
+                                                                         couponController
+                                                                             .text
+                                                                             .toUpperCase()
+                                                                         ? couponApply['data']['coupon_id']
+                                                                         : "0",
+                                                                     widget
+                                                                         .unit_values_id,
+                                                                     widget
+                                                                         .data["product_id"],
+                                                                     widget
+                                                                         .quantity
+                                                                         .toString()
+                                                                 ).then((
+                                                                     value) {
+
+                                                                   setState(() {
+                                                                     print(couponApply['data']['coupon_id']);
+                                                                     pricedata = value;
+                                                                     applied=true;
+                                                                   });
+
+                                                                 });
+                                                               });
+
+                                                             });
+                                                           },
+                                                           child: Text(
+                                                            '   Click to apply',
+                                                            style: TextStyle(
+                                                                fontSize: 16,
+                                                                color: Color(0xff1FD0C2)
+                                                            ),
                                                         ),
+                                                         ),
                                                       ],
                                                     ),
                                                   ),
                                                 ],
-                                              ),
+                                              )
                                             ),
 
                                           ],
@@ -432,7 +582,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                   ),
                                 );
                               }
-                            });
+
                           }
                           );
                         },
@@ -473,10 +623,43 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         ),
                       ),
                     ),
+                first_time_coupn["status"]!= "failure" || applied==true?
+                Padding(padding: EdgeInsets.symmetric(horizontal: 5,vertical: 5,),
+                    child: Card(
+                      shadowColor: const Color(0xff000029),
+                      elevation: 5,
+                      margin: const EdgeInsets.all(0),
+                      child: Container(
+                        width: 500,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Color(0xffF7F7F7)
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8),
+                            child: Row(
+                              children: [
+                                Image.asset("assets/icons/icons_png/017-offer-1.png",width:35,height: 35,),
+                                Spacer(),
+                                Text(
+                                first_time_coupn["status"]== "failure"?
+                                couponApply["response"]["message"]:
+                                first_time_coupn["response"]["message"],
+                                style: TextStyle(
+                                  color: Color(0xff1FD0C2),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                             ],
+                            ),
+                        ),
+                      ),
+                    ),
+                    ):Container(),
                     //Product Details
                     widget.isCart == false
                         ? Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                          padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                           child: Container(
                               height: ht / 8,
                               width: wd,

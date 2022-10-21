@@ -7,7 +7,6 @@ import 'package:stellar_track/widgets/service_button.dart';
 
 import '../Screens/addresses.dart';
 import '../controllers.dart';
-import 'add_new_address.dart';
 
 class SelectAddressBottomSheet extends StatefulWidget {
   const SelectAddressBottomSheet({required this.data, Key? key})
@@ -83,7 +82,7 @@ class SelectAddressBottomSheetState extends State<SelectAddressBottomSheet> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 30, 0, 50),
                       child: Container(
-                        child: Text('No address found, Kindly add a new Address'),
+                        child: const Text('No address found, Kindly add a new Address'),
                       ),
                     ) :
                 Padding(

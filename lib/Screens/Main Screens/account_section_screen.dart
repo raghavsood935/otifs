@@ -96,7 +96,7 @@ class _AccountSectionScreenState extends State<AccountSectionScreen> {
                                   child: GestureDetector(
                                     onTap: (){
                                       c.screenIndex.value = 1;
-                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()
+                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()
                                       )
                                       );
                                     },

@@ -11,7 +11,6 @@ import 'package:stellar_track/widgets/loader.dart';
 import 'package:stellar_track/widgets/main_categories_list.dart';
 import 'package:stellar_track/widgets/popular_services.dart';
 import 'package:stellar_track/widgets/searchServices.dart';
-import 'package:stellar_track/widgets/service_button.dart';
 import 'package:stellar_track/widgets/shimmer_loader.dart';
 
 import '../../api_calls.dart';
@@ -126,7 +125,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: PreferredSize(
           child: const AppBarWidget(),
-          preferredSize: Size(wd, ht / 16),
+          preferredSize: Size(wd, ht / 15),
         ),
         body: mainCatData == null ||
                 mainAndSubCategories == null ||
@@ -227,7 +226,7 @@ class _HomePageState extends State<HomePage> {
 
                         //Ongoing Offers
                         onGoingOffers == null
-                            ? SizedBox(height:150,child: const Loader()) :
+                            ? const SizedBox(height:150,child: Loader()) :
                             onGoingOffers["status"].toString() == "failure" ? Container()
                             : Padding(
                                 padding:

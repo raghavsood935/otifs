@@ -29,8 +29,8 @@ class _LogoState extends State<Logo> {
             ),
           ),
         ),
-        SizedBox(width: 15),
-        Align(
+        const SizedBox(width: 15),
+        const Align(
           alignment: Alignment.center,
           child: Text("Happy to Serve,\nAlways",
                   style: TextStyle(

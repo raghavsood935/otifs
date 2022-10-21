@@ -1,8 +1,6 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:stellar_track/widgets/logo.dart';
 
 class ShimmerLoader extends StatelessWidget {
   const ShimmerLoader({required this.height, required this.width, Key? key})

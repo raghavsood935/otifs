@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:stellar_track/Screens/Main%20Screens/home_page.dart';
 import 'package:stellar_track/Screens/add_address_screen.dart';
 import 'package:stellar_track/Screens/signup_screen.dart';
 import 'package:stellar_track/api_calls.dart';
 import 'package:stellar_track/controllers.dart';
 import 'package:stellar_track/functions.dart';
-import 'package:stellar_track/widgets/trigger_signin.dart';
 
 import '../main.dart';
 import '../widgets/shimmer_loader.dart';
@@ -189,7 +187,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                Navigator.push(
                                    context,
                                    MaterialPageRoute(
-                                       builder: (context) => HomePage()));
+                                       builder: (context) => const HomePage()));
                              }
                            });
                          }).then((value) async {
@@ -200,7 +198,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                  Navigator.pushReplacement(
                                      context,
                                      MaterialPageRoute(
-                                         builder: (context) => HomeScreen()
+                                         builder: (context) => const HomeScreen()
                                      ));
                                });
                              },

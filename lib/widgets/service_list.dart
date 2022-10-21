@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:stellar_track/main.dart';
 import 'package:stellar_track/widgets/add_to_cart_button.dart';
 import 'package:stellar_track/widgets/product_details_bottom_sheet.dart';
 import 'package:stellar_track/widgets/shimmer_loader.dart';
@@ -47,7 +45,7 @@ class _ServiceListState extends State<ServiceList> {
             var slots;
             var value;
             var units;
-            Get.dialog(Center(child: const Loader()));
+            Get.dialog(const Center(child: Loader()));
             await getProductDetails(
                 widget.data["data"][widget.index]
                 ["product_id"])
@@ -242,7 +240,7 @@ class _ServiceListState extends State<ServiceList> {
                                       onTap: (() async {
                                         var slots;
                                         var value;
-                                        Get.dialog(Center(child: const Loader()));
+                                        Get.dialog(const Center(child: Loader()));
                                         await getProductDetails(
                                                 widget.data["data"][widget.index]
                                                     ["product_id"])

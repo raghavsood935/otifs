@@ -34,14 +34,14 @@ class _DaySlotsState extends State<DaySlots> {
         strokeWidth: 2,
         dashPattern: widget.selected == true ?
         [10,0] : [10,3],
-        radius: Radius.circular(10),
+        radius: const Radius.circular(10),
         borderType: BorderType.RRect,
         child: Container(
             child: Center(
               child: Text(
                 "${widget.date}\n ${weekdayMap[widget.weekday]}",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14, color: Color(0xff7E7D7D)),
+                style: const TextStyle(fontSize: 14, color: Color(0xff7E7D7D)),
               ),
             ),
             decoration: BoxDecoration(

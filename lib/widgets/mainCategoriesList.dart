@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stellar_track/Screens/subcategoryScreen.dart';
-import 'package:stellar_track/apiCalls.dart';
 import 'package:stellar_track/widgets/loader.dart';
 
-import '../Screens/serviceScreen.dart';
 
 class MainCategoriesList extends StatefulWidget {
   const MainCategoriesList({required this.data, Key? key}) : super(key: key);
@@ -69,7 +67,7 @@ class _MainCategoriesListState extends State<MainCategoriesList> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     widget.data["data"][index]["name"],
-                                    style: TextStyle(color: Color(0xff5C5C5C)),
+                                    style: const TextStyle(color: Color(0xff5C5C5C)),
                                   ),
                                 )
                         ],

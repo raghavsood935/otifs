@@ -1,20 +1,11 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:stellar_track/Screens/select_time_date.dart';
-import 'package:stellar_track/widgets/time_slot_selection.dart';
-import 'package:stellar_track/widgets/trigger_signin.dart';
 
-import '../Screens/checkout_page.dart';
 import '../api_calls.dart';
 import '../controllers.dart';
-import '../functions.dart';
 import '../main.dart';
-import 'add_units_value.dart';
-import 'date_slot_selection.dart';
-import 'select_address_bottomsheet.dart';
 import 'service_button.dart';
 
 class ProductDetailsWidget extends StatefulWidget {
@@ -35,7 +26,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
   String? selected = "";
   int? selected_unit_id = 0;
   TextEditingController textEditingController = TextEditingController(text: '1');
-  List _stateList = [];
+  final List _stateList = [];
   dynamic product_price;
 
   String updated_price='';
@@ -111,7 +102,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                 child: GestureDetector(
                   onTap: (){
                     c.screenIndex.value = 1;
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()
                     )
                     );
                   },
@@ -302,8 +293,9 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                                       loadingBuilder: (BuildContext context,
                                           Widget child,
                                           ImageChunkEvent? loadingProgress) {
-                                        if (loadingProgress == null)
+                                        if (loadingProgress == null) {
                                           return child;
+                                        }
                                         return Center(
                                           child: CircularProgressIndicator(
                                             value: loadingProgress

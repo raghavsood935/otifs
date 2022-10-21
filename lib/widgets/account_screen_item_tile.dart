@@ -51,7 +51,7 @@ class AcccountItemsTile extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style:
-                              TextStyle(fontSize: 12, color: Color(0xff7E7D7D)),
+                              const TextStyle(fontSize: 12, color: Color(0xff7E7D7D)),
                         ),
                       ),
                     )
@@ -60,8 +60,8 @@ class AcccountItemsTile extends StatelessWidget {
               )
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2.0),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 2.0),
             child: Divider(),
           )
         ],

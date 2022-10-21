@@ -17,7 +17,7 @@ class RewardCarousel extends StatelessWidget {
     final wd = MediaQuery.of(context).size.width;
     // print("ppppppppppppppppppppppp" + data["data"].toString());
     return data == null
-        ? SizedBox(height:150,child: Loader())
+        ? const SizedBox(height:150,child: Loader())
         : CarouselSlider.builder(
             itemCount: data["data"] == null ? 0 : data["data"].length,
             itemBuilder: ((context, index, realIndex) {
@@ -30,14 +30,14 @@ class RewardCarousel extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12)),
                         color: Colors.white,
                         child: data["data"][index]["offer_image"] == null
-                            ? Loader()
+                            ? const Loader()
                             : Image.network(
                                 data["data"][index]["offer_image"],
                                 loadingBuilder: (BuildContext context,
                                     Widget child,
                                     ImageChunkEvent? loadingProgress) {
                                   if (loadingProgress == null) return child;
-                                  return Center(
+                                  return const Center(
                                     child: SizedBox(height:150,child: ProfileShimmer()),
                                   );
                                 },
@@ -65,10 +65,10 @@ class SeasonalOffersCarousel extends StatelessWidget {
     final wd = MediaQuery.of(context).size.width;
     print("SUMMERSSSSSSSSSSSS" + data["data"].toString());
     return data == null
-        ? Loader()
+        ? const Loader()
         : Container(
             child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: 1,
                 shrinkWrap: true,
                 itemBuilder: ((context, index) {

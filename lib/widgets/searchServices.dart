@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,7 +46,7 @@ class SearchServices extends SearchDelegate {
           return ListTile(
             onTap: () async {
               var slots;
-              var prodID;
+              String? prodID;
               var value;
 
               prodID = c.allServicesMap.value[serviceSuggested[index]];

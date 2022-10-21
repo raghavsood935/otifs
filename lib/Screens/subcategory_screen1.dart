@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:stellar_track/Screens/service_screen.dart';
 import 'package:stellar_track/api_calls.dart';
 import 'package:stellar_track/widgets/shimmer_loader.dart';
@@ -119,7 +118,7 @@ class _SubcategoriesScreen1State extends State<SubcategoriesScreen1> {
                       child: GestureDetector(
                         onTap: (){
                           c.screenIndex.value = 1;
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()
                           )
                           );
                         },
@@ -142,7 +141,7 @@ class _SubcategoriesScreen1State extends State<SubcategoriesScreen1> {
               ),
               Expanded(
                 child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
                     childAspectRatio: 1.2
                   ),
                   padding: const EdgeInsets.all(0),
@@ -174,10 +173,10 @@ class _SubcategoriesScreen1State extends State<SubcategoriesScreen1> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
-                              color: Color(0xffe8e8e8)
+                              color: const Color(0xffe8e8e8)
                             ),
 
-                            boxShadow:[BoxShadow(
+                            boxShadow:const [BoxShadow(
                               color: Color(0xfffafafa),
                             ),]
                           ),
@@ -220,7 +219,7 @@ class _SubCategoryListItem1State extends State<SubCategoryListItem1> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
               child: Image.network(
                 widget.data["data"][0]["sub_categories"][widget.index]
                 ["sub_category_image"],

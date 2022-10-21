@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stellar_track/Screens/add_address_screen.dart';
 import 'package:stellar_track/api_calls.dart';
-import 'package:stellar_track/widgets/add_new_address.dart';
-import 'package:stellar_track/widgets/shimmer_loader.dart';
 
 import '../controllers.dart';
 import '../main.dart';
@@ -87,7 +85,7 @@ class _AddressesState extends State<Addresses> {
                         GestureDetector(
                           onTap:(){
                             c.screenIndex.value = 1;
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()
                             )
                             );
                           },
@@ -122,7 +120,7 @@ class _AddressesState extends State<Addresses> {
                 ],
               ),
               addresseslist["status"] == "failure"
-                  ? Center(child: Text(
+                  ? const Center(child: Text(
                   'No address found!'
                  )
               )

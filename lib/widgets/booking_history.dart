@@ -43,7 +43,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                     bookingButton: false,
                     activeBooking: true,
                     bookingScreen: true,
-                    color: Color(0xff7E7D7D),
+                    color: const Color(0xff7E7D7D),
                   );
                 });
   }

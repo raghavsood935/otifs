@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shimmer/flutter_shimmer.dart';
-import 'package:stellar_track/Screens/subcategory_screen.dart';
 import 'package:stellar_track/widgets/loader.dart';
 
 import '../Screens/subcategory_screen1.dart';
@@ -50,16 +49,17 @@ class _MainCategoriesListState extends State<MainCategoriesList> {
                               height: ht / 9.5,
                               width: wd / 5.4,
                               child: widget.data == null
-                                  ? SizedBox(height:150,child: const Loader())
+                                  ? const SizedBox(height:150,child: Loader())
                                   : Image.network(
                                       widget.data["data"][index]
                                           ["banner_image"],
                                       loadingBuilder: (BuildContext context,
                                           Widget child,
                                           ImageChunkEvent? loadingProgress) {
-                                        if (loadingProgress == null)
+                                        if (loadingProgress == null) {
                                           return child;
-                                        return Center(
+                                        }
+                                        return const Center(
                                           child: ProfileShimmer(),
                                         );
                                       },
@@ -69,7 +69,7 @@ class _MainCategoriesListState extends State<MainCategoriesList> {
                             ),
                           ),
                           widget.data == null
-                              ? SizedBox(height:150,child: const Loader())
+                              ? const SizedBox(height:150,child: Loader())
                               : Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: SizedBox(

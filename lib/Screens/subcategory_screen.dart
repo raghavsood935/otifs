@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:stellar_track/Screens/service_screen.dart';
 import 'package:stellar_track/api_calls.dart';
 import 'package:stellar_track/widgets/shimmer_loader.dart';
@@ -119,7 +118,7 @@ class _SubcategoriesScreenState extends State<SubcategoriesScreen> {
                             child: GestureDetector(
                               onTap: (){
                                 c.screenIndex.value = 1;
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()
                                 )
                                 );
                               },

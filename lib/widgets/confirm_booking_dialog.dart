@@ -1,8 +1,6 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stellar_track/Screens/Main%20Screens/home_page.dart';
 import 'package:stellar_track/api_calls.dart';
 import 'package:stellar_track/functions.dart';
 import 'package:stellar_track/main.dart';

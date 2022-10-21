@@ -33,7 +33,7 @@ class _TimeSlotsState extends State<TimeSlots> {
         strokeWidth: 2,
         dashPattern: widget.selected == true ?
         [10,0] : [10,3],
-        radius: Radius.circular(10),
+        radius: const Radius.circular(10),
         borderType: BorderType.RRect,
         child: Container(
             child: Center(

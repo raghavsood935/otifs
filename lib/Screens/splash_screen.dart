@@ -1,7 +1,4 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:animated_widgets/widgets/opacity_animated.dart';
-import 'package:animated_widgets/widgets/translation_animated.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stellar_track/Screens/signup_screen.dart';
@@ -32,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 5),
+      duration: const Duration(seconds: 5),
     ); // <-- Set your duration here.
     animation = Tween(begin: 0.0, end: 0.0).animate(controller);
     controller.forward();
@@ -55,14 +52,14 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     var wd = MediaQuery.of(context).size.width;
     _playAnimation();
     return Scaffold(
-      backgroundColor: Color(0xff38456C),
+      backgroundColor: const Color(0xff38456C),
       body: SafeArea(
         child: Stack(
           children: [
             AnimatedPositioned(
               top: selected ? ht/2.5 : 0.0,
               left: selected ? 70.0 : 0.0,
-              duration: Duration(seconds: 3),
+              duration: const Duration(seconds: 3),
               curve: Curves.fastOutSlowIn,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -82,8 +79,8 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                       ),
                     ),
                   ),
-                  SizedBox(width: 15),
-                  textbool ? Align(
+                  const SizedBox(width: 15),
+                  textbool ? const Align(
                     alignment: Alignment.center,
                     child: Text("Happy to Serve,\nAlways",
                         style: TextStyle(
@@ -103,7 +100,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   }
 
   void _changeposition(){
-    Future.delayed(Duration(seconds: 2),(){
+    Future.delayed(const Duration(seconds: 2),(){
       setState(() {
         position = "Change";
         selected = true;
@@ -111,7 +108,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     });
   }
   void _playAnimation() {
-    Future.delayed(Duration(seconds: 4),(){
+    Future.delayed(const Duration(seconds: 4),(){
       setState(() {
         textbool = true;
       });
@@ -119,15 +116,15 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   }
 
   void _gotohome() {
-    Future.delayed(Duration(seconds: 5),(){
+    Future.delayed(const Duration(seconds: 5),(){
       setState(() {
         if(getStorage.read('refUserId') == null){
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-              SignUpScreen()
+              const SignUpScreen()
           ));
         }else{
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-              HomeScreen()
+              const HomeScreen()
           ));
         }
       });

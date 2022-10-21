@@ -9,7 +9,7 @@ class HomeBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return data == null
-        ? SizedBox(height:150,child: Loader())
+        ? const SizedBox(height:150,child: Loader())
         : CarouselSlider.builder(
             itemCount: data["data"].length,
             options: CarouselOptions(
@@ -23,7 +23,7 @@ class HomeBanner extends StatelessWidget {
                   loadingBuilder: (BuildContext context, Widget child,
                       ImageChunkEvent? loadingProgress) {
                     if (loadingProgress == null) return child;
-                    return Center(
+                    return const Center(
                       child: ProfilePageShimmer(),
                     );
                   },

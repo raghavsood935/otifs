@@ -19,11 +19,11 @@ class _SignUpFlowButtonState extends State<SignUpFlowButton> {
     var ht = MediaQuery.of(context).size.height;
     var wd = MediaQuery.of(context).size.width;
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 18, horizontal: 38.0),
+      padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 38.0),
       child: Container(
         width: wd / 2,
         decoration: BoxDecoration(
-            border: Border.all(color: Color(0xff1FD0C2), width: 3),
+            border: Border.all(color: const Color(0xff1FD0C2), width: 3),
             borderRadius: BorderRadius.circular(30)),
         child: TextButton(
             style: ButtonStyle(

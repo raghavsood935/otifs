@@ -5,10 +5,7 @@ import 'package:stellar_track/widgets/shimmer_loader.dart';
 
 import '../controllers.dart';
 import '../main.dart';
-import '../widgets/carousel.dart';
-import '../widgets/notification_list_tile.dart';
 import '../widgets/signup_flow_button.dart';
-import 'Main Screens/home_page.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({Key? key}) : super(key: key);
@@ -20,9 +17,12 @@ class MyProfile extends StatefulWidget {
 class _MyProfileState extends State<MyProfile> {
   dynamic data;
   final Controller c = Get.put(Controller());
+  final co= TextEditingController();
   bool boolemail = false;
+  bool boolgst = false;
   bool boolname = false;
   String new_name = "";
+  String new_gst = "";
   String new_email = "";
   TextEditingController password = TextEditingController();
   TextEditingController confirm_password = TextEditingController();
@@ -105,7 +105,7 @@ class _MyProfileState extends State<MyProfile> {
                           child: GestureDetector(
                             onTap: (){
                               c.screenIndex.value = 1;
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()
                               )
                               );
                             },
@@ -134,7 +134,7 @@ class _MyProfileState extends State<MyProfile> {
                               visible: !boolname,
                               child: Text(
                                 new_name == "" ? data["data"][0]["first_name"].toString() : new_name,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold
                                 ),
@@ -154,12 +154,12 @@ class _MyProfileState extends State<MyProfile> {
                                         new_name = value;
                                       });
                                     },
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16
                                     ),
                                     initialValue: data["data"][0]["first_name"].toString(),
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                         hintText : "Enter you new name",
                                         border: InputBorder.none
                                     ),
@@ -171,7 +171,12 @@ class _MyProfileState extends State<MyProfile> {
                             GestureDetector(
                               onTap: (){
                                 if(boolname){
-                                  updateProfileDetails(c.refUserId.value, new_name, new_email == "" ? data["data"][0]["email"].toString() : new_email).then((value) {
+                                  updateProfileDetails(
+                                      c.refUserId.value,
+                                      new_name == "" ? data["data"][0]["first_name"].toString() : new_name,
+                                      new_email == "" ? data["data"][0]["email"].toString() : new_email,
+                                      new_gst == "" ? data["data"][0]["gst"].toString() : new_gst
+                                  ).then((value) {
                                     setState(() {
                                       boolname = false;
                                       Get.showSnackbar(const GetSnackBar(
@@ -189,7 +194,7 @@ class _MyProfileState extends State<MyProfile> {
                                 alignment : Alignment.centerRight,
                                 child: Text(
                                   boolname ? 'Save' : 'Update',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 16,
                                       color: Colors.blue
                                   ),
@@ -216,7 +221,7 @@ class _MyProfileState extends State<MyProfile> {
                               visible: !boolemail,
                               child: Text(
                                 new_email == "" ? data["data"][0]["email"].toString() : new_email,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold
                                 ),
@@ -236,12 +241,12 @@ class _MyProfileState extends State<MyProfile> {
                                         new_email = value;
                                       });
                                     },
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16
                                     ),
                                     initialValue: data["data"][0]["email"].toString(),
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                         hintText : "Enter you new Email",
                                         border: InputBorder.none
                                     ),
@@ -256,7 +261,8 @@ class _MyProfileState extends State<MyProfile> {
                                   updateProfileDetails(
                                       c.refUserId.value,
                                       new_name == "" ? data["data"][0]["first_name"].toString() : new_name,
-                                      new_email == "" ? data["data"][0]["email"].toString() : new_email
+                                      new_email == "" ? data["data"][0]["email"].toString() : new_email,
+                                      new_gst == "" ? data["data"][0]["gst"].toString() : new_gst
                                   ).then((value) {
                                     setState(() {
                                       boolemail = false;
@@ -275,7 +281,98 @@ class _MyProfileState extends State<MyProfile> {
                                 alignment : Alignment.centerRight,
                                 child: Text(
                                   boolemail ? 'Save' : 'Update',
-                                  style: TextStyle(
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.blue
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(5)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+                        child: Stack(
+                          children: [
+                            Visibility(
+                              visible: !boolgst,
+                              child: Text(
+                                new_gst == "" ? data["data"][0]["gst"].toString() : new_gst,
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold
+                                ),
+                              ),
+                            ),
+                            Visibility(
+                              visible: boolgst,
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                child: SizedBox(
+                                  height: 20,
+                                  child: TextFormField(
+                                    maxLength: 15,
+                                    autofocus: true,
+                                    enabled: true,
+                                    onChanged: (value){
+                                      setState(() {
+                                        print("GST Entered is $new_gst");
+                                        new_gst = value;
+                                      });
+                                    },
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16
+                                    ),
+                                    initialValue: data["data"][0]["gst"].toString(),
+                                    decoration: const InputDecoration(
+                                        hintText : "Enter you new GST IN.",
+                                        border: InputBorder.none,
+                                        counterText: ""
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            GestureDetector(
+                              onTap: (){
+                                if(boolgst){
+                                  print("Api Called");
+                                  updateProfileDetails(
+                                      c.refUserId.value,
+                                      new_name == "" ? data["data"][0]["first_name"].toString() : new_name,
+                                      new_email == "" ? data["data"][0]["email"].toString() : new_email,
+                                      new_gst == "" ? data["data"][0]["gst"].toString() : new_gst
+                                  ).then((value) {
+                                    setState(() {
+                                      boolgst=false;
+                                      Get.showSnackbar(const GetSnackBar(
+                                        duration: Duration(seconds: 2),
+                                        message: "User GST Updated",
+                                      ));
+                                    });
+                                  });
+                                }
+                                setState(() {
+                                  boolgst = true;
+                                });
+                              },
+                              child: Align(
+                                alignment : Alignment.centerRight,
+                                child: Text(
+                                  boolgst ? 'Save' : 'Update',
+                                  style: const TextStyle(
                                       fontSize: 16,
                                       color: Colors.blue
                                   ),
@@ -314,11 +411,11 @@ class _MyProfileState extends State<MyProfile> {
                                               },
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                    color: Color(0xff1FD0C2),
+                                                    color: const Color(0xff1FD0C2),
                                                     borderRadius: BorderRadius.circular(50)
                                                 ),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(5),
+                                                child: const Padding(
+                                                  padding: EdgeInsets.all(5),
                                                   child: Icon(
                                                     Icons.close_rounded,
                                                     color: Colors.white,
@@ -332,9 +429,9 @@ class _MyProfileState extends State<MyProfile> {
                                         Column(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            Padding(
+                                            const Padding(
                                               padding: EdgeInsets.all(0),
-                                              child: const Text(
+                                              child: Text(
                                                 "Change Password",
                                                 style: TextStyle(
                                                     fontSize: 22,
@@ -433,13 +530,13 @@ class _MyProfileState extends State<MyProfile> {
                                               textColor: Colors.black,
                                               onPressed: () {
                                                 if (password.text == "") {
-                                                  Get.showSnackbar(GetSnackBar(
+                                                  Get.showSnackbar(const GetSnackBar(
                                                     title: "Field Missing",
                                                     message: "Please enter password",
                                                     duration: Duration(seconds: 2),
                                                   ));
                                                 }else if(confirm_password.text != password.text){
-                                                  Get.showSnackbar(GetSnackBar(
+                                                  Get.showSnackbar(const GetSnackBar(
                                                     title: "Password not matched",
                                                     message: "Please enter same password and confirm password",
                                                     duration: Duration(seconds: 2),
@@ -448,7 +545,7 @@ class _MyProfileState extends State<MyProfile> {
                                                   updatePassword(c.refUserId.value, password.text.toString()).then((value) {
                                                     Get.back();
                                                     setState(() {
-                                                      Get.showSnackbar(GetSnackBar(
+                                                      Get.showSnackbar(const GetSnackBar(
                                                         title: "Password Changed",
                                                         message: "Password changed successfully",
                                                         duration: Duration(seconds: 2),
@@ -474,7 +571,7 @@ class _MyProfileState extends State<MyProfile> {
                           padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
+                            children: const [
                               Text(
                                 'Change Password',
                                 style: TextStyle(
@@ -504,7 +601,7 @@ class _MyProfileState extends State<MyProfile> {
                              getStorage.write('refUserId', null);
                              Navigator.pushReplacement(context,
                              MaterialPageRoute(builder: (context) =>
-                                 HomeScreen()
+                                 const HomeScreen()
                              )
                              );
                            });
@@ -513,7 +610,7 @@ class _MyProfileState extends State<MyProfile> {
                           padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
+                            children: const [
                               Text(
                                 'Sign out',
                                 style: TextStyle(

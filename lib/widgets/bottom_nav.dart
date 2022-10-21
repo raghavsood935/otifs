@@ -2,7 +2,6 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stellar_track/api_calls.dart';
-import 'package:stellar_track/main.dart';
 
 import '../controllers.dart';
 
@@ -89,10 +88,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
                       icon: Badge(
                         showBadge: true,
                         ignorePointer: true,
-                        badgeColor: Color(0xff1FD0C2),
+                        badgeColor: const Color(0xff1FD0C2),
                         badgeContent: Text(
                          c.cartCount.value.toString(),
-                          style: TextStyle(fontSize: 14, color: Colors.white),
+                          style: const TextStyle(fontSize: 14, color: Colors.white),
                         ),
                         child: Image.asset(
                           "assets/icons/BottomNav/cart.png",

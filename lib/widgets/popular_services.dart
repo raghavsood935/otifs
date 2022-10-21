@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_shimmer/flutter_shimmer.dart';
@@ -37,7 +36,7 @@ class _PopularServicesHomeState extends State<PopularServicesHome> {
               onTap: (() async {
                 var slots;
                 var value;
-                Get.dialog(SizedBox(height:150,child: const Loader()));
+                Get.dialog(const SizedBox(height:150,child: Loader()));
 
                 await getProductDetails(
                         widget.data["data"][index]["product_id"])
@@ -71,7 +70,7 @@ class _PopularServicesHomeState extends State<PopularServicesHome> {
                         loadingBuilder: (BuildContext context, Widget child,
                             ImageChunkEvent? loadingProgress) {
                           if (loadingProgress == null) return child;
-                          return Center(
+                          return const Center(
                             child: SizedBox(
                               height: 150,
                               child: ProfileShimmer(),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:stellar_track/Screens/signInScreen.dart';
 import 'package:stellar_track/apiCalls.dart';
 import 'package:stellar_track/widgets/otpField.dart';
 
@@ -23,9 +22,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       body: SafeArea(
         child: Container(
           height: ht,
-          color: Color(0xff38456C),
+          color: const Color(0xff38456C),
           child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
                 Padding(
@@ -67,8 +66,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           child: TextFormField(
                             maxLength: 10,
                             controller: mobileController,
-                            cursorColor: Color(0xff38456C),
-                            decoration: InputDecoration(
+                            cursorColor: const Color(0xff38456C),
+                            decoration: const InputDecoration(
                                 counterText: "",
                                 border: InputBorder.none,
                                 iconColor: Colors.white,
@@ -106,7 +105,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: SizedBox(
                       width: wd / 2.5,
                       child: Row(
-                        children: [
+                        children: const [
                           Text(
                             "Have Account?",
                             style: TextStyle(color: Colors.white, fontSize: 14),
@@ -148,7 +147,7 @@ class _SignUpFlowButtonState extends State<SignUpFlowButton> {
     var ht = MediaQuery.of(context).size.height;
     var wd = MediaQuery.of(context).size.width;
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 18, horizontal: 38.0),
+      padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 38.0),
       child: Container(
         width: wd / 2,
         decoration: BoxDecoration(
@@ -159,7 +158,7 @@ class _SignUpFlowButtonState extends State<SignUpFlowButton> {
                 backgroundColor: MaterialStateProperty.all(Colors.transparent)),
             child: Text(
               widget.buttonText,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
             onPressed: widget.onPressed),
       ),

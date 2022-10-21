@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:stellar_track/api_calls.dart';
 import 'package:stellar_track/widgets/service_button.dart';
-import 'dart:math' as math; // import this
+// import this
 
 import '../controllers.dart';
 
@@ -58,7 +56,7 @@ class _AddUnitsValueState extends State<AddUnitsValue> {
                    Text(
                     widget.units+"  ",
                     maxLines: 10,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Color(0xff5C5C5C),
                         fontWeight: FontWeight.bold,
                         fontSize: 14),
@@ -115,12 +113,12 @@ Future addUnitsDialog(String unit,
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setState) => Dialog(
-            child: Container(
+            child: SizedBox(
               height: ht / 4,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     "Enter total Quantity",
                     style: TextStyle(
                         color: Colors.black,
@@ -229,6 +227,5 @@ Future addUnitsDialog(String unit,
       c.sqft.value = '1';
     }
 
-    ;
   });
 }

@@ -1,21 +1,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:stellar_track/Screens/checkout_page.dart';
 import 'package:stellar_track/Screens/service_screen.dart';
 import 'package:stellar_track/api_calls.dart';
-import 'package:stellar_track/widgets/add_units_value.dart';
 import 'package:stellar_track/widgets/address_widget.dart';
 import 'package:stellar_track/widgets/carousel.dart';
 import 'package:stellar_track/widgets/service_button.dart';
 import 'package:stellar_track/widgets/shimmer_loader.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:stellar_track/widgets/time_slot_selection.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import '../../controllers.dart';
 import '../../main.dart';
-import '../../widgets/date_slot_selection.dart';
 import '../../widgets/day_slots.dart';
 import '../../widgets/trigger_signin.dart';
 import 'home_page.dart';
@@ -47,17 +43,17 @@ class _CartScreenState extends State<CartScreen> {
 
     c.currentDateSelected.value = '0';
     c.dateSelected.value = (DateTime.parse(c.date.value)
-        .add(Duration(days: 0))
+        .add(const Duration(days: 0))
         .toString()
         .split('-')[0] +
         '-' +
         DateTime.parse(c.date.value)
-            .add(Duration(days: 0))
+            .add(const Duration(days: 0))
             .toString()
             .split('-')[1] +
         '-' +
         DateTime.parse(c.date.value)
-            .add(Duration(days: 0))
+            .add(const Duration(days: 0))
             .toString()
             .split('-')[2]
             .split(' ')
@@ -212,7 +208,7 @@ class _CartScreenState extends State<CartScreen> {
                                             child: GestureDetector(
                                               onTap: (){
                                                 c.screenIndex.value = 1;
-                                                Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                                                Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
                                               },
                                               child: Image.asset(
                                                 "assets/AppBarCall.png",
@@ -334,12 +330,12 @@ class _CartScreenState extends State<CartScreen> {
                                                                   ),
                                                              ],
                                                            ),
-                                                            SizedBox(height: 50),
+                                                            const SizedBox(height: 50),
                                                           _dateSelection(),
-                                                          SizedBox(height: 20),
+                                                          const SizedBox(height: 20),
                                                           TimeSlotsSelection(
                                                               slots: value),
-                                                          SizedBox(height: 20),
+                                                          const SizedBox(height: 20),
                                                           ServiceButton(
                                                             buttonText:
                                                                 'Proceed',
@@ -379,7 +375,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                   Navigator.pushReplacement(
                                                                       context,
                                                                       MaterialPageRoute(
-                                                                          builder: (context) => HomeScreen()));
+                                                                          builder: (context) => const HomeScreen()));
 
                                                               });
                                                               Navigator.pop(context);
@@ -432,12 +428,12 @@ class _CartScreenState extends State<CartScreen> {
         builder: (context) {
           return StatefulBuilder(
             builder: (context, setState) => Dialog(
-              child: Container(
+              child: SizedBox(
                 height: ht / 4,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       "Enter Quantity",
                       style: TextStyle(
                           color: Colors.black,
@@ -554,7 +550,6 @@ class _CartScreenState extends State<CartScreen> {
         c.sqft.value = '1';
       }
 
-      ;
     });
   }
 
@@ -573,7 +568,7 @@ class _CartScreenState extends State<CartScreen> {
                 .weekday
                 .toString());
 
-            var day;
+            int day;
 
             if (weekday <= 6) {
               day = int.parse(DateTime.parse(c.date.value)
@@ -832,7 +827,7 @@ class _CartItemListTileState extends State<CartItemListTile> {
                                 fontWeight: FontWeight.bold
                               ),
                             ),
-                            Expanded(child: SizedBox()),
+                            const Expanded(child: SizedBox()),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -867,7 +862,7 @@ class _CartItemListTileState extends State<CartItemListTile> {
                                       textAlign: TextAlign.center,
                                       controller: textEditingController,
                                       keyboardType: TextInputType.number,
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                         border: InputBorder.none
                                       ),
                                       onEditingComplete: () {
@@ -898,7 +893,7 @@ class _CartItemListTileState extends State<CartItemListTile> {
                                     child: RotatedBox(
                                       quarterTurns: 3,
                                       child: Padding(
-                                        padding: const EdgeInsets.all(0),
+                                        padding: EdgeInsets.all(0),
                                         child: Icon(
                                             Icons.add
                                         ),
@@ -932,14 +927,14 @@ class _CartItemListTileState extends State<CartItemListTile> {
                                   children: [
                                     Text(
                                       widget.data['data'][widget.index]['unit_name'].toString(),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w900,
                                           color: Color(0xff5C5C5C)),
                                     ),
                                     Text(
                                       widget.data['data'][widget.index]['dispval'].toString(),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w900,
                                           color: Color(0xff5C5C5C)),
@@ -1028,7 +1023,7 @@ class _CartItemAreawidgetState extends State<CartItemAreawidget> {
         children: [
            Text(
              widget.data['data'][widget.index]['unit_name'].toString()+" - "+widget.data['data'][widget.index]['dispval'].toString(),
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w900,
                 color: Color(0xff5C5C5C)),

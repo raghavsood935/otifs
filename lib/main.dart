@@ -1,5 +1,3 @@
-
-
 import 'dart:io';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -35,7 +33,6 @@ List<Widget> screens = const [
   AccountSectionScreen(),
 ];
 
-
 void main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,7 +48,7 @@ class MyApp extends StatelessWidget {
 
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   static FirebaseAnalyticsObserver observer =
-  FirebaseAnalyticsObserver(analytics: analytics);
+      FirebaseAnalyticsObserver(analytics: analytics);
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +57,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeClass.lightTheme,
       debugShowCheckedModeBanner: false,
       home: MyHomePage(
-          title: 'Flutter Demo Home Page',
+        title: 'Flutter Demo Home Page',
         analytics: analytics,
         observer: observer,
       ),
@@ -69,7 +66,12 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title, required this.analytics, required this.observer}) : super(key: key);
+  const MyHomePage(
+      {Key? key,
+      required this.title,
+      required this.analytics,
+      required this.observer})
+      : super(key: key);
 
   final String title;
   final FirebaseAnalytics analytics;
@@ -80,15 +82,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   void initState() {
     // TODO: implement initState
     widget.analytics.setCurrentScreen(screenName: "HomePage");
-     widget.analytics.logShare(contentType: "App Link", itemId: "Unique", method: "Application");
+    widget.analytics.logShare(
+        contentType: "App Link", itemId: "Unique", method: "Application");
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +99,9 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key, }) : super(key: key);
+  const HomeScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -110,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    getAppVersions().then((value){
+    getAppVersions().then((value) {
       setState(() {
         appversion = value;
         versionCheck(context, appversion);
@@ -122,14 +125,15 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     });
   }
-  Future versionCheck(context,appversion) async {
+
+  Future versionCheck(context, appversion) async {
     //Get Current installed version of app
     final PackageInfo info = await PackageInfo.fromPlatform();
-    double currentVersion = double.parse(info.version.trim().replaceAll(".", ""));
+    double currentVersion =
+        double.parse(info.version.trim().replaceAll(".", ""));
     try {
-      double newVersion = double.parse(appversion["data"]["android_version"]
-          .trim()
-          .replaceAll(".", ""));
+      double newVersion = double.parse(
+          appversion["data"]["android_version"].trim().replaceAll(".", ""));
       if (newVersion > currentVersion) {
         _showVersionDialog(context);
       }
@@ -138,9 +142,9 @@ class _HomeScreenState extends State<HomeScreen> {
       print(exception);
     }
   }
+
   _showVersionDialog(context) async {
-    const APP_STORE_URL =
-        '';
+    const APP_STORE_URL = '';
     const PLAY_STORE_URL =
         'https://play.google.com/store/apps/details?id=com.app.OTIFs';
     await showDialog<String>(
@@ -154,36 +158,37 @@ class _HomeScreenState extends State<HomeScreen> {
         String btnLabelCancel = "Later";
         return Platform.isIOS
             ? CupertinoAlertDialog(
-          title: Text(title),
-          content: Text(message),
-          actions: <Widget>[
-            FlatButton(
-              child: Text(btnLabel),
-              onPressed: () => _launchURL(APP_STORE_URL),
-            ),
-            FlatButton(
-              child: Text(btnLabelCancel),
-              onPressed: () => Navigator.pop(context),
-            ),
-          ],
-        )
+                title: Text(title),
+                content: Text(message),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text(btnLabel),
+                    onPressed: () => _launchURL(APP_STORE_URL),
+                  ),
+                  FlatButton(
+                    child: Text(btnLabelCancel),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
+              )
             : AlertDialog(
-          title: Text(title),
-          content: Text(message),
-          actions: <Widget>[
-            FlatButton(
-              child: Text(btnLabel),
-              onPressed: () => _launchURL(PLAY_STORE_URL),
-            ),
-            FlatButton(
-              child: Text(btnLabelCancel),
-              onPressed: () => Navigator.pop(context),
-            ),
-          ],
-        );
+                title: Text(title),
+                content: Text(message),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text(btnLabel),
+                    onPressed: () => _launchURL(PLAY_STORE_URL),
+                  ),
+                  FlatButton(
+                    child: Text(btnLabelCancel),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
+              );
       },
     );
   }
+
   _launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -191,7 +196,6 @@ class _HomeScreenState extends State<HomeScreen> {
       throw 'Could not launch $url';
     }
   }
-
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,6 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:stellar_track/Screens/Main%20Screens/cart_screen.dart';
 import 'package:stellar_track/api_calls.dart';
 import 'package:stellar_track/main.dart';
 import 'package:stellar_track/widgets/shimmer_loader.dart';
@@ -91,7 +90,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
               GestureDetector(
                 onTap: () {
                   c.screenIndex.value = 2;
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()
                   ));
                 },
                 child: Padding(
@@ -175,7 +174,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                   child: GestureDetector(
                                     onTap: (){
                                       c.screenIndex.value = 1;
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()
                                       )
                                       );
                                     },

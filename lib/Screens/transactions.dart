@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,8 +8,6 @@ import 'package:stellar_track/widgets/shimmer_loader.dart';
 
 import '../controllers.dart';
 import '../main.dart';
-import '../widgets/active_bookings.dart';
-import '../widgets/booking_history.dart';
 import '../widgets/carousel.dart';
 
 class Transactions extends StatefulWidget {
@@ -99,7 +96,7 @@ class _TransactionsState extends State<Transactions> {
                               child: GestureDetector(
                                 onTap: (){
                                   c.screenIndex.value = 1;
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()
                                   )
                                   );
                                 },
@@ -158,7 +155,7 @@ class _TransactionsState extends State<Transactions> {
                               children: [
                                 BookingTransactions(
                                     data: bookingsData, index: index),
-                                RandomScreen()
+                                const RandomScreen()
                               ]),
                         )
                       ],
@@ -292,7 +289,7 @@ class BookingTransactions extends StatelessWidget {
                   ),
                 ],
               ),
-              Divider()
+              const Divider()
             ],
           ),
         ),
