@@ -85,6 +85,7 @@ class _HomePageState extends State<HomePage> {
     getPopularServices().then((value) {
       setState(() {
         popularServices = value;
+        print("Popular Services are $popularServices");
       });
     });
 
@@ -199,7 +200,7 @@ class _HomePageState extends State<HomePage> {
                           padding:
                               EdgeInsets.only(left: 8.0, top: 20, right: 8.0),
                           child: Text(
-                            "Popular services",
+                            "Popular Services",
                             style: TextStyle(
                                 color: Colors.black54,
                                 fontSize: 17,

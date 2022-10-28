@@ -40,7 +40,7 @@ class _CartScreenState extends State<CartScreen> {
   TextEditingController(text: '0');
   @override
   void initState() {
-
+print("Cart Screen Tapped");
     c.currentDateSelected.value = '0';
     c.dateSelected.value = (DateTime.parse(c.date.value)
         .add(const Duration(days: 0))
@@ -838,6 +838,7 @@ class _CartItemListTileState extends State<CartItemListTile> {
                                     setState(
                                           () {
                                         textEditingController.text = value.toString();
+                                        print("Value is ${textEditingController.text}");
                                         c.sqft.value = value.toString();
                                         updatedetails(widget.index);
                                         _updatedetails(widget.index);

@@ -175,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                     const Padding(
                       padding: EdgeInsets.only(left: 8.0, top: 20, right: 8.0),
                       child: Text(
-                        "Popular services",
+                        "Popular Services",
                         style: TextStyle(
                             color: Colors.black54,
                             fontSize: 17,

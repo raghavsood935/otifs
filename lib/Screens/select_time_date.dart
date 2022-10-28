@@ -744,9 +744,13 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
 
                     setState(
                           () {
-                        textEditingController.text = value.toString();
-                        _updatedetails();
-                      },
+                            if(value<0)
+                              value=0;
+                            else {
+                              textEditingController.text = value.toString();
+                              _updatedetails();
+                              }
+                            },
                     );
                   }),
                   child: const Card(
