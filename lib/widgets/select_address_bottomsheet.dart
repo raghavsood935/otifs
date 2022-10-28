@@ -4,7 +4,6 @@ import 'package:stellar_track/Screens/add_address_screen.dart';
 import 'package:stellar_track/api_calls.dart';
 import 'package:stellar_track/functions.dart';
 import 'package:stellar_track/widgets/service_button.dart';
-
 import '../Screens/addresses.dart';
 import '../controllers.dart';
 
@@ -61,21 +60,18 @@ class SelectAddressBottomSheetState extends State<SelectAddressBottomSheet> {
                       decoration: const BoxDecoration(
                           shape: BoxShape.circle, color: Colors.white),
                     ),
-                    const Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 8.0),
-                        child: Align(
+                     SizedBox(width: 15,),
+                     Align(
                           alignment: Alignment.center,
                           child: Text(
-                            "Add address",
+                            "Add Address",
                             style: TextStyle(
                                 color: Color(0xff5C5C5C),
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
-                      ),
-                    )
+
                   ],
                 ),
                 widget.data["status"].toString() == "failure" ?
