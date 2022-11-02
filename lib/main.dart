@@ -1,20 +1,16 @@
 import 'dart:io';
-
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:package_info/package_info.dart';
-
 import 'package:stellar_track/Screens/Main%20Screens/bookacall.dart';
 import 'package:stellar_track/Screens/Main%20Screens/booking_lists_screen.dart';
 import 'package:stellar_track/Screens/Main%20Screens/cart_screen.dart';
 import 'package:stellar_track/Screens/Main%20Screens/home_page.dart';
 import 'package:stellar_track/api_calls.dart';
-
 import 'package:stellar_track/functions.dart';
 import 'package:stellar_track/themes.dart';
 import 'package:stellar_track/widgets/bottom_nav.dart';

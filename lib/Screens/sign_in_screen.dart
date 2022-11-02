@@ -80,7 +80,8 @@ class _SignInScreenState extends State<SignInScreen> {
                             border: InputBorder.none,
                             iconColor: Colors.white,
                             focusColor: Colors.white,
-                            fillColor: Colors.white),
+                            fillColor: Colors.white
+                        ),
                       ),
                     ),
                   )
@@ -97,8 +98,8 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         child: TextFormField(
                           textAlign: TextAlign.center,
-                          maxLength: 10,
-                          keyboardType: TextInputType.visiblePassword,
+                          maxLength: 15,
+                          keyboardType: TextInputType.text,
                           controller: passwordController,
                           cursorColor: const Color(0xff38456C),
                           decoration: const InputDecoration(

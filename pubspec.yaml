@@ -57,6 +57,9 @@ dependencies:
   pull_to_refresh: ^2.0.0
   syncfusion_flutter_datepicker: ^20.2.43
   flutter_launcher_icons: ^0.10.0
+  facebook_app_events: ^0.18.0
+  flutter_facebook_login: ^3.0.0
+  facebook_audience_network: ^1.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

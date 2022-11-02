@@ -41,7 +41,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Card(
                       clipBehavior: Clip.hardEdge,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
+                          borderRadius: BorderRadius.circular(20)
+                      ),
                       child: SizedBox(
                         height: ht / 1.8,
                         child: Image.asset(

@@ -159,21 +159,24 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                Text(
-                                  // "10 May, 9 AM",
-                                  '${DateTime.parse(c.dateSelected.value).add(const Duration(days: 0))
-                                      .toString().split('-')[2]
-                                      .split(' ')
-                                      .first
-                                  } ${monthMap[
-                                  DateTime.parse(c.dateSelected.value)
-                                      .toString().split('-')[1].toString()
-                                  ]},'
-                                      '${c.timeSlot.value}',
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Color(0xff1FD0C2),
-                                      fontWeight: FontWeight.bold),
+                                Expanded(
+                                  child: Text(
+                                    // "10 May, 9 AM",
+                                    '${DateTime.parse(c.dateSelected.value).add(const Duration(days: 0))
+                                        .toString().split('-')[2]
+                                        .split(' ')
+                                        .first
+                                    } ${monthMap[
+                                    DateTime.parse(c.dateSelected.value)
+                                        .toString().split('-')[1].toString()
+                                    ]},'
+                                        '${c.timeSlot.value}',
+                                    style: const TextStyle(
+                                      overflow: TextOverflow.ellipsis,
+                                        fontSize: 16,
+                                        color: Color(0xff1FD0C2),
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 )
                               ],
                             ),
@@ -627,7 +630,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       ),
                     ),
                 first_time_coupn["status"]!= "failure" || applied==true?
-                Padding(padding: EdgeInsets.symmetric(horizontal: 5,vertical: 5,),
+                Padding(padding: EdgeInsets.symmetric(horizontal: 0,vertical: 5,),
                     child: Card(
                       shadowColor: const Color(0xff000029),
                       elevation: 5,
@@ -639,20 +642,23 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           color: Color(0xffF7F7F7)
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8),
+                          padding: EdgeInsets.symmetric(horizontal: 20),
                             child: Row(
                               children: [
                                 Image.asset("assets/icons/icons_png/017-offer-1.png",width:35,height: 35,),
-                                Spacer(),
-                                Text(
-                                first_time_coupn["status"]== "failure"?
-                                couponApply["response"]["message"]:
-                                first_time_coupn["response"]["message"],
-                                style: TextStyle(
-                                  color: Color(0xff1FD0C2),
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                SizedBox(width: 15,),
+                                Expanded(
+                                  child: Text(
+                                  first_time_coupn["status"]== "failure"?
+                                  couponApply["response"]["message"]:
+                                  first_time_coupn["response"]["message"],
+                                  style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    color: Color(0xff1FD0C2),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                               ),
+                                ),
                              ],
                             ),
                         ),
