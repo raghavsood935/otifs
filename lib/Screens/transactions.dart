@@ -24,6 +24,7 @@ class _TransactionsState extends State<Transactions> {
     getBookingTransactions(c.refUserId.value).then((value) {
       setState(() {
         bookingsData = value;
+        print(bookingsData);
       });
     });
   }
@@ -138,8 +139,7 @@ class _TransactionsState extends State<Transactions> {
                               Tab(
                                 child: Container(
                                   margin: const EdgeInsets.all(0),
-                                  color:
-                                      DefaultTabController.of(context)!.index ==
+                                  color: DefaultTabController.of(context)!.index ==
                                               1
                                           ? const Color(0xff38456C)
                                           : Colors.white,
@@ -153,9 +153,15 @@ class _TransactionsState extends State<Transactions> {
                           child: TabBarView(
                               physics: const NeverScrollableScrollPhysics(),
                               children: [
-                                BookingTransactions(
-                                    data: bookingsData, index: index),
-                                const RandomScreen()
+                                bookingsData["status"]!="failure"
+                                ? BookingTransactions(
+                                    data: bookingsData, index: index)
+                                : Center(child:
+                                Text("No Bookings as of Now"),
+                                ),
+                                Center(
+                                  child: Text("No Refunds"),
+                                )
                               ]),
                         )
                       ],

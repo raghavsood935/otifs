@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:facebook_audience_network/ad/ad_banner.dart';
+import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stellar_track/functions.dart';
@@ -33,6 +35,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final Controller c = Get.put(Controller());
+  Widget _currentAd=SizedBox(
+    height: 0.0,
+    width: 0.0,
+  );
 
   @override
   void initState() {
@@ -150,7 +156,10 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Image.asset("assets/HomeBanner.png"),
-                        HomeBanner(data: banners),
+                        Padding(
+                            child: HomeBanner(data: banners),
+                        padding: EdgeInsets.symmetric(horizontal: 5)
+                        ),
                         const Padding(
                           padding: EdgeInsets.only(
                               left: 8.0, right: 8.0, top: 10, bottom: 10),
@@ -335,11 +344,7 @@ class _HomePageState extends State<HomePage> {
                           fit: BoxFit.fill,
                           width: wd,
                         ),
-                        SizedBox(
-                          height: wd / 4,
-                        ),
 
-                        //
                       ],
                     ),
                   ),
