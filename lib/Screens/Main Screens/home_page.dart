@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:facebook_audience_network/ad/ad_banner.dart';
 import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final Controller c = Get.put(Controller());
+  static final facebookAppEvents = FacebookAppEvents();
   Widget _currentAd=SizedBox(
     height: 0.0,
     width: 0.0,
@@ -122,6 +124,7 @@ class _HomePageState extends State<HomePage> {
         });
       }
     });
+    facebookAppEvents.setAdvertiserTracking(enabled: true);
   }
 
   @override
