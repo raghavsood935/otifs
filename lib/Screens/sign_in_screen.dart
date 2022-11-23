@@ -80,11 +80,10 @@ class _SignInScreenState extends State<SignInScreen> {
                             border: InputBorder.none,
                             iconColor: Colors.white,
                             focusColor: Colors.white,
-                            fillColor: Colors.white
-                        ),
+                            fillColor: Colors.white),
                       ),
                     ),
-                  )
+                  ),
                 ),
                 Padding(
                     padding: const EdgeInsets.symmetric(
@@ -111,8 +110,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               fillColor: Colors.white),
                         ),
                       ),
-                    )
-                ),
+                    )),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: 40, horizontal: 38.0),
@@ -130,82 +128,88 @@ class _SignInScreenState extends State<SignInScreen> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () {
-                       if(mobileController.text.isEmpty){
-                         Get.showSnackbar(const GetSnackBar(
-                           duration: Duration(seconds: 2),
-                           message: "Email can't be empty",
-                         ));
-                       }else if(passwordController.text.isEmpty){
-                         Get.showSnackbar(const GetSnackBar(
-                           duration: Duration(seconds: 2),
-                           message: "Password can't be empty",
-                         ));
-                       }else{
-                         showDialog(
-                             context: context,
-                             builder: (context) {
-                               return Dialog(
-                                 backgroundColor: Colors.transparent.withOpacity(0.5),
-                                 child: const LocationShimmer(
-                                     height: 30, width: 100, string: "Validating"),
-                               );
-                             });
-                         loginwithPassword(mobileController.text.toString(), passwordController.text.toString()).then((value) async {
-                           setState(() {
-                             c.refUserId.value = value["data"]["ref_user_id"];
-                           });
-                           await saveLoginStatus(value["data"]["ref_user_id"])
-                               .then((value) {
-                             setState(() {
-
-                             });
-                           });
-                           // if (value["response"]["message"].toString() ==
-                           //     "Logged in succesfully") {
-                           //   if (widget.onboarding == false) {
-                           //     await saveLoginStatus(value["data"]["ref_user_id"])
-                           //         .then((value) => print("Ref ID Saved"));
-                           //   } else {
-                           //     Navigator.push(
-                           //         context,
-                           //         MaterialPageRoute(
-                           //             builder: (context) => const AddAddress()));
-                           //   }
-                           // }
-                           value["response"]["message"].toString() ==
-                               "Logged in successfully"
-                               ? Get.close(1)
-                               : listUserAddresses(c.refUserId.value,null)
-                               .then((value) {
-                             if (value['response']['message'] ==
-                                 "Data not available") {
-                               Navigator.push(
-                                   context,
-                                   MaterialPageRoute(
-                                       builder: (context) =>
-                                       const AddAddress()));
-                             } else {
-                               Navigator.push(
-                                   context,
-                                   MaterialPageRoute(
-                                       builder: (context) => const HomePage()));
-                             }
-                           });
-                         }).then((value) async {
-                           await getCartCount(c.refUserId.value).then(
-                                 (value) {
-                               setState(() {
-                                 c.cartCount.value = value['data'][0]['car_count'];
-                                 Navigator.pushReplacement(
-                                     context,
-                                     MaterialPageRoute(
-                                         builder: (context) => const HomeScreen()
-                                     ));
-                               });
-                             },
-                           );
-                         });
-                       }
+                        if (mobileController.text.isEmpty) {
+                          Get.showSnackbar(const GetSnackBar(
+                            duration: Duration(seconds: 2),
+                            message: "Email can't be empty",
+                          ));
+                        } else if (passwordController.text.isEmpty) {
+                          Get.showSnackbar(const GetSnackBar(
+                            duration: Duration(seconds: 2),
+                            message: "Password can't be empty",
+                          ));
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return Dialog(
+                                  backgroundColor:
+                                      Colors.transparent.withOpacity(0.5),
+                                  child: const LocationShimmer(
+                                      height: 30,
+                                      width: 100,
+                                      string: "Validating"),
+                                );
+                              });
+                          loginwithPassword(mobileController.text.toString(),
+                                  passwordController.text.toString())
+                              .then((value) async {
+                            setState(() {
+                              c.refUserId.value = value["data"]["ref_user_id"];
+                            });
+                            await saveLoginStatus(value["data"]["ref_user_id"])
+                                .then((value) {
+                              setState(() {});
+                            });
+                            // if (value["response"]["message"].toString() ==
+                            //     "Logged in succesfully") {
+                            //   if (widget.onboarding == false) {
+                            //     await saveLoginStatus(value["data"]["ref_user_id"])
+                            //         .then((value) => print("Ref ID Saved"));
+                            //   } else {
+                            //     Navigator.push(
+                            //         context,
+                            //         MaterialPageRoute(
+                            //             builder: (context) => const AddAddress()));
+                            //   }
+                            // }
+                            value["response"]["message"].toString() ==
+                                    "Logged in successfully"
+                                ? Get.close(1)
+                                : listUserAddresses(c.refUserId.value, null)
+                                    .then((value) {
+                                    if (value['response']['message'] ==
+                                        "Data not available") {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const AddAddress()));
+                                    } else {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const HomePage()));
+                                    }
+                                  });
+                          }).then((value) async {
+                            await getCartCount(c.refUserId.value).then(
+                              (value) {
+                                setState(() {
+                                  c.cartCount.value =
+                                      value['data'][0]['car_count'];
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const HomeScreen(),
+                                    ),
+                                  );
+                                });
+                              },
+                            );
+                          });
+                        }
                       },
                     ),
                   ),
@@ -224,14 +228,13 @@ class _SignInScreenState extends State<SignInScreen> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const SignUpScreen()
-                                )
-                            );
+                                    builder: (context) =>
+                                        const SignUpScreen()));
                           },
                           child: const Text(
                             "Login with OTP",
-                            style:
-                            TextStyle(color: Color(0xff1FD0C2), fontSize: 16),
+                            style: TextStyle(
+                                color: Color(0xff1FD0C2), fontSize: 16),
                           ),
                         ),
                       ),
@@ -251,8 +254,8 @@ class _SignInScreenState extends State<SignInScreen> {
                           },
                           child: const Text(
                             "SKIP",
-                            style:
-                            TextStyle(color: Color(0xff1FD0C2), fontSize: 16),
+                            style: TextStyle(
+                                color: Color(0xff1FD0C2), fontSize: 16),
                           ),
                         ),
                       ),

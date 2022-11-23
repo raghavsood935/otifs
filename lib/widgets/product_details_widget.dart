@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stellar_track/Screens/select_time_date.dart';
@@ -10,7 +9,11 @@ import 'service_button.dart';
 
 class ProductDetailsWidget extends StatefulWidget {
   const ProductDetailsWidget(
-      {Key? key, required this.data, required this.slots, this.isCart, this.isBoth})
+      {Key? key,
+      required this.data,
+      required this.slots,
+      this.isCart,
+      this.isBoth})
       : super(key: key);
   final bool? isCart;
   final bool? isBoth;
@@ -25,17 +28,21 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
   dynamic unit_data;
   String? selected = "";
   int? selected_unit_id = 0;
-  TextEditingController textEditingController = TextEditingController(text: '1');
+  TextEditingController textEditingController =
+      TextEditingController(text: '1');
   final List _stateList = [];
   dynamic product_price;
 
-  String updated_price='';
-  String initial_price='';
+  String updated_price = '';
+  String initial_price = '';
   int cart_count = 0;
 
   @override
   void initState() {
-    getUnitDetails(widget.data["product_id"], widget.data["unit_name"]).then((value) {
+    getUnitDetails(
+      widget.data["product_id"],
+      widget.data["unit_name"],
+    ).then((value) {
       setState(() {
         unit_data = value;
         selected = unit_data["data"][0]["dispval"];
@@ -61,8 +68,9 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
   Widget build(BuildContext context) {
     var wd = MediaQuery.of(context).size.width;
     var ht = MediaQuery.of(context).size.height;
+
     return SizedBox(
-      height: ht/1.75,
+      height: ht / 1.75,
       width: wd,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -82,8 +90,9 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                         style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all(Colors.white),
-                            shape:
-                                MaterialStateProperty.all(const CircleBorder()),
+                            shape: MaterialStateProperty.all(
+                              const CircleBorder(),
+                            ),
                             elevation: MaterialStateProperty.all(5)),
                         child: const Icon(
                           Icons.arrow_back,
@@ -92,7 +101,9 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                         ),
                       ),
                       decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.white),
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -100,11 +111,12 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     c.screenIndex.value = 1;
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()
-                    )
-                    );
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen()));
                   },
                   child: Image.asset(
                     "assets/AppBarCall.png",
@@ -191,7 +203,6 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.end,
                                           children: [
-
                                             Padding(
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: wd / 80),
@@ -202,7 +213,10 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                                                     width: wd / 10,
                                                   ),
                                                   Text(
-                                                    '₹'+widget.data['sell_price'].toString(),
+                                                    '₹' +
+                                                        widget
+                                                            .data['sell_price']
+                                                            .toString(),
                                                     style: const TextStyle(
                                                         fontSize: 16,
                                                         color:
@@ -219,7 +233,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                                     ],
                                   ),
                                 ),
-                               /* Padding(
+                                /* Padding(
                                   padding:
                                       EdgeInsets.symmetric(vertical: wd / 50),
                                   child: Row(
@@ -333,18 +347,22 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
             )),
           ),
           Row(
-            mainAxisAlignment:MainAxisAlignment.center ,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ServiceButton(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)
-                          => SelectTimeandDate(data: widget.data, slots: widget.slots,
-                            isCart: widget.isCart,isBoth: widget.isBoth,
-                          )
-                      ));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SelectTimeandDate(
+                                    data: widget.data,
+                                    slots: widget.slots,
+                                    isCart: widget.isCart,
+                                    isBoth: widget.isBoth,
+                                  )));
                     },
                     width: wd / 2.5,
                     color: const Color(0xff38456C),
@@ -353,12 +371,8 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
               ),
             ],
           ),
-
         ],
       ),
     );
   }
-
 }
-
-

@@ -17,7 +17,13 @@ import '../widgets/service_button.dart';
 import '../widgets/time_slot_selection.dart';
 
 class SelectTimeandDate extends StatefulWidget {
-  const SelectTimeandDate({Key? key,this.isCart,required this.data,required this.slots, this.isBoth}) : super(key: key);
+  const SelectTimeandDate(
+      {Key? key,
+      this.isCart,
+      required this.data,
+      required this.slots,
+      this.isBoth})
+      : super(key: key);
   final bool? isCart;
   final bool? isBoth;
   final dynamic data;
@@ -28,29 +34,31 @@ class SelectTimeandDate extends StatefulWidget {
 }
 
 class _SelectTimeandDateState extends State<SelectTimeandDate> {
-
   final Controller c = Get.put(Controller());
   late ScrollController _scrollController;
   dynamic unit_data;
   String? selected = "";
   int? selected_unit_id = 0;
-  TextEditingController textEditingController = TextEditingController(text: '1');
+  TextEditingController textEditingController =
+      TextEditingController(text: '1');
   List _stateList = [];
   dynamic product_price;
 
-  String updated_price='';
-  String initial_price='';
+  String updated_price = '';
+  String initial_price = '';
   int cart_count = 0;
 
   @override
   void initState() {
     _scrollController = ScrollController();
-    getUnitDetails(widget.data["product_id"], widget.data["unit_name"]).then((value) {
+    getUnitDetails(widget.data["product_id"], widget.data["unit_name"])
+        .then((value) {
       setState(() {
         unit_data = value;
         selected = unit_data["data"][0]["dispval"];
         selected_unit_id = unit_data["data"][0]["unit_values_id"];
-        getUpdatedPrice(widget.data["product_id"], selected_unit_id, "1").then((value) {
+        getUpdatedPrice(widget.data["product_id"], selected_unit_id, "1")
+            .then((value) {
           setState(() {
             initial_price = value["data"]["total_amount"].toString();
           });
@@ -72,8 +80,6 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
     super.initState();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     var wd = MediaQuery.of(context).size.width;
@@ -81,7 +87,6 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
     _stateList = unit_data["data"];
     c.sqft.value = '1';
     return Scaffold(
-
       body: SafeArea(
         child: Stack(
           children: [
@@ -95,35 +100,36 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    widget.data["images"][0]
-                    ["product_image"] == null
-                        ? SizedBox(height:150,child: Loader())
+                    widget.data["images"][0]["product_image"] == null
+                        ? SizedBox(height: 150, child: Loader())
                         : SizedBox(
-                      height: ht/4,
-                      width: wd,
-                      child: CarouselSlider.builder(
-                        itemCount: widget.data["images"].length,
-                        options: CarouselOptions(
-                            enableInfiniteScroll: true,
-                            viewportFraction: 1,
-                            enlargeCenterPage: true),
-                        itemBuilder: ((context, index, realIndex) {
-                          return Container(
-                            child: Image.network(
-                              widget.data["images"][index]["product_image"],
-                              loadingBuilder: (BuildContext context, Widget child,
-                                  ImageChunkEvent? loadingProgress) {
-                                if (loadingProgress == null) return child;
-                                return Center(
-                                  child: ProfilePageShimmer(),
+                            height: ht / 4,
+                            width: wd,
+                            child: CarouselSlider.builder(
+                              itemCount: widget.data["images"].length,
+                              options: CarouselOptions(
+                                  enableInfiniteScroll: true,
+                                  viewportFraction: 1,
+                                  enlargeCenterPage: true),
+                              itemBuilder: ((context, index, realIndex) {
+                                return Container(
+                                  child: Image.network(
+                                    widget.data["images"][index]
+                                        ["product_image"],
+                                    loadingBuilder: (BuildContext context,
+                                        Widget child,
+                                        ImageChunkEvent? loadingProgress) {
+                                      if (loadingProgress == null) return child;
+                                      return Center(
+                                        child: ProfilePageShimmer(),
+                                      );
+                                    },
+                                    fit: BoxFit.contain,
+                                  ),
                                 );
-                              },
-                              fit: BoxFit.contain,
+                              }),
                             ),
-                          );
-                        }),
-                      ),
-                    ),
+                          ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 5),
@@ -131,28 +137,25 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            widget.data["product_name"]
-                                .toString(),
+                            widget.data["product_name"].toString(),
                             style: const TextStyle(
                                 color: Colors.black54,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold),
                           ),
-
                           GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               _scrollController.animateTo(500,
                                   duration: const Duration(milliseconds: 500),
                                   curve: Curves.easeInOut);
                             },
                             child: Row(
-                              children:const[
+                              children: const [
                                 Text("View Details"),
                                 Icon(Icons.arrow_right)
                               ],
                             ),
                           ),
-
 
                           /* Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -182,23 +185,21 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                       ),
                     ),
                     Padding(
-                      padding:const EdgeInsets.fromLTRB(15, 20, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(15, 20, 0, 0),
                       child: Text(
-                        updated_price == '' ? "Total Cost:- ₹"+initial_price : "Total Cost:- ₹"+updated_price,
-                        style:const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold
-                        ),
+                        updated_price == ''
+                            ? "Total Cost:- ₹" + initial_price
+                            : "Total Cost:- ₹" + updated_price,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
 
                     Obx(
-                          () => Padding(
-                        padding:
-                        const EdgeInsets.fromLTRB(10,10 , 10, 0),
+                      () => Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                         child: Column(
-                          crossAxisAlignment:
-                          CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             GestureDetector(
                               onTap: () {
@@ -209,24 +210,23 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                                 //             data: value)));
                               },
                               child: Container(
-                                width: wd ,
+                                width: wd,
                                 height: ht / 14,
                                 color: const Color(0xffE5E5E5),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: [
                                           Padding(
                                             padding:
-                                            const EdgeInsets.only(
-                                                top: 0),
+                                                const EdgeInsets.only(top: 0),
                                             child: SizedBox(
                                                 height: ht / 50,
                                                 width: 20,
@@ -236,14 +236,12 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                                           Text(
                                             c.addressType.value == "H"
                                                 ? "Home"
-                                                : c.addressType.value ==
-                                                "O"
-                                                ? "Office"
-                                                : "Custom",
+                                                : c.addressType.value == "O"
+                                                    ? "Office"
+                                                    : "Custom",
                                             style: const TextStyle(
                                                 color: Color(0xff5C5C5C),
-                                                fontWeight:
-                                                FontWeight.bold,
+                                                fontWeight: FontWeight.bold,
                                                 fontSize: 14),
                                           ),
                                         ],
@@ -264,57 +262,68 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                             ),
                             // Enter unit Values Widget
                             GestureDetector(
-                              onTap: () async {
-
-                              },
+                              onTap: () async {},
                               child: Container(
-
                                 width: wd,
                                 child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(15,5, 10, 5),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(15, 5, 10, 5),
                                   child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Text(
                                           widget.data["unit_name"].toString(),
                                           style: const TextStyle(
                                               color: Color(0xff5C5C5C),
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 16
-                                          ),
+                                              fontSize: 16),
                                         ),
                                         GridView.builder(
-                                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 3,
-                                                childAspectRatio: 2.8
-                                            ),
+                                            gridDelegate:
+                                                SliverGridDelegateWithFixedCrossAxisCount(
+                                                    crossAxisCount: 3,
+                                                    childAspectRatio: 2.8),
                                             shrinkWrap: true,
                                             itemCount: _stateList.length,
-                                            itemBuilder: (context,index){
+                                            itemBuilder: (context, index) {
                                               return Padding(
-                                                padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 5),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 8.0,
+                                                        vertical: 5),
                                                 child: GestureDetector(
                                                     onTap: (() async {
                                                       setState(() {
-                                                        selected_unit_id = _stateList[index]["unit_values_id"];
-                                                        c.selected_id.value = selected_unit_id.toString();
-                                                        c.selected_quantity.value = c.sqft.value;
-                                                        c.sqft.value = textEditingController.text;
+                                                        selected_unit_id =
+                                                            _stateList[index][
+                                                                "unit_values_id"];
+                                                        c.selected_id.value =
+                                                            selected_unit_id
+                                                                .toString();
+                                                        c.selected_quantity
+                                                                .value =
+                                                            c.sqft.value;
+                                                        c.sqft.value =
+                                                            textEditingController
+                                                                .text;
                                                         _updatedetails();
                                                       });
                                                     }),
                                                     child: UnitValues(
                                                       index: index,
-                                                      selected: selected_unit_id == _stateList[index]["unit_values_id"]
-                                                          ? true : false,
-                                                      units: _stateList[index]["dispval"],
-                                                    )
-                                                ),
-
+                                                      selected: selected_unit_id ==
+                                                              _stateList[index][
+                                                                  "unit_values_id"]
+                                                          ? true
+                                                          : false,
+                                                      units: _stateList[index]
+                                                          ["dispval"],
+                                                    )),
                                               );
-                                            }
-                                        ),
+                                            }),
                                         /* DropdownButton<String>(
                                                 value: selected ,
                                                 iconSize: 30,
@@ -346,11 +355,8 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                                               ), */
 
                                         GestureDetector(
-                                            onTap: (){
-
-                                            },
-                                            child: _QunatityItem()
-                                        )
+                                            onTap: () {},
+                                            child: _QunatityItem())
                                       ]),
                                 ),
                               ),
@@ -382,8 +388,7 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                               style: TextStyle(
                                   color: Color(0xff5C5C5C),
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16
-                              ),
+                                  fontSize: 16),
                             ),
                           ),
                           DateSlotSelection(),
@@ -395,7 +400,7 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                       padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children:  [
+                        children: [
                           const Padding(
                             padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
                             child: Text(
@@ -403,8 +408,7 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                               style: TextStyle(
                                   color: Color(0xff5C5C5C),
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16
-                              ),
+                                  fontSize: 16),
                             ),
                           ),
                           TimeSlotsSelection(slots: widget.slots),
@@ -415,240 +419,263 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                     //ADD TO CART OR BOOK SERVICE BUTTON
                     widget.isCart == false
                         ? Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 15, 8, 40),
-                      child: Center(
-                        child: ServiceButton(
-                            onTap: () {
-                              if (c.refUserId.value == "" ||
-                                  getStorage.read('refUserId') ==
-                                      null) {
+                            padding: const EdgeInsets.fromLTRB(8, 15, 8, 40),
+                            child: Center(
+                              child: ServiceButton(
+                                  onTap: () {
+                                    if (c.refUserId.value == "" ||
+                                        getStorage.read('refUserId') == null) {}
+                                    if (c.sqft.value == '' ||
+                                        c.dateSelected.value == '' ||
+                                        c.timeSlot.value == '' ||
+                                        c.address[""] == "") {
+                                      Get.showSnackbar(GetSnackBar(
+                                        duration: Duration(seconds: 2),
+                                        message: "Please Enter a value for " +
+                                            widget.data["unit_name"],
+                                      ));
+                                    } else {
+                                      if (c.refUserId.value == "") {
+                                        triggerSignInDialog(context, setState);
+                                      } else {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CheckoutPage(
+                                                        data: widget.data,
+                                                        unit_values_id:
+                                                            selected_unit_id!,
+                                                        isCart: false,
+                                                        isBottomNav: false,
+                                                        total_amount:
+                                                            updated_price == ''
+                                                                ? initial_price
+                                                                : updated_price,
+                                                        quantity:
+                                                            textEditingController
+                                                                .text
+                                                                .toString())));
+                                      }
+                                      // Get.to(CheckoutPage(
+                                      //   data: widget.data,
+                                      // ));
+                                    }
 
-                              }
-                              if (c.sqft.value == '' ||
-                                  c.dateSelected.value == '' ||
-                                  c.timeSlot.value == '' ||
-                                  c.address[""] == "") {
-                                Get.showSnackbar(GetSnackBar(
-                                  duration: Duration(seconds: 2),
-                                  message:
-                                  "Please Enter a value for "+widget.data["unit_name"],
-                                ));
-                              } else {
-                                if(c.refUserId.value == ""){
-                                  triggerSignInDialog(context, setState);
-                                }else{
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              CheckoutPage(
-                                                  data: widget.data,
-                                                  unit_values_id: selected_unit_id!,
-                                                  isCart: false,
-                                                  isBottomNav: false,
-                                                  total_amount:updated_price =='' ? initial_price : updated_price, quantity: textEditingController.text.toString()
-                                              )));
-                                }
-                                // Get.to(CheckoutPage(
-                                //   data: widget.data,
-                                // ));
-                              }
+                                    // c.refUserId.value == "" ||
+                                    //         getStorage.read('refUserId') ==
+                                    //             null
+                                    //     ? triggerSignInDialog(
+                                    //         context, setState)
+                                    //     : c.sqft.value == '' ||
+                                    //             c.dateSelected.value ==
+                                    //                 '' ||
+                                    //             c.timeSlot.value == '' ||
+                                    //             c.address[""] == ""
+                                    //         ?
+                                    // Get.showSnackbar(
+                                    //             const GetSnackBar(
+                                    //             duration:
+                                    //                 Duration(seconds: 2),
+                                    //             message:
+                                    //                 "Please fill all the fields",
+                                    //           ))
+                                    //         :
+                                    // Get.to(CheckoutPage(
+                                    //             data: widget.data,
+                                    //           ));
+                                  },
+                                  width: wd / 1.8,
+                                  color: const Color(0xff38456C),
+                                  fontSize: 16,
+                                  buttonText: "Book one time service"),
+                            ),
+                          )
+                        : widget.isBoth == true
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(8, 15, 8, 40),
+                                    child: ServiceButton(
+                                        onTap: () {
+                                          if (c.refUserId.value == "" ||
+                                              getStorage.read('refUserId') ==
+                                                  null) {}
+                                          if (c.sqft.value == '' ||
+                                              c.dateSelected.value == '' ||
+                                              c.timeSlot.value == '' ||
+                                              c.address[""] == "") {
+                                            Get.showSnackbar(GetSnackBar(
+                                              duration: Duration(seconds: 2),
+                                              message:
+                                                  "Please Enter a value for " +
+                                                      widget.data["unit_name"],
+                                            ));
+                                          } else {
+                                            if (c.refUserId.value == "") {
+                                              triggerSignInDialog(
+                                                  context, setState);
+                                            } else {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) => CheckoutPage(
+                                                          data: widget.data,
+                                                          unit_values_id:
+                                                              selected_unit_id!,
+                                                          isCart: false,
+                                                          isBottomNav: false,
+                                                          total_amount:
+                                                              updated_price,
+                                                          quantity:
+                                                              textEditingController
+                                                                  .text
+                                                                  .toString())));
+                                            }
+                                            // Get.to(CheckoutPage(
+                                            //   data: widget.data,
+                                            // ));
+                                          }
 
-                              // c.refUserId.value == "" ||
-                              //         getStorage.read('refUserId') ==
-                              //             null
-                              //     ? triggerSignInDialog(
-                              //         context, setState)
-                              //     : c.sqft.value == '' ||
-                              //             c.dateSelected.value ==
-                              //                 '' ||
-                              //             c.timeSlot.value == '' ||
-                              //             c.address[""] == ""
-                              //         ?
-                              // Get.showSnackbar(
-                              //             const GetSnackBar(
-                              //             duration:
-                              //                 Duration(seconds: 2),
-                              //             message:
-                              //                 "Please fill all the fields",
-                              //           ))
-                              //         :
-                              // Get.to(CheckoutPage(
-                              //             data: widget.data,
-                              //           ));
-                            },
-                            width: wd / 1.8,
-                            color: const Color(0xff38456C),
-                            fontSize: 16,
-                            buttonText: "Book one time service"),
-                      ),
-                    )
-                        : widget.isBoth == true ?
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 15, 8, 40),
-                          child: ServiceButton(
-
-                              onTap: () {
-                                if (c.refUserId.value == "" ||
-                                    getStorage.read('refUserId') ==
-                                        null) {
-
-                                }
-                                if (c.sqft.value == '' ||
-                                    c.dateSelected.value == '' ||
-                                    c.timeSlot.value == '' ||
-                                    c.address[""] == "") {
-                                  Get.showSnackbar(GetSnackBar(
-                                    duration: Duration(seconds: 2),
-                                    message:
-                                    "Please Enter a value for "+widget.data["unit_name"],
-                                  ));
-                                } else {
-                                  if(c.refUserId.value == ""){
-                                    triggerSignInDialog(context, setState);
-                                  }else{
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                CheckoutPage(
-                                                    data: widget.data,
-                                                    unit_values_id: selected_unit_id!,
-                                                    isCart: false,
-                                                    isBottomNav: false,
-                                                    total_amount: updated_price,
-                                                    quantity: textEditingController.text.toString()
-                                                )));
-                                  }
-                                  // Get.to(CheckoutPage(
-                                  //   data: widget.data,
-                                  // ));
-                                }
-
-                                // c.refUserId.value == "" ||
-                                //         getStorage.read('refUserId') ==
-                                //             null
-                                //     ? triggerSignInDialog(
-                                //         context, setState)
-                                //     : c.sqft.value == '' ||
-                                //             c.dateSelected.value ==
-                                //                 '' ||
-                                //             c.timeSlot.value == '' ||
-                                //             c.address[""] == ""
-                                //         ?
-                                // Get.showSnackbar(
-                                //             const GetSnackBar(
-                                //             duration:
-                                //                 Duration(seconds: 2),
-                                //             message:
-                                //                 "Please fill all the fields",
-                                //           ))
-                                //         :
-                                // Get.to(CheckoutPage(
-                                //             data: widget.data,
-                                //           ));
-                              },
-                              width: wd / 2.5,
-                              color: const Color(0xff38456C),
-                              fontSize: 14,
-                              buttonText: "Book one time service"),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 15, 8, 40),
-                          child: ServiceButton(
-                              onTap: () {
-                                c.refUserId.value == "" ||
-                                    getStorage.read('refUserId') ==
-                                        null
-                                    ? triggerSignInDialog(
-                                    context, setState)
-                                    : c.sqft.value == '' ||
-                                    c.dateSelected.value ==
-                                        '' ||
-                                    c.timeSlot.value == '' ||
-                                    c.address[""] == ""
-                                    ? Get.showSnackbar(
-                                  const GetSnackBar(
-                                    duration:
-                                    Duration(seconds: 2),
-                                    message:
-                                    "Please fill all the fields",
+                                          // c.refUserId.value == "" ||
+                                          //         getStorage.read('refUserId') ==
+                                          //             null
+                                          //     ? triggerSignInDialog(
+                                          //         context, setState)
+                                          //     : c.sqft.value == '' ||
+                                          //             c.dateSelected.value ==
+                                          //                 '' ||
+                                          //             c.timeSlot.value == '' ||
+                                          //             c.address[""] == ""
+                                          //         ?
+                                          // Get.showSnackbar(
+                                          //             const GetSnackBar(
+                                          //             duration:
+                                          //                 Duration(seconds: 2),
+                                          //             message:
+                                          //                 "Please fill all the fields",
+                                          //           ))
+                                          //         :
+                                          // Get.to(CheckoutPage(
+                                          //             data: widget.data,
+                                          //           ));
+                                        },
+                                        width: wd / 2.5,
+                                        color: const Color(0xff38456C),
+                                        fontSize: 14,
+                                        buttonText: "Book one time service"),
                                   ),
-                                )
-                                    : addItemToCart(
-                                    c.refUserId,
-                                    widget.data['product_id'],
-                                    selected_unit_id,
-                                    qty: textEditingController.text,
-                                    date: c
-                                        .dateSelected.value
-                                        .toString(),
-                                    fromTime:
-                                    c.timeSlot.value,
-                                    toTime:
-                                    c.timeSlot.value)
-                                    .then((value) {
-                                  c.cartCount.value = cart_count + 1;
-                                  Get.close(1);
-                                });
-                              },
-                              width: wd / 2.5,
-                              color: const Color(0xff38456C),
-                              fontSize: 14,
-                              buttonText: "Add to cart"),
-                        )
-                      ],
-                    ):
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 15, 8, 40),
-                      child: Center(
-                        child: ServiceButton(
-                            onTap: () {
-                              c.refUserId.value == "" ||
-                                  getStorage.read('refUserId') ==
-                                      null
-                                  ? triggerSignInDialog(
-                                  context, setState)
-                                  : c.sqft.value == '' ||
-                                  c.dateSelected.value ==
-                                      '' ||
-                                  c.timeSlot.value == '' ||
-                                  c.address[""] == ""
-                                  ? Get.showSnackbar(
-                                const GetSnackBar(
-                                  duration:
-                                  Duration(seconds: 2),
-                                  message:
-                                  "Please fill all the fields",
-                                ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(8, 15, 8, 40),
+                                    child: ServiceButton(
+                                        onTap: () {
+                                          c.refUserId.value == "" ||
+                                                  getStorage.read(
+                                                          'refUserId') ==
+                                                      null
+                                              ? triggerSignInDialog(
+                                                  context, setState)
+                                              : c
+                                                              .sqft.value ==
+                                                          '' ||
+                                                      c.dateSelected
+                                                              .value ==
+                                                          '' ||
+                                                      c.timeSlot.value == '' ||
+                                                      c.address[""] == ""
+                                                  ? Get.showSnackbar(
+                                                      const GetSnackBar(
+                                                        duration: Duration(
+                                                            seconds: 2),
+                                                        message:
+                                                            "Please fill all the fields",
+                                                      ),
+                                                    )
+                                                  : addItemToCart(
+                                                          c.refUserId,
+                                                          widget
+                                                                  .data[
+                                                              'product_id'],
+                                                          selected_unit_id,
+                                                          qty:
+                                                              textEditingController
+                                                                  .text,
+                                                          date:
+                                                              c.dateSelected
+                                                                  .value
+                                                                  .toString(),
+                                                          fromTime:
+                                                              c.timeSlot.value,
+                                                          toTime:
+                                                              c.timeSlot.value)
+                                                      .then((value) {
+                                                      c.cartCount.value =
+                                                          cart_count + 1;
+                                                      Get.close(1);
+                                                    });
+                                        },
+                                        width: wd / 2.5,
+                                        color: const Color(0xff38456C),
+                                        fontSize: 14,
+                                        buttonText: "Add to cart"),
+                                  )
+                                ],
                               )
-                                  : addItemToCart(
-                                  c.refUserId,
-                                  widget.data['product_id'],
-                                  selected_unit_id,
-                                  qty: textEditingController.text,
-                                  date: c
-                                      .dateSelected.value
-                                      .toString(),
-                                  fromTime:
-                                  c.timeSlot.value,
-                                  toTime:
-                                  c.timeSlot.value)
-                                  .then((value) {
-                                c.cartCount.value = cart_count + 1;
-                                Get.close(1);
-                              });
-                            },
-                            width: wd / 1.8,
-                            color: const Color(0xff38456C),
-                            fontSize: 16,
-                            buttonText: "Add to cart"),
-                      ),
-                    ),
+                            : Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(8, 15, 8, 40),
+                                child: Center(
+                                  child: ServiceButton(
+                                      onTap: () {
+                                        c.refUserId.value == "" ||
+                                                getStorage.read('refUserId') ==
+                                                    null
+                                            ? triggerSignInDialog(
+                                                context, setState)
+                                            : c.sqft.value == '' ||
+                                                    c.dateSelected.value ==
+                                                        '' ||
+                                                    c.timeSlot.value == '' ||
+                                                    c.address[""] == ""
+                                                ? Get.showSnackbar(
+                                                    const GetSnackBar(
+                                                      duration:
+                                                          Duration(seconds: 2),
+                                                      message:
+                                                          "Please fill all the fields",
+                                                    ),
+                                                  )
+                                                : addItemToCart(
+                                                        c.refUserId,
+                                                        widget
+                                                            .data['product_id'],
+                                                        selected_unit_id,
+                                                        qty:
+                                                            textEditingController
+                                                                .text,
+                                                        date: c
+                                                            .dateSelected.value
+                                                            .toString(),
+                                                        fromTime:
+                                                            c.timeSlot.value,
+                                                        toTime:
+                                                            c.timeSlot.value)
+                                                    .then((value) {
+                                                    c.cartCount.value =
+                                                        cart_count + 1;
+                                                    Get.close(1);
+                                                  });
+                                      },
+                                      width: wd / 1.8,
+                                      color: const Color(0xff38456C),
+                                      fontSize: 16,
+                                      buttonText: "Add to cart"),
+                                ),
+                              ),
 
                     const Padding(
                       padding: EdgeInsets.fromLTRB(15, 15, 15, 5),
@@ -657,11 +684,8 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                           child: Text(
                             'Product Description :',
                             style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold
-                            ),
-                          )
-                      ),
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          )),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
@@ -669,13 +693,10 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                         alignment: Alignment.topLeft,
                         child: Text(
                           widget.data["product_summary"].toString(),
-                          style: TextStyle(
-                              fontSize: 15
-                          ),
+                          style: TextStyle(fontSize: 15),
                         ),
                       ),
                     )
-
                   ],
                 ),
               ),
@@ -687,10 +708,8 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                 child: ElevatedButton(
                   onPressed: () => Navigator.of(context).pop(),
                   style: ButtonStyle(
-                      backgroundColor:
-                      MaterialStateProperty.all(Colors.white),
-                      shape:
-                      MaterialStateProperty.all(const CircleBorder()),
+                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                      shape: MaterialStateProperty.all(const CircleBorder()),
                       elevation: MaterialStateProperty.all(5)),
                   child: const Icon(
                     Icons.arrow_back,
@@ -708,20 +727,21 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
     );
   }
 
-  _updatedetails(){
-    getUpdatedPrice(widget.data["product_id"], selected_unit_id,c.sqft.value).then((value) {
+  _updatedetails() {
+    getUpdatedPrice(widget.data["product_id"], selected_unit_id, c.sqft.value)
+        .then((value) {
       setState(() {
         updated_price = value["data"]["total_amount"].toString();
       });
     });
   }
 
-  Widget _QunatityItem(){
+  Widget _QunatityItem() {
     var wd = MediaQuery.of(context).size.width;
     var ht = MediaQuery.of(context).size.height;
     return Container(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 10, 0,0),
+        padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -730,36 +750,32 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
               style: TextStyle(
                   fontSize: 16,
                   color: Color(0xff5C5C5C),
-                  fontWeight: FontWeight.bold
-              ),
+                  fontWeight: FontWeight.bold),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
                   onTap: (() {
-                    var value =
-                        int.parse(textEditingController.text) - 1;
+                    var value = int.parse(textEditingController.text) - 1;
                     c.sqft.value = value.toString();
 
                     setState(
-                          () {
-                            if(value<0)
-                              value=0;
-                            else {
-                              textEditingController.text = value.toString();
-                              _updatedetails();
-                              }
-                            },
+                      () {
+                        if (value < 0)
+                          value = 0;
+                        else {
+                          textEditingController.text = value.toString();
+                          _updatedetails();
+                        }
+                      },
                     );
                   }),
                   child: const Card(
                     shape: CircleBorder(),
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(4, 0, 4, 15),
-                      child: Icon(
-                          Icons.minimize_sharp
-                      ),
+                      child: Icon(Icons.minimize_sharp),
                     ),
                   ),
                 ),
@@ -773,20 +789,17 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                       keyboardType: TextInputType.number,
                       onEditingComplete: () {
                         setState((() {
-                          c.sqft.value = textEditingController
-                              .text
-                              .toString();
+                          c.sqft.value = textEditingController.text.toString();
                           _updatedetails();
                         }));
                       },
                     )),
                 GestureDetector(
                   onTap: (() {
-                    var value =
-                        int.parse(textEditingController.text) + 1;
+                    var value = int.parse(textEditingController.text) + 1;
                     c.sqft.value = value.toString();
                     setState(
-                          () {
+                      () {
                         textEditingController.text = value.toString();
                         _updatedetails();
                       },
@@ -798,9 +811,7 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
                       quarterTurns: 3,
                       child: Padding(
                         padding: const EdgeInsets.all(4),
-                        child: Icon(
-                            Icons.add
-                        ),
+                        child: Icon(Icons.add),
                       ),
                     ),
                   ),
@@ -812,8 +823,4 @@ class _SelectTimeandDateState extends State<SelectTimeandDate> {
       ),
     );
   }
-
-
 }
-
-

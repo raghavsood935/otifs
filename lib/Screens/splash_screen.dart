@@ -9,12 +9,12 @@ import '../main.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
-
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
   final Controller c = Get.put(Controller());
   String? position;
   late final AnimationController controller;
@@ -22,7 +22,6 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   double height = 200.0;
   bool selected = false;
   bool textbool = false;
-
 
   @override
   void initState() {
@@ -41,7 +40,6 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     _gotohome();
   }
 
-
   saveRefId(id) {
     c.refUserId.value = id;
   }
@@ -57,58 +55,59 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
         child: Stack(
           children: [
             AnimatedPositioned(
-              top: selected ? ht/2.5 : 0.0,
-              left: selected ? 70.0 : 0.0,
-              duration: const Duration(seconds: 3),
-              curve: Curves.fastOutSlowIn,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: ht / 7.5,
-                    width: ht / 8,
-                    decoration: BoxDecoration(
-                        color: Colors.white, borderRadius: BorderRadius.circular(20)),
-                    child: const Center(
-                      child: Text(
-                        "OTIFS",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
-                            color: Color(0xff38456C)),
+                top: selected ? ht / 2.5 : 0.0,
+                left: selected ? 70.0 : 0.0,
+                duration: const Duration(seconds: 3),
+                curve: Curves.fastOutSlowIn,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: ht / 7.5,
+                      width: ht / 8,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: const Center(
+                        child: Text(
+                          "OTIFS",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                              color: Color(0xff38456C)),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 15),
-                  textbool ? const Align(
-                    alignment: Alignment.center,
-                    child: Text("Happy to Serve,\nAlways",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 26,
-                            color: Colors.white)
-                    ),
-                  ) : Container()
-                ],
-              )
-            ),
+                    const SizedBox(width: 15),
+                    textbool
+                        ? const Align(
+                            alignment: Alignment.center,
+                            child: Text("Happy to Serve,\nAlways",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 26,
+                                    color: Colors.white)),
+                          )
+                        : Container()
+                  ],
+                )),
           ],
         ),
-
       ),
     );
   }
 
-  void _changeposition(){
-    Future.delayed(const Duration(seconds: 2),(){
+  void _changeposition() {
+    Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         position = "Change";
         selected = true;
       });
     });
   }
+
   void _playAnimation() {
-    Future.delayed(const Duration(seconds: 4),(){
+    Future.delayed(const Duration(seconds: 4), () {
       setState(() {
         textbool = true;
       });
@@ -116,35 +115,30 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   }
 
   void _gotohome() {
-    Future.delayed(const Duration(seconds: 5),(){
+    Future.delayed(const Duration(seconds: 5), () {
       setState(() {
-        if(getStorage.read('refUserId') == null){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-              const SignUpScreen()
-          ));
-        }else{
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-              const HomeScreen()
-          ));
+        if (getStorage.read('refUserId') == null) {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const SignUpScreen()));
+        } else {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()));
         }
       });
     });
   }
 
-  Widget _animatedcontainer(double ht){
+  Widget _animatedcontainer(double ht) {
     return AnimatedSplashScreen(
       backgroundColor: const Color(0xff38456C),
       duration: 2500,
-      splashIconSize: ht/8,
-
+      splashIconSize: ht / 8,
       splash: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Logo(ht: ht)
-      ),
+          child: Logo(ht: ht)),
       nextScreen: getStorage.read('refUserId') == null
           ? const SignUpScreen()
-          : const SafeArea(child: HomeScreen()
-      ),
+          : const SafeArea(child: HomeScreen()),
     );
   }
 }

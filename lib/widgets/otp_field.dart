@@ -1,4 +1,3 @@
-
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +11,6 @@ import 'package:stellar_track/functions.dart';
 import 'package:stellar_track/main.dart';
 import 'package:stellar_track/widgets/shimmer_loader.dart';
 import 'package:stellar_track/widgets/signup_flow_button.dart';
-
 
 class OtpField extends StatefulWidget {
   OtpField(
@@ -35,8 +33,8 @@ class OtpField extends StatefulWidget {
 class _OtpFieldState extends State<OtpField> {
   String otp = "";
   OtpFieldController controller = OtpFieldController();
-    FirebaseAnalytics? analytics;
-    FirebaseAnalyticsObserver? observer;
+  FirebaseAnalytics? analytics;
+  FirebaseAnalyticsObserver? observer;
   @override
   Widget build(BuildContext context) {
     final Controller c = Get.find();
@@ -121,9 +119,7 @@ class _OtpFieldState extends State<OtpField> {
                         .then((value) {
                       Get.back();
                     });
-                    analytics?.logLogin(
-                      loginMethod: "OTP"
-                    ).then((value){
+                    analytics?.logLogin(loginMethod: "OTP").then((value) {
                       print("Login Success");
                     });
 
@@ -143,7 +139,7 @@ class _OtpFieldState extends State<OtpField> {
                             "Logged in successfully"
                         ? widget.onboarding == false
                             ? Get.close(1)
-                            : listUserAddresses(c.refUserId.value,null)
+                            : listUserAddresses(c.refUserId.value, null)
                                 .then((value) {
                                 if (value['response']['message'] ==
                                     "Data not available") {

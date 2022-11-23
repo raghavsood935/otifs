@@ -69,15 +69,16 @@ class _AccountSectionScreenState extends State<AccountSectionScreen> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            onGoingOffers["status"] != "failure" ? SizedBox(
-                              height: ht / 5,
-                              child: RewardCarousel(
-                                  viewPort: 1.0,
-                                  height: ht / 4,
-                                  padEnds: true,
-                                  data: onGoingOffers
-                              ),
-                            ) : Container(),
+                            onGoingOffers["status"] != "failure"
+                                ? SizedBox(
+                                    height: ht / 5,
+                                    child: RewardCarousel(
+                                        viewPort: 1.0,
+                                        height: ht / 4,
+                                        padEnds: true,
+                                        data: onGoingOffers),
+                                  )
+                                : Container(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -94,11 +95,13 @@ class _AccountSectionScreenState extends State<AccountSectionScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(18.0),
                                   child: GestureDetector(
-                                    onTap: (){
+                                    onTap: () {
                                       c.screenIndex.value = 1;
-                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()
-                                      )
-                                      );
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const HomeScreen()));
                                     },
                                     child: Image.asset(
                                       "assets/AppBarCall.png",
@@ -110,7 +113,7 @@ class _AccountSectionScreenState extends State<AccountSectionScreen> {
                               ],
                             ),
                             SizedBox(
-                              height: ht /1.6,
+                              height: ht / 1.6,
                               child: ListView.builder(
                                   physics: const BouncingScrollPhysics(),
                                   itemCount: items.length,

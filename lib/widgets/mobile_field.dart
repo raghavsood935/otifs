@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stellar_track/functions.dart';
@@ -144,13 +143,12 @@ class _MObileFieldState extends State<MObileField> {
                 controller: mobileController,
                 cursorColor: const Color(0xff38456C),
                 decoration: const InputDecoration(
-                    hintText: "Enter mobile number",
+                    hintText: "Enter Mobile Number",
                     counterText: "",
                     border: InputBorder.none,
                     iconColor: Colors.white,
                     focusColor: Colors.white,
-                    fillColor: Colors.white
-                ),
+                    fillColor: Colors.white),
               ),
             ),
           ),
@@ -183,226 +181,240 @@ class _MObileFieldState extends State<MObileField> {
             }
           },
         ),
-        widget.onboarding == false ? Padding(
-          padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-          child: GestureDetector(
-            onTap: () async {
-              Get.back();
-              await Get.dialog(
-              Dialog(
-                 child: SizedBox(
-                   height: ht / 2,
-                   child: Stack(
-                     children: [
-                       Align(
-                         alignment:Alignment.topRight,
-                         child: Padding(
-                           padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
-                           child: GestureDetector(
-                             onTap: (){
-                               Get.back();
-                             },
-                             child: Container(
-                               decoration: BoxDecoration(
-                                   color: const Color(0xff1FD0C2),
-                                   borderRadius: BorderRadius.circular(50)
-                               ),
-                               child: const Padding(
-                                 padding: EdgeInsets.all(5),
-                                 child: Icon(
-                                   Icons.close_rounded,
-                                   color: Colors.white,
+        widget.onboarding == false
+            ? Padding(
+                padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                child: GestureDetector(
+                  onTap: () async {
+                    Get.back();
+                    await Get.dialog(
+                      Dialog(
+                        child: SizedBox(
+                          height: ht / 2,
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 10, 10, 0),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Get.back();
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: const Color(0xff1FD0C2),
+                                          borderRadius:
+                                              BorderRadius.circular(50)),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(5),
+                                        child: Icon(
+                                          Icons.close_rounded,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(top: ht / 60),
+                                    child: const Text(
+                                      "Sign In",
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xff38456C)),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: ht / 70, horizontal: ht / 60),
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      elevation: 0,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Colors.cyan[50],
+                                        ),
+                                        child: TextFormField(
+                                          textAlign: TextAlign.center,
+                                          keyboardType: TextInputType.text,
+                                          controller: mobileController,
+                                          cursorColor: const Color(0xff38456C),
+                                          decoration: const InputDecoration(
+                                              hintText: "Enter mobile / Email",
+                                              counterText: "",
+                                              border: InputBorder.none,
+                                              iconColor: Colors.white,
+                                              focusColor: Colors.white,
+                                              fillColor: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: ht / 60),
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      elevation: 0,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Colors.cyan[50],
+                                        ),
+                                        child: TextFormField(
+                                          textAlign: TextAlign.center,
+                                          keyboardType:
+                                              TextInputType.visiblePassword,
+                                          controller: passwordContoller,
+                                          cursorColor: const Color(0xff38456C),
+                                          decoration: const InputDecoration(
+                                              hintText: "Enter password",
+                                              counterText: "",
+                                              border: InputBorder.none,
+                                              iconColor: Colors.white,
+                                              focusColor: Colors.white,
+                                              fillColor: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SignUpFlowButton(
+                                    buttonText: "Sign in ",
+                                    textColor: Colors.black,
+                                    onPressed: () {
+                                      if (mobileController.text == "") {
+                                        Get.showSnackbar(const GetSnackBar(
+                                          title: "Field Missing",
+                                          message: "Please enter email",
+                                          duration: Duration(seconds: 2),
+                                        ));
+                                      } else if (passwordContoller.text == "") {
+                                        Get.showSnackbar(const GetSnackBar(
+                                          title: "Field Missing",
+                                          message: "Please enter password",
+                                          duration: Duration(seconds: 2),
+                                        ));
+                                      } else {
+                                        loginwithPassword(
+                                                mobileController.text
+                                                    .toString(),
+                                                passwordContoller.text
+                                                    .toString())
+                                            .then((value) async {
+                                          c.refUserId.value =
+                                              value["data"]["ref_user_id"];
 
-                                 ),
-                               ),
-                             ),
-                           ),
-                         ),
-                       ),
-                       Column(
-                         mainAxisAlignment: MainAxisAlignment.center,
-                         children: [
-                           Padding(
-                             padding: EdgeInsets.only(top: ht / 60),
-                             child: const Text(
-                               "Sign In",
-                               style: TextStyle(
-                                   fontSize: 22,
-                                   fontWeight: FontWeight.bold,
-                                   color: Color(0xff38456C)),
-                             ),
-                           ),
-                           Padding(
-                             padding: EdgeInsets.symmetric(vertical: ht / 70, horizontal: ht / 60),
-                             child: Card(
-                               shape: RoundedRectangleBorder(
-                                 borderRadius: BorderRadius.circular(10),
-                               ),
-                               elevation: 0,
-                               child: Container(
-                                 decoration: BoxDecoration(
-                                   borderRadius: BorderRadius.circular(10),
-                                   color: Colors.cyan[50],
-                                 ),
-                                 child: TextFormField(
-                                   textAlign: TextAlign.center,
-                                   keyboardType: TextInputType.text,
-                                   controller: mobileController,
-                                   cursorColor: const Color(0xff38456C),
-                                   decoration: const InputDecoration(
-                                       hintText: "Enter mobile / Email",
-                                       counterText: "",
-                                       border: InputBorder.none,
-                                       iconColor: Colors.white,
-                                       focusColor: Colors.white,
-                                       fillColor: Colors.white),
-                                 ),
-                               ),
-                             ),
-                           ),
-                           Padding(
-                             padding: EdgeInsets.symmetric(horizontal: ht / 60),
-                             child: Card(
-                               shape: RoundedRectangleBorder(
-                                 borderRadius: BorderRadius.circular(10),
-                               ),
-                               elevation: 0,
-                               child: Container(
-                                 decoration: BoxDecoration(
-                                   borderRadius: BorderRadius.circular(10),
-                                   color: Colors.cyan[50],
-                                 ),
-                                 child: TextFormField(
-                                   textAlign: TextAlign.center,
-                                   keyboardType: TextInputType.visiblePassword,
-                                   controller: passwordContoller,
-                                   cursorColor: const Color(0xff38456C),
-                                   decoration: const InputDecoration(
-                                       hintText: "Enter password",
-                                       counterText: "",
-                                       border: InputBorder.none,
-                                       iconColor: Colors.white,
-                                       focusColor: Colors.white,
-                                       fillColor: Colors.white),
-                                 ),
-                               ),
-                             ),
-                           ),
-                           SignUpFlowButton(
-                             buttonText:
-                             "Sign in ",
-                             textColor: Colors.black,
-                             onPressed: () {
-                               if (mobileController.text == "") {
-                                 Get.showSnackbar(const GetSnackBar(
-                                   title: "Field Missing",
-                                   message: "Please enter email",
-                                   duration: Duration(seconds: 2),
-                                 ));
-                               }else if(passwordContoller.text == ""){
-                                 Get.showSnackbar(const GetSnackBar(
-                                   title: "Field Missing",
-                                   message: "Please enter password",
-                                   duration: Duration(seconds: 2),
-                                 ));
-                               } else {
-                                 loginwithPassword(mobileController.text.toString(), passwordContoller.text.toString()).then((value) async {
-                                   c.refUserId.value = value["data"]["ref_user_id"];
-
-                                   await saveLoginStatus(value["data"]["ref_user_id"])
-                                       .then((value) {
-                                     Get.back();
-                                   });
-                                 }).then((value) async {
-                                   await getCartCount(c.refUserId.value).then(
-                                         (value) {
-                                           c.cartCount.value = value['data'][0]['car_count'];
-                                           Get.back();
-                                     },
-                                   );
-                                 });
-
-                               }
-                             },
-                           ),
-                           Padding(
-                             padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                             child: GestureDetector(
-                               onTap: () async {
-                                 Get.back();
-                                 await Get.dialog(
-                                   Dialog(
-                                       child: SizedBox(
-                                         height: ht / 2,
-                                         child: Column(
-                                           mainAxisAlignment: MainAxisAlignment.center,
-                                           children: [
-                                             Padding(
-                                               padding: EdgeInsets.only(top: ht / 60),
-                                               child: const Text(
-                                                 "Sign In",
-                                                 style: TextStyle(
-                                                     fontSize: 22,
-                                                     fontWeight: FontWeight.bold,
-                                                     color: Color(0xff38456C)),
-                                               ),
-                                             ),
-                                             Visibility(
-                                               visible: !c.otpField.value,
-                                               child: MObileField(
-                                                 onboarding: false,
-                                                 color: Colors.cyan[50],
-                                                 textColor: Colors.black,
-                                               ),
-                                             ),
-                                             Padding(
-                                               padding: EdgeInsets.all(ht / 50),
-                                               child: Visibility(
-                                                 visible: c.otpField.value,
-                                                 child: OtpField(
-                                                   onboarding: false,
-                                                   color: Colors.cyan[50],
-                                                   textColor: Colors.black,
-                                                   phone: c.mobile.value,
-                                                 ),
-                                               ),
-                                             ),
-                                           ],
-                                         ),
-                                       ),
-                                     ),
-                                 ).then((value) {
-                                   c.otpField.value = false;
-                                 });
-                               },
-                               child: const Text(
-                                 'Login with OTP',
-                                 style: TextStyle(
-                                     fontSize: 16
-                                 ),
-                               ),
-                             ),
-                           )
-
-
-                         ],
-                       ),
-                     ],
-                   ),
-                 ),
-               ),
-             ).then((value) {
-               c.otpField.value = false;
-             });
-            },
-            child: const Text(
-              'Login with password',
-              style: TextStyle(
-                fontSize: 16
-              ),
-            ),
-          ),
-        ) : Container()
+                                          await saveLoginStatus(
+                                                  value["data"]["ref_user_id"])
+                                              .then((value) {
+                                            Get.back();
+                                          });
+                                        }).then((value) async {
+                                          await getCartCount(c.refUserId.value)
+                                              .then(
+                                            (value) {
+                                              c.cartCount.value =
+                                                  value['data'][0]['car_count'];
+                                              Get.back();
+                                            },
+                                          );
+                                        });
+                                      }
+                                    },
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                                    child: GestureDetector(
+                                      onTap: () async {
+                                        Get.back();
+                                        await Get.dialog(
+                                          Dialog(
+                                            child: SizedBox(
+                                              height: ht / 2,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: ht / 60),
+                                                    child: const Text(
+                                                      "Sign In",
+                                                      style: TextStyle(
+                                                          fontSize: 22,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Color(
+                                                              0xff38456C)),
+                                                    ),
+                                                  ),
+                                                  Visibility(
+                                                    visible: !c.otpField.value,
+                                                    child: MObileField(
+                                                      onboarding: false,
+                                                      color: Colors.cyan[50],
+                                                      textColor: Colors.black,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.all(ht / 50),
+                                                    child: Visibility(
+                                                      visible: c.otpField.value,
+                                                      child: OtpField(
+                                                        onboarding: false,
+                                                        color: Colors.cyan[50],
+                                                        textColor: Colors.black,
+                                                        phone: c.mobile.value,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ).then((value) {
+                                          c.otpField.value = false;
+                                        });
+                                      },
+                                      child: const Text(
+                                        'Login with OTP',
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ).then((value) {
+                      c.otpField.value = false;
+                    });
+                  },
+                  child: const Text(
+                    'Login with password',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              )
+            : Container()
       ],
     );
   }
